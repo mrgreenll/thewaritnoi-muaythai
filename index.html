@@ -383,7 +383,7 @@ a { color: inherit; }
   min-height: 100svh;
   display: flex;
   align-items: flex-end;
-  padding-block: 8rem var(--s5);
+  padding-block: 10rem var(--s4);
   overflow: hidden;
   isolation: isolate;
 }
@@ -395,6 +395,25 @@ a { color: inherit; }
   inset: 0;
   background: color-mix(in srgb, var(--midnight) 60%, transparent);
   mix-blend-mode: multiply;
+}
+/* red wash burning through the mono photo, Fenriz-style, on the right side */
+.hero-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(104deg,
+    transparent 42%,
+    color-mix(in srgb, var(--rust) 38%, transparent) 62%,
+    color-mix(in srgb, var(--blood) 55%, transparent) 86%);
+  mix-blend-mode: color;
+}
+/* gradient divider strip — the brand's signature bar, in reds */
+.strip {
+  height: 7px;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(90deg, var(--rust), var(--blood) 45%, #d96a2b 100%);
 }
 .hero::before {
   content: '';
@@ -446,35 +465,9 @@ a { color: inherit; }
   .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
 }
 
-/* facts strip — every value here is confirmed from the gym's own channels */
-.facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
-  margin-top: var(--s4);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-}
-.facts div {
-  display: flex;
-  align-items: center;
-  gap: .55rem;
-  padding: var(--s2) var(--s3) var(--s2) 0;
-  margin-right: var(--s3);
-  font-size: .8125rem;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 80%, var(--ink));
-  border-right: 1px solid var(--hairline);
-}
-.facts div:last-child { border-right: 0; margin-right: 0; }
-.facts svg { width: 1.05rem; height: 1.05rem; color: var(--blood); flex: none; }
 @media (max-width: 780px) {
   /* stacked: vertical rules between rows read as stray marks */
-  .facts div { width: 100%; border-right: 0; border-bottom: 1px solid var(--hairline); margin-right: 0; padding-right: 0; }
-  .facts div:last-child { border-bottom: 0; }
-}
+    }
 
 .scroll-hint {
   position: absolute;
@@ -1114,25 +1107,11 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
       </a>
       <a class="btn btn--ghost" href="#train">See training</a>
     </div>
-
-    <div class="facts reveal d3 in">
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        Ao Nang, Krabi
-      </div>
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
-        Sat–Thu · 08:00–20:00
-      </div>
-      <div>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-        Beginners welcome
-      </div>
-    </div>
   </div>
 
   <a class="scroll-hint" href="#gym">Scroll</a>
 </header>
+<div class="strip" aria-hidden="true"></div>
 
 <div class="ropes"></div>
 
@@ -1459,6 +1438,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 </main>
 
 <!-- ─── Footer ──────────────────────────────────────────────── -->
+<div class="strip" aria-hidden="true"></div>
 <footer class="foot">
   <div class="shell">
     <div class="foot-top">
