@@ -10,3 +10,6 @@ before touching design or copy. Raw scraped media (not in git):
 - Placeholder convention: `【CONFIRM: …】` markers must never ship silently —
   list them in PLACEHOLDERS.md and clear that file as facts arrive.
 - Spec + plans: `docs/superpowers/specs/`, `docs/superpowers/plans/`.
+
+- Shared frontend build rules (screenshot loop, design guardrails): `WEB-BUILDS.md` at
+  the workspace root. This file wins where they differ.
