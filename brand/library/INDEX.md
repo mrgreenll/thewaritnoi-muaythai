@@ -51,10 +51,13 @@ Target mix was ~8 fight / ~10 training / ~5 gym / ~4 portrait / ~3 event. Achiev
 - **training-flying-kick-06.jpg** — Fighter airborne delivering a spinning kick onto pads
   indoors, colorful lion-mural wall behind, certificates on the wall. Kept for the most
   explosive mid-air action shot in the set.
-- **training-mural-kick-07.jpg** — Fighter delivering a kick onto pads in front of the
-  hand-painted orange lion mural. Kept for the distinct branded-mural visual.
-- **training-woman-kick-08.jpg** — Female fighter landing a head-height kick on pads, same
-  mural backdrop. Kept for gender diversity and clean composition.
+- **training-rooftop-kick-07.jpg** — Fighter landing a head-height kick on pads held by a
+  trainer in a red shirt, under the covered outdoor rooftop ring: international flags strung
+  from the rafters, corrugated roof, open sky and palm trees visible beyond. Kept for the
+  open-air rooftop training atmosphere.
+- **training-woman-kick-08.jpg** — Female fighter landing a head-height kick on pads held by
+  a trainer, same covered outdoor rooftop ring setting with international flags overhead and
+  open sky visible beyond. Kept for gender diversity and clean composition.
 - **training-hair-flying-09.jpg** — Female fighter mid-roundhouse-kick on Thai pads, hair
   mid-motion, Krabi Lion ring signage. Kept for dynamic energy and diversity.
 - **training-heavybag-dynamic-10.jpg** — Large tattooed fighter delivering a rear kick,
