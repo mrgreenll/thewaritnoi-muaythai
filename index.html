@@ -320,7 +320,8 @@ a { color: inherit; }
   margin-right: auto;
   min-width: 0;
 }
-.brand img { width: 42px; height: 42px; flex: none; }
+.brand img { height: 54px; width: auto; flex: none; }
+@media (max-width: 560px) { .brand img { height: 46px; } }
 .brand b {
   font-family: 'Anton', Impact, sans-serif;
   font-weight: 400;
@@ -947,11 +948,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 <!-- ─── Nav ─────────────────────────────────────────────────── -->
 <nav class="nav" id="nav">
   <a class="brand" href="#top">
-    <img src="assets/logo-mark.svg" alt="" width="42" height="42">
-    <span class="brand-text">
-      <b>Thewaritnoi<br>Krabi Muaythai</b>
-      <small>Muay Thai Gym</small>
-    </span>
+    <img src="assets/logo-lockup.svg" alt="Thewaritnoi Krabi Muaythai" width="116" height="46">
   </a>
   <div class="nav-links">
     <a href="#gym">The gym</a>
