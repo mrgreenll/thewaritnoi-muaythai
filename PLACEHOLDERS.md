@@ -20,25 +20,20 @@ Delete each marker (and its line here) as the real answer arrives.
 | 8 | `index.html:1169` | Nightly rate — private house (1 bedroom, living room, kitchen, bathroom) |
 | 9 | `index.html:1240` | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
 
+## Resolved
+
+**The gym name.** Leo approved the rename on 2026-08-22: the site now carries
+the gym's current public name, **Thewaritnoi Krabi Muaythai**, everywhere
+user-facing — `<title>`, meta description, OG/Twitter tags, nav/logo lockup,
+hero poster type, section copy, footer lockup, WhatsApp prefills, and
+aria-labels/alt text. `brand/BRAND.md` was updated to match. One tasteful
+"formerly Krabi Lion Muay Thai" mention was kept in the About section for
+recognition/SEO continuity; the old pairing line ("Krabi Lion Muay Thai — by
+Thewaritnoi") is retired. The `#krabilionmuaythai` hashtag and the TikTok
+handle `@krabilion_muaythai` are unaffected — those are real, still-active
+external handles, not site copy.
+
 ## Also needs a decision (no marker on the page)
-
-**The gym name.** `brand/BRAND.md` sets the public gym name as **Krabi Lion
-Muay Thai**, paired as "Krabi Lion Muay Thai — by Thewaritnoi", and the page is
-built that way throughout. But the gym's own Instagram announcement (post dated
-2026-02-23) says:
-
-> Thewaritnoi Krabi Lion Muaytai gym has changed its name to **Thewaritnoi
-> Krabi Muaythai** gym, effective March 01, 2026.
-
-The Instagram profile name is now `THEWARITNOI KRABI MUAYTHAI 📍AONANG`, and
-2026 captions use "Thewaritnoi Krabi Muaythai". The `#krabilionmuaythai` hashtag
-and the TikTok handle `@krabilion_muaythai` are both still in active use, and
-the painted lion mark is still all over the gym.
-
-Leo needs to confirm which name the website should carry. If it is the new one,
-the change touches the `<title>`, meta description, OG tags, nav, hero, footer
-and every WhatsApp prefill message — plus `brand/BRAND.md`, which is the source
-of truth for the rest of the project.
 
 **Domain.** The page deliberately ships with **no** `<link rel="canonical">`
 and a relative `og:image` — an unowned canonical is worse than none. Once the

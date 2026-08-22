@@ -1,13 +1,25 @@
-# Brand — Krabi Lion Muay Thai / Thewaritnoi
+# Brand — Thewaritnoi Krabi Muaythai
 
 ## Names
 
-Gym: **Krabi Lion Muay Thai** · Fighter/trainer: **Thewaritnoi**
+Gym: **Thewaritnoi Krabi Muaythai** · Fighter/trainer: **Thewaritnoi**
 
-Pairing line: "Krabi Lion Muay Thai — by Thewaritnoi". Never mix the two
-into one name (not "Krabi Lion Thewaritnoi", not "Thewaritnoi Muay Thai"
-as a public-facing gym name — that string is only the internal client/repo
-folder name).
+**Renamed 2026-08-22 (Leo-approved).** The gym operated as **Krabi Lion
+Muay Thai**, paired as "Krabi Lion Muay Thai — by Thewaritnoi", until the
+gym's own Instagram announcement (post dated 2026-02-23) put the change
+into effect on 2026-03-01. The IG profile name is now `THEWARITNOI KRABI
+MUAYTHAI`, and the gym's logo already reads THEWARITNOI KRABI MUAYTHAI.
+
+The fighter's name is now built into the gym name, so the old pairing
+line is retired — do not reintroduce "— by Thewaritnoi" or any other
+pairing construction. Site copy carries exactly one "formerly Krabi Lion
+Muay Thai" mention for recognition/SEO continuity (About section); don't
+add more.
+
+Note: "Thewaritnoi MuayThai" (no "Krabi", no space before "Thai") is only
+the internal client/repo folder name — never use it as the public gym
+name; the public name always includes "Krabi" and is spelled "Muaythai"
+as one word.
 
 ## Palette
 
@@ -115,8 +127,8 @@ detail and small type ("KRABI" / "MUAYTHAI") stop reading.
 
 On photos: place only over dark or dimmed areas (the mark is a black
 disc with white type and a red silhouette — it disappears on light
-backgrounds without a scrim). Never stretch, recolor, or drop the "by
-Thewaritnoi" pairing line when the mark stands alone as a gym crest.
+backgrounds without a scrim). Never stretch or recolor the mark when it
+stands alone as a gym crest.
 
 ## Photography
 
