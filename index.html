@@ -93,6 +93,12 @@
 
   --ease: cubic-bezier(.2, .8, .26, 1);
   --dur: .42s;
+
+  /* Monochrome photo discipline — every photograph on the page runs
+     through this. Red stays the only colour on screen. The two documented
+     exceptions are the SVG logo lockup (never filtered) and the lightbox
+     full view (colour returns when a photo is opened). */
+  --bw: grayscale(1) contrast(1.07) brightness(.93);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -382,7 +388,7 @@ a { color: inherit; }
   isolation: isolate;
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
-.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 40%; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 40%; filter: var(--bw); }
 .hero-media::after {
   content: '';
   position: absolute;
@@ -512,7 +518,7 @@ a { color: inherit; }
   background: var(--surface-2);
   box-shadow: var(--lift-2);
 }
-.frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: var(--bw); }
 .frame figcaption {
   font-size: .6875rem;
   font-weight: 600;
@@ -572,24 +578,136 @@ a { color: inherit; }
   .quote { grid-template-columns: minmax(0, 1fr); align-items: start; }
 }
 
-/* ── Training cards ─────────────────────────────────────────── */
-.cards {
+/* ── Training tiles — photograph + stencil label ────────────── */
+.tt-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
-  gap: var(--s3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s3) var(--s2);
 }
-.card {
+@media (max-width: 700px) { .tt-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.tt-item { display: grid; gap: var(--s2); align-content: start; }
+
+.tt {
+  position: relative;
+  display: block;
+  margin: 0; /* figure's UA 40px inline margin would inset the tile */
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
   background: var(--surface-2);
   border: 1px solid var(--hairline);
-  border-top: 2px solid var(--blood);
-  padding: var(--s4) var(--s3) var(--s3);
   box-shadow: var(--lift-1);
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  /* label scales to the tile, not the viewport — a 2-col and a 1-col
+     tile are very different widths at the same breakpoint */
+  container-type: inline-size;
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.card:hover { transform: translateY(-3px); box-shadow: var(--lift-2); }
-.card svg { width: 1.75rem; height: 1.75rem; color: var(--blood); margin-bottom: var(--s3); }
-.card h3 { font-size: 1.375rem; margin-bottom: var(--s2); }
-.card p { font-size: .9375rem; color: var(--muted); margin-bottom: 0; }
+@media (max-width: 700px) { .tt { aspect-ratio: 16 / 10; } }
+
+.tt img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--bw);
+  transition: transform .7s var(--ease);
+}
+.tt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* flat scrim + foot gradient: keeps --paper above 4.5:1 even where the
+     photograph blows out to white behind the label */
+  background:
+    linear-gradient(180deg, rgba(6, 4, 4, .38) 0%, rgba(6, 4, 4, .06) 38%, rgba(6, 4, 4, .9) 100%),
+    color-mix(in srgb, var(--ink) 24%, transparent);
+  transition: opacity var(--dur) var(--ease);
+}
+.tt h3 {
+  position: absolute;
+  z-index: 1;
+  left: clamp(.85rem, 4.4cqi, 1.75rem);
+  right: clamp(.85rem, 4.4cqi, 1.75rem);
+  bottom: clamp(.6rem, 3.4cqi, 1.4rem);
+  margin: 0;
+  font-size: 2rem; /* fallback where cqi is unsupported */
+  font-size: clamp(1.5rem, 8.4cqi, 3.1rem);
+  line-height: .94;
+  letter-spacing: -.005em;
+  color: var(--paper);
+  text-shadow: 0 2px 20px rgba(6, 4, 4, .8);
+  transition: color var(--dur) var(--ease);
+}
+
+/* Tiles are not links — there is nothing to activate — so this is pointer
+   affordance only. :focus-within is carried for parity if a focusable
+   child is ever added. */
+.tt-item:hover .tt, .tt-item:focus-within .tt { border-color: var(--hairline-strong); box-shadow: var(--lift-2); }
+.tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: scale(1.055); }
+.tt-item:hover .tt h3, .tt-item:focus-within .tt h3 { color: var(--blood); }
+.tt-item:hover .tt::after, .tt-item:focus-within .tt::after { opacity: .9; }
+
+.tt-item p {
+  margin: 0;
+  font-size: .9375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 48ch;
+}
+
+/* ── Full-bleed photo bands ─────────────────────────────────── */
+.band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(19rem, 54vh, 34rem);
+  display: grid;
+  align-items: end;
+  border-block: 1px solid var(--hairline);
+}
+.band img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--bw);
+}
+.band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(6, 4, 4, .62) 0%, rgba(6, 4, 4, .28) 30%, rgba(6, 4, 4, .56) 60%, rgba(6, 4, 4, .95) 100%);
+}
+/* per-band framing: the crop is doing real work, not decoration */
+.band--fight img { object-position: 50% 8%; }
+.band--beach img { object-position: 50% 70%; }
+.band-line {
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.6rem, .9rem + 3.4vw, 4rem);
+  line-height: .98;
+  letter-spacing: -.015em;
+  margin: 0;
+  max-width: 19ch;
+  padding-block: var(--s5);
+  text-wrap: balance;
+  text-shadow: 0 10px 36px rgba(6, 4, 4, .75);
+}
+/* same red rule the hero and every eyebrow use — the bands are part of
+   that system, not a new decoration */
+.band-line::before {
+  content: '';
+  display: block;
+  width: clamp(2rem, 7vw, 5rem);
+  height: 3px;
+  background: var(--blood);
+  margin-bottom: var(--s3);
+}
 
 /* ── Week strip — real opening pattern, Friday is closed ────── */
 .week {
@@ -677,8 +795,8 @@ a { color: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform .6s var(--ease), filter var(--dur) var(--ease);
-  filter: saturate(.85) contrast(1.04);
+  transition: transform .6s var(--ease);
+  filter: var(--bw);
 }
 .tile::after {
   content: '';
@@ -703,7 +821,7 @@ a { color: inherit; }
   transform: translateY(6px);
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-.tile:hover img, .tile:focus-visible img { transform: scale(1.06); filter: saturate(1) contrast(1.04); }
+.tile:hover img, .tile:focus-visible img { transform: scale(1.06); }
 .tile:hover::after, .tile:focus-visible::after { opacity: 1; }
 .tile:hover span, .tile:focus-visible span { opacity: 1; transform: translateY(0); }
 .tile:active img { transform: scale(1.02); }
@@ -735,6 +853,8 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   width: auto;
   object-fit: contain;
   box-shadow: var(--lift-2);
+  /* the one place colour comes back */
+  filter: none;
 }
 .lb-bar {
   display: flex;
@@ -794,7 +914,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   text-decoration: none;
   transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
-.map-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; filter: saturate(.7) contrast(1.05) brightness(.72); }
+.map-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; filter: var(--bw) brightness(.74); }
 .map-card::after {
   content: '';
   position: absolute;
@@ -932,6 +1052,10 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+  /* the tile/gallery zoom is motion, not affordance — the label colour,
+     scrim and border still carry the hover state */
+  .tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: none; }
+  .tile:hover img, .tile:focus-visible img, .tile:active img { transform: none; }
   *, *::before, *::after {
     animation-duration: .001ms !important;
     animation-iteration-count: 1 !important;
@@ -1057,6 +1181,14 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   </div>
 </section>
 
+<!-- ─── Band 1 ──────────────────────────────────────────────── -->
+<div class="band band--fight">
+  <img src="assets/img/fight-punch-exchange-03.webp" alt="Two fighters trading punches at range in the ring, the referee and a packed crowd behind them." loading="lazy" decoding="async" width="1080" height="720">
+  <div class="shell">
+    <p class="band-line reveal">First day or tenth fight, same coaches.</p>
+  </div>
+</div>
+
 <!-- ─── Quote ───────────────────────────────────────────────── -->
 <section class="section section--tint">
   <div class="shell">
@@ -1081,26 +1213,37 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
       <p class="lead reveal d1">Warm-up, technique, then pads until the coach is satisfied. Clinch and sparring when you are ready for them — never before.</p>
     </div>
 
-    <div class="cards">
-      <article class="card reveal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7.5A3.5 3.5 0 0 1 11.5 4h2.8A4.7 4.7 0 0 1 19 8.7V12a5 5 0 0 1-5 5h-2a4 4 0 0 1-4-4Z"/><path d="M8 8.6H6.6A2.6 2.6 0 0 0 4 11.2 2.6 2.6 0 0 0 6.6 13.8H8"/><path d="M9.2 17v1.4A1.6 1.6 0 0 0 10.8 20h3.6a1.6 1.6 0 0 0 1.6-1.6V17"/></svg>
-        <h3>Pad work</h3>
-        <p>One-to-one with a coach on the pads. Punches, elbows, knees and kicks, called in combinations until the shape is right. This is the core of every session.</p>
+    <div class="tt-grid">
+      <article class="tt-item reveal">
+        <figure class="tt">
+          <img src="assets/img/training-dynamic-kick-02-sm.webp" alt="A fighter lands a full-extension roundhouse kick on the coach's Thai pads, lit from the side." loading="lazy" decoding="async" width="800" height="800">
+          <h3>Pad work</h3>
+        </figure>
+        <p>One-to-one with a coach. Combinations called until the shape is right — the core of every session.</p>
       </article>
-      <article class="card reveal d1">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.4A2.4 2.4 0 0 1 5.4 8h1.4a2.6 2.6 0 0 1 2.6 2.6v2.8A2.6 2.6 0 0 1 6.8 16H5.4A2.4 2.4 0 0 1 3 13.6Z"/><path d="M21 10.4A2.4 2.4 0 0 0 18.6 8h-1.4a2.6 2.6 0 0 0-2.6 2.6v2.8a2.6 2.6 0 0 0 2.6 2.6h1.4a2.4 2.4 0 0 0 2.4-2.4Z"/><path d="M12 5.6V7.4M12 16.6v1.8M10.4 9.6 11.4 11M13.6 9.6 12.6 11"/></svg>
-        <h3>Clinch &amp; sparring</h3>
-        <p>The part of Muay Thai you cannot learn from a video. Controlled clinch work and light sparring with partners at your level, supervised the whole way.</p>
+
+      <article class="tt-item reveal d1">
+        <figure class="tt">
+          <img src="assets/img/fight-clinch-stadium-01-sm.webp" alt="Two fighters locked in a clinch exchange as the referee steps in." loading="lazy" decoding="async" width="800" height="533">
+          <h3>Clinch &amp; sparring</h3>
+        </figure>
+        <p>The part you cannot learn from a video. Partners at your level, supervised the whole way.</p>
       </article>
-      <article class="card reveal d2">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v2.6"/><path d="M9 5.6h6"/><path d="M8.4 8.6a3.6 3.6 0 0 1 3.6-3h0a3.6 3.6 0 0 1 3.6 3v8.2a3.6 3.6 0 0 1-3.6 3.6h0a3.6 3.6 0 0 1-3.6-3.6Z"/><path d="M8.4 10.4h7.2"/></svg>
-        <h3>Bags &amp; conditioning</h3>
-        <p>Heavy bag rounds, skipping, bodyweight and core work. Where the fitness comes from — and where you can push at your own pace on a quiet afternoon.</p>
+
+      <article class="tt-item reveal d2">
+        <figure class="tt">
+          <img src="assets/img/gym-mural-heavybag-04-sm.webp" alt="A heavy bag hanging in front of the gym's hand-painted lion mural." loading="lazy" decoding="async" width="800" height="800">
+          <h3>Bags &amp; conditioning</h3>
+        </figure>
+        <p>Bag rounds, skipping, bodyweight and core work. Push at your own pace on a quiet afternoon.</p>
       </article>
-      <article class="card reveal d3">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.4" r="3.2"/><path d="M12 2.4v1.4M12 13v1.4M6 8.4H4.6M19.4 8.4H18M7.8 4.2 6.8 3.2M17.2 4.2l1-1"/><path d="M3 17.6c1.8-1.5 3.6-1.5 5.4 0s3.6 1.5 5.4 0 3.6-1.5 5.4 0"/><path d="M3 21c1.8-1.5 3.6-1.5 5.4 0s3.6 1.5 5.4 0 3.6-1.5 5.4 0"/></svg>
-        <h3>Beach &amp; rooftop</h3>
-        <p>Sunrise drills on the sand with the karst islands behind, and pad rounds on the covered rooftop ring under the flags. Krabi is part of the training.</p>
+
+      <article class="tt-item reveal d3">
+        <figure class="tt">
+          <img src="assets/img/training-beach-padwork-05-sm.webp" alt="A fighter lands a high kick on pads held by a partner on the beach, karst islands behind." loading="lazy" decoding="async" width="800" height="533">
+          <h3>Beach &amp; rooftop</h3>
+        </figure>
+        <p>Sunrise drills on the sand, pad rounds on the rooftop ring under the flags. Krabi is part of the training.</p>
       </article>
     </div>
 
@@ -1168,6 +1311,14 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
     </div>
   </div>
 </section>
+
+<!-- ─── Band 2 ──────────────────────────────────────────────── -->
+<div class="band band--beach">
+  <img src="assets/img/training-beach-silhouette-04.webp" alt="Fighters doing knee-raise drills on the beach at sunrise, karst islands and longtail boats behind." loading="lazy" decoding="async" width="1080" height="720">
+  <div class="shell">
+    <p class="band-line reveal">The sand counts as conditioning.</p>
+  </div>
+</div>
 
 <!-- ─── Stay ────────────────────────────────────────────────── -->
 <section class="section section--deep" id="stay">
