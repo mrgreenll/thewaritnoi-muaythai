@@ -60,3 +60,7 @@ relative image path.
 | Accommodation: private bedroom + bathroom shared between 3, gym access; and a separate private house (1 bed, living room, kitchen, bathroom), limited availability, advance reservation required | Two accommodation captions |
 | Student quote in the testimonial block | Caption dated 2026-02-22, reposted on the gym's own Instagram |
 | "Beginner looking to get fit or a seasoned fighter wanting to go pro" | Gym caption, paraphrased into the About and Training copy |
+
+## Notes
+
+- Stay section added beyond spec's six sections — controller-approved deviation; Leo may cut.
