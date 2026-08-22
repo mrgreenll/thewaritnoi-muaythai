@@ -2,3 +2,9 @@
 node_modules
 temporary screenshots
 docs
+.superpowers
+brand
+PLACEHOLDERS.md
+CLAUDE.md
+serve.mjs
+screenshot.mjs
