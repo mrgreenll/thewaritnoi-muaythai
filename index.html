@@ -8,17 +8,18 @@
 <meta name="theme-color" content="#060404">
 
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://thewaritnoi-muaythai.vercel.app">
 <meta property="og:site_name" content="Thewaritnoi Krabi Muaythai">
 <meta property="og:title" content="Thewaritnoi Krabi Muaythai">
 <meta property="og:description" content="Real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches. Beginners welcome, no experience needed.">
-<meta property="og:image" content="assets/img/og-cover.jpg">
+<meta property="og:image" content="https://thewaritnoi-muaythai.vercel.app/assets/img/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="A trainer holding Thai pads for a fighter in the gym's ring.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Thewaritnoi Krabi Muaythai">
 <meta name="twitter:description" content="Real Muay Thai in Ao Nang, Krabi. Beginners welcome, no experience needed.">
-<meta name="twitter:image" content="assets/img/og-cover.jpg">
+<meta name="twitter:image" content="https://thewaritnoi-muaythai.vercel.app/assets/img/og-cover.jpg">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/favicon.svg">
@@ -471,10 +472,11 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: var(--s2);
-  transition: color var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 .scroll-hint::after { content: ''; width: 1px; height: 3.5rem; background: linear-gradient(var(--sand), transparent); }
 .scroll-hint:hover { color: var(--paper); }
+.scroll-hint:active { transform: translateY(2px); }
 @media (max-width: 1100px) { .scroll-hint { display: none; } }
 
 /* ── Section heads ──────────────────────────────────────────── */
@@ -504,7 +506,7 @@ a { color: inherit; }
   font-weight: 600;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--sand);
+  color: var(--muted);
   padding: var(--s2) var(--s1) var(--s1);
 }
 @media (max-width: 880px) { .frame img { aspect-ratio: 3 / 2; } }
@@ -605,12 +607,12 @@ a { color: inherit; }
   font-weight: 600;
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--sand);
+  color: var(--muted);
   margin-top: .3rem;
 }
 .week .closed { background: color-mix(in srgb, var(--blood) 16%, var(--surface-2)); }
 .week .closed b { color: var(--blood); text-decoration: line-through; text-decoration-thickness: 2px; }
-.week .closed small { color: var(--blood); }
+.week .closed small { color: var(--muted); }
 @media (max-width: 560px) {
   .week div { padding-inline: 0; }
   .week small { font-size: .5rem; letter-spacing: .03em; }
@@ -766,7 +768,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   font-weight: 600;
   letter-spacing: .2em;
   text-transform: uppercase;
-  color: var(--sand);
+  color: var(--muted);
   margin-bottom: .2rem;
 }
 .pin-list dd { margin: 0; }
@@ -864,9 +866,10 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   color: var(--muted);
   width: fit-content;
   border-bottom: 1px solid transparent;
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
 }
 .foot-links a:hover { color: var(--paper); border-bottom-color: var(--blood); }
+.foot-links a:active { opacity: .7; }
 
 .colophon {
   margin-top: var(--s5);
@@ -914,6 +917,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   }
 }
 </style>
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 

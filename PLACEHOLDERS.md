@@ -35,11 +35,12 @@ external handles, not site copy.
 
 ## Also needs a decision (no marker on the page)
 
-**Domain.** The page deliberately ships with **no** `<link rel="canonical">`
-and a relative `og:image` — an unowned canonical is worse than none. Once the
-real domain (or the Vercel URL) is known, add `canonical`, `og:url`, and make
-`og:image` absolute, since most link-preview scrapers will not resolve a
-relative image path.
+**Domain — partially resolved 2026-08-22.** The Vercel URL
+(`https://thewaritnoi-muaythai.vercel.app`) is now known, so `og:image` and
+`twitter:image` are absolute against it and `og:url` was added. The page
+still deliberately ships with **no** `<link rel="canonical">` — an unowned
+canonical is worse than none — and waits for the real custom domain. Once
+that domain exists, add `canonical` and repoint `og:url`/`og:image` to it.
 
 ## Confirmed — do not "fix" these, they came from the gym's own channels
 
