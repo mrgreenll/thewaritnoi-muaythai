@@ -350,6 +350,8 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .brand small { display: none; }
+  /* One booking CTA at a time on mobile: the hero (or the fab) has it */
+  .nav .btn { display: none; }
 }
 @media (max-width: 420px) {
   .nav .btn span { display: none; }
@@ -891,6 +893,16 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   bottom: max(var(--s3), env(safe-area-inset-bottom));
   z-index: 55;
   box-shadow: var(--lift-blood), 0 18px 40px -18px rgba(6, 4, 4, .95);
+  /* Hidden until the hero (and its own booking CTA) scrolls out of view */
+  opacity: 0;
+  transform: translateY(120%);
+  pointer-events: none;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.fab.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 @media (max-width: 560px) {
   .fab { right: var(--s3); left: var(--s3); }
@@ -917,7 +929,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   }
 }
 </style>
-<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+<noscript><style>.reveal{opacity:1;transform:none}.fab{opacity:1;transform:none;pointer-events:auto}</style></noscript>
 </head>
 <body>
 
@@ -1404,6 +1416,17 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ── Sticky booking CTA: appears once the hero's own CTA is gone ── */
+  const fab = document.querySelector('.fab');
+  const hero = document.querySelector('.hero');
+  if (fab && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      fab.classList.toggle('show', !entry.isIntersecting);
+    }, { threshold: 0.25 }).observe(hero);
+  } else if (fab) {
+    fab.classList.add('show');
+  }
 
   /* ── Scroll reveals ── */
   const reveals = document.querySelectorAll('.reveal:not(.in)');
