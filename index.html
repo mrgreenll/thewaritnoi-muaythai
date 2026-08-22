@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Krabi Lion Muay Thai — by Thewaritnoi | Muay Thai gym in Ao Nang, Krabi</title>
+<meta name="description" content="Train real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches at Krabi Lion Muay Thai — by Thewaritnoi. Beginners welcome, no experience needed. Open Saturday to Thursday, 08:00–20:00.">
+<meta name="theme-color" content="#060404">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Krabi Lion Muay Thai">
+<meta property="og:title" content="Krabi Lion Muay Thai — by Thewaritnoi">
+<meta property="og:description" content="Real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches. Beginners welcome, no experience needed.">
+<meta property="og:image" content="assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A trainer holding Thai pads for a fighter in the Krabi Lion ring.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Krabi Lion Muay Thai — by Thewaritnoi">
+<meta name="twitter:description" content="Real Muay Thai in Ao Nang, Krabi. Beginners welcome, no experience needed.">
+<meta name="twitter:image" content="assets/img/og-cover.jpg">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/training-pad-coaching-01.webp" as="image" fetchpriority="high">
+
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Fonts — self-hosted, latin subset. Block copied verbatim from
+   brand/BRAND.md. No runtime CDN request.
+   ───────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/anton-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/barlow-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('assets/fonts/barlow-600.woff2') format('woff2');
+}
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  /* palette — brand/BRAND.md, sampled values only */
+  --ink: #060404;
+  --paper: #eeeadc;
+  --blood: #c52d18;
+  --sand: #7d7663;
+  --midnight: #12122f;
+  --rust: #883635;
+
+  /* derived surfaces: base → elevated → floating */
+  --surface-1: color-mix(in srgb, var(--ink) 94%, var(--paper));
+  --surface-2: color-mix(in srgb, var(--ink) 89%, var(--paper));
+  --surface-3: color-mix(in srgb, var(--midnight) 82%, var(--paper));
+  --hairline: color-mix(in srgb, var(--sand) 34%, transparent);
+  --hairline-strong: color-mix(in srgb, var(--sand) 62%, transparent);
+  --muted: color-mix(in srgb, var(--paper) 62%, var(--ink));
+
+  /* layered, colour-tinted shadows */
+  --lift-1: 0 1px 0 color-mix(in srgb, var(--paper) 8%, transparent),
+            0 8px 20px -10px color-mix(in srgb, var(--ink) 90%, transparent);
+  --lift-2: 0 1px 0 color-mix(in srgb, var(--paper) 10%, transparent),
+            0 12px 28px -14px rgba(6, 4, 4, .9),
+            0 26px 60px -34px color-mix(in srgb, var(--midnight) 88%, transparent);
+  --lift-blood: 0 10px 26px -12px color-mix(in srgb, var(--blood) 55%, transparent),
+                0 2px 0 color-mix(in srgb, var(--ink) 70%, transparent);
+
+  /* spacing scale */
+  --s1: .375rem; --s2: .75rem; --s3: 1.25rem; --s4: 2rem;
+  --s5: 3rem;    --s6: 4.5rem; --s7: 7rem;
+  --pad-section: clamp(4.25rem, 8vw, 7.5rem);
+  --gutter: clamp(1.25rem, 4.5vw, 3.5rem);
+  --measure: 62ch;
+  --shell: 1280px;
+
+  --ease: cubic-bezier(.2, .8, .26, 1);
+  --dur: .42s;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Barlow', -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, .96rem + .2vw, 1.0625rem);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* film grain — inline SVG noise, no external request */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, .display {
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: .92;
+  letter-spacing: -.01em;
+  margin: 0;
+}
+
+p { margin: 0 0 var(--s3); max-width: var(--measure); }
+p:last-child { margin-bottom: 0; }
+
+a { color: inherit; }
+
+::selection { background: var(--blood); color: var(--paper); }
+
+:focus-visible {
+  outline: 2px solid var(--blood);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.shell {
+  width: min(100% - (var(--gutter) * 2), var(--shell));
+  margin-inline: auto;
+}
+
+.section { padding-block: var(--pad-section); position: relative; }
+.section--tint { background: var(--surface-1); }
+.section--deep {
+  background:
+    radial-gradient(120% 90% at 82% 0%, color-mix(in srgb, var(--midnight) 78%, transparent), transparent 62%),
+    radial-gradient(90% 70% at 6% 100%, color-mix(in srgb, var(--rust) 20%, transparent), transparent 60%),
+    var(--surface-1);
+}
+
+.skip {
+  position: absolute;
+  left: var(--s3);
+  top: -4rem;
+  z-index: 100;
+  background: var(--blood);
+  color: var(--paper);
+  padding: var(--s2) var(--s3);
+  font-weight: 600;
+  transition: transform var(--dur) var(--ease);
+}
+.skip:focus { transform: translateY(5rem); }
+
+/* ── Utility type ───────────────────────────────────────────── */
+.eyebrow {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--sand);
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0 0 var(--s3);
+}
+.eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 2px;
+  background: var(--blood);
+  flex: none;
+}
+
+.lead {
+  font-size: clamp(1.0625rem, 1rem + .45vw, 1.3125rem);
+  line-height: 1.62;
+  color: color-mix(in srgb, var(--paper) 88%, var(--ink));
+}
+
+.muted { color: var(--muted); }
+
+/* the ropes — three-line divider, taken from the ring itself */
+.ropes {
+  height: 15px;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  position: relative;
+}
+.ropes::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; top: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blood) 0 22%, var(--hairline-strong) 22% 100%);
+}
+
+/* ── Placeholders — must never ship unnoticed ───────────────── */
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: .4em;
+  background: #ffe200;
+  color: #0a0a0a;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 600;
+  font-size: .8125em;
+  line-height: 1.25;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: .3em .6em;
+  border: 2px solid #0a0a0a;
+  box-shadow: 3px 3px 0 #0a0a0a;
+  text-wrap: balance;
+}
+.confirm svg { width: 1.05em; height: 1.05em; flex: none; margin-top: .1em; }
+/* the text needs its own box, or it sits at max-content and overflows */
+.confirm i { font-style: normal; min-width: 0; }
+.confirm--block { display: flex; width: fit-content; max-width: 100%; align-items: flex-start; }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn {
+  --btn-bg: var(--blood);
+  --btn-fg: var(--paper);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6em;
+  padding: .9rem 1.6rem;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: .9375rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--btn-bg);
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: var(--lift-blood);
+  transition: transform var(--dur) var(--ease),
+              background-color var(--dur) var(--ease),
+              border-color var(--dur) var(--ease),
+              box-shadow var(--dur) var(--ease),
+              color var(--dur) var(--ease);
+}
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn:hover { --btn-bg: var(--rust); transform: translateY(-2px); box-shadow: var(--lift-2); }
+.btn:active { transform: translateY(1px); box-shadow: none; }
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--paper);
+  border-color: var(--hairline-strong);
+  box-shadow: none;
+}
+.btn--ghost:hover {
+  --btn-bg: transparent;
+  --btn-fg: var(--paper);
+  border-color: var(--paper);
+  box-shadow: inset 0 0 0 100px color-mix(in srgb, var(--paper) 8%, transparent);
+}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s3) var(--gutter);
+  background: linear-gradient(180deg, rgba(6, 4, 4, .82), rgba(6, 4, 4, 0));
+  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+.nav.scrolled {
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 var(--hairline), var(--lift-1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  text-decoration: none;
+  margin-right: auto;
+  min-width: 0;
+}
+.brand img { width: 42px; height: 42px; flex: none; }
+.brand b {
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  display: block;
+}
+.brand small {
+  display: block;
+  font-size: .625rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+
+.nav-links { display: flex; gap: var(--s4); }
+.nav-links a {
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--paper) 76%, var(--ink));
+  padding-block: .35rem;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.nav-links a:hover { color: var(--paper); border-bottom-color: var(--blood); }
+.nav-links a:active { color: var(--rust); }
+
+.nav .btn { padding: .65rem 1.15rem; font-size: .8125rem; }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .brand small { display: none; }
+}
+@media (max-width: 420px) {
+  .nav .btn span { display: none; }
+  .nav .btn { padding: .65rem .8rem; }
+}
+@media (max-width: 340px) {
+  .brand-text { display: none; }
+}
+
+/* ── Hero — built like a Thai fight poster ──────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding-block: 8rem var(--s5);
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-media { position: absolute; inset: 0; z-index: -2; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 40%; }
+.hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--midnight) 60%, transparent);
+  mix-blend-mode: multiply;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(6, 4, 4, .78) 0%, rgba(6, 4, 4, .18) 34%, rgba(6, 4, 4, .88) 78%, var(--ink) 100%),
+    linear-gradient(90deg, rgba(6, 4, 4, .82) 0%, rgba(6, 4, 4, .1) 62%);
+}
+
+.poster { display: grid; gap: var(--s4); }
+
+.poster-type {
+  font-family: 'Anton', Impact, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(3.4rem, 13.4vw, 10.5rem);
+  line-height: .84;
+  letter-spacing: -.02em;
+  margin: 0;
+  text-shadow: 0 18px 44px rgba(6, 4, 4, .6);
+}
+.poster-type i { font-style: normal; display: block; }
+.poster-type .lion { color: var(--blood); }
+
+.poster-rule {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-top: var(--s2);
+}
+.poster-rule::before {
+  content: '';
+  height: 3px;
+  width: clamp(2rem, 8vw, 6rem);
+  background: var(--blood);
+  flex: none;
+}
+.poster-rule b {
+  font-size: clamp(.75rem, .68rem + .35vw, .9375rem);
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+.hero p { max-width: 46ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }
+@media (max-width: 560px) {
+  .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+}
+
+/* facts strip — every value here is confirmed from the gym's own channels */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: var(--s4);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+.facts div {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  padding: var(--s2) var(--s3) var(--s2) 0;
+  margin-right: var(--s3);
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 80%, var(--ink));
+  border-right: 1px solid var(--hairline);
+}
+.facts div:last-child { border-right: 0; margin-right: 0; }
+.facts svg { width: 1.05rem; height: 1.05rem; color: var(--blood); flex: none; }
+@media (max-width: 780px) {
+  /* stacked: vertical rules between rows read as stray marks */
+  .facts div { width: 100%; border-right: 0; border-bottom: 1px solid var(--hairline); margin-right: 0; padding-right: 0; }
+  .facts div:last-child { border-bottom: 0; }
+}
+
+.scroll-hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--s5);
+  writing-mode: vertical-rl;
+  font-size: .625rem;
+  font-weight: 600;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--sand);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  transition: color var(--dur) var(--ease);
+}
+.scroll-hint::after { content: ''; width: 1px; height: 3.5rem; background: linear-gradient(var(--sand), transparent); }
+.scroll-hint:hover { color: var(--paper); }
+@media (max-width: 1100px) { .scroll-hint { display: none; } }
+
+/* ── Section heads ──────────────────────────────────────────── */
+.head { max-width: 68ch; margin-bottom: var(--s5); }
+/* `.head` is used both as a wrapper and directly on the heading */
+.head h2, h2.head { font-size: clamp(2.1rem, 1.5rem + 3vw, 4rem); margin-bottom: var(--s3); text-wrap: balance; }
+
+/* ── About ──────────────────────────────────────────────────── */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+@media (max-width: 880px) { .split { grid-template-columns: minmax(0, 1fr); } }
+
+.frame {
+  position: relative;
+  border: 1px solid var(--hairline);
+  padding: var(--s2);
+  background: var(--surface-2);
+  box-shadow: var(--lift-2);
+}
+.frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.frame figcaption {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--sand);
+  padding: var(--s2) var(--s1) var(--s1);
+}
+@media (max-width: 880px) { .frame img { aspect-ratio: 3 / 2; } }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: 1px;
+  margin-top: var(--s5);
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+}
+.stats div { background: var(--ink); padding: var(--s3); }
+.section--tint .stats div, .section--deep .stats div { background: var(--surface-1); }
+.stats dt {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: .35rem;
+}
+.stats dd {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: -.005em;
+  line-height: 1.1;
+}
+
+/* ── Quote ──────────────────────────────────────────────────── */
+.quote {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+  border-left: 3px solid var(--blood);
+  padding-left: clamp(1.25rem, 3vw, 2.5rem);
+}
+.quote blockquote {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -.015em;
+}
+.quote footer { font-size: .8125rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); margin-top: var(--s3); }
+@media (max-width: 880px) {
+  .quote { grid-template-columns: minmax(0, 1fr); align-items: start; }
+}
+
+/* ── Training cards ─────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: var(--s3);
+}
+.card {
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-top: 2px solid var(--blood);
+  padding: var(--s4) var(--s3) var(--s3);
+  box-shadow: var(--lift-1);
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--lift-2); }
+.card svg { width: 1.75rem; height: 1.75rem; color: var(--blood); margin-bottom: var(--s3); }
+.card h3 { font-size: 1.375rem; margin-bottom: var(--s2); }
+.card p { font-size: .9375rem; color: var(--muted); margin-bottom: 0; }
+
+/* ── Week strip — real opening pattern, Friday is closed ────── */
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--hairline);
+  margin-bottom: var(--s3);
+}
+.week div {
+  background: var(--surface-2);
+  padding: var(--s3) var(--s1);
+  text-align: center;
+}
+.week b {
+  display: block;
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(.875rem, .7rem + .8vw, 1.375rem);
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.week small {
+  display: block;
+  font-size: .625rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-top: .3rem;
+}
+.week .closed { background: color-mix(in srgb, var(--blood) 16%, var(--surface-2)); }
+.week .closed b { color: var(--blood); text-decoration: line-through; text-decoration-thickness: 2px; }
+.week .closed small { color: var(--blood); }
+@media (max-width: 560px) {
+  .week div { padding-inline: 0; }
+  .week small { font-size: .5rem; letter-spacing: .03em; }
+}
+
+.panel {
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: var(--lift-2);
+}
+.panel h3 { font-size: 1.625rem; margin-bottom: var(--s3); }
+
+.rows { border-top: 1px solid var(--hairline); }
+.rows > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s2);
+  justify-content: space-between;
+  padding: var(--s3) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.rows strong { font-weight: 600; font-size: .9375rem; letter-spacing: .06em; text-transform: uppercase; }
+.rows p { font-size: .875rem; color: var(--muted); margin: .2rem 0 0; flex-basis: 100%; }
+
+/* ── Gallery ────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: dense; /* wide tiles must not leave holes */
+  gap: var(--s2);
+}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.tile {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: var(--surface-2);
+  cursor: pointer;
+  overflow: hidden;
+  aspect-ratio: 1;
+  display: block;
+  transition: box-shadow var(--dur) var(--ease);
+}
+.tile.wide { grid-column: span 2; aspect-ratio: 2 / 1; }
+@media (max-width: 900px) { .tile.wide { grid-column: span 2; aspect-ratio: 3 / 2; } }
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease), filter var(--dur) var(--ease);
+  filter: saturate(.85) contrast(1.04);
+}
+.tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(6, 4, 4, .72));
+  opacity: .75;
+  transition: opacity var(--dur) var(--ease);
+}
+.tile span {
+  position: absolute;
+  left: var(--s2);
+  right: var(--s2);
+  bottom: var(--s2);
+  z-index: 1;
+  font-size: .625rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.tile:hover img, .tile:focus-visible img { transform: scale(1.06); filter: saturate(1) contrast(1.04); }
+.tile:hover::after, .tile:focus-visible::after { opacity: 1; }
+.tile:hover span, .tile:focus-visible span { opacity: 1; transform: translateY(0); }
+.tile:active img { transform: scale(1.02); }
+
+/* lightbox */
+dialog.lb {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  color: var(--paper);
+  overflow: hidden;
+}
+dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
+.lb-inner {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--s3);
+  padding: clamp(3.5rem, 6vw, 4.5rem) var(--gutter) var(--s4);
+  place-items: center;
+}
+.lb-inner img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  box-shadow: var(--lift-2);
+}
+.lb-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.lb-bar p {
+  margin: 0;
+  font-size: .8125rem;
+  letter-spacing: .04em;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.icon-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--surface-2);
+  color: var(--paper);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.icon-btn svg { width: 1.15rem; height: 1.15rem; }
+.icon-btn:hover { background: var(--blood); border-color: var(--blood); }
+.icon-btn:active { transform: scale(.94); }
+.lb-close { position: absolute; top: var(--s3); right: var(--gutter); z-index: 2; }
+
+/* ── Location ───────────────────────────────────────────────── */
+.locate { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+@media (max-width: 880px) { .locate { grid-template-columns: minmax(0, 1fr); } }
+
+.pin-list { display: grid; gap: var(--s3); margin-bottom: var(--s4); }
+.pin-list > div { display: flex; gap: var(--s3); align-items: flex-start; }
+.pin-list svg { width: 1.35rem; height: 1.35rem; color: var(--blood); flex: none; margin-top: .3rem; }
+.pin-list dt {
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: .2rem;
+}
+.pin-list dd { margin: 0; }
+
+.map-card {
+  position: relative;
+  display: block;
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+  box-shadow: var(--lift-2);
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.map-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; filter: saturate(.7) contrast(1.05) brightness(.72); }
+.map-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 45%, color-mix(in srgb, var(--midnight) 30%, transparent), rgba(6, 4, 4, .84));
+}
+.map-card-body {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+.map-card b {
+  font-family: 'Anton', Impact, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.875rem);
+  text-transform: uppercase;
+  display: block;
+  line-height: 1;
+}
+.map-card small { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); }
+.map-card .go {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--paper);
+  border-bottom: 2px solid var(--blood);
+  padding-bottom: .2rem;
+  transition: color var(--dur) var(--ease);
+}
+.map-card .go svg { width: 1rem; height: 1rem; }
+.map-card:hover { transform: translateY(-3px); border-color: var(--hairline-strong); box-shadow: var(--lift-2), 0 0 0 1px color-mix(in srgb, var(--blood) 40%, transparent); }
+.map-card:hover .go { color: var(--blood); }
+.map-card:active { transform: translateY(0); }
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.foot { background: var(--ink); padding-block: var(--s6) calc(var(--s6) + 3rem); }
+.foot-top { display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between; align-items: flex-start; }
+.foot img { width: 84px; height: 84px; }
+.foot .pairing {
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(1.125rem, 1rem + .8vw, 1.625rem);
+  text-transform: uppercase;
+  line-height: 1.12;
+  margin: var(--s3) 0 var(--s2);
+  max-width: 18ch;
+}
+.foot .pairing em { font-style: normal; color: var(--blood); }
+
+.socials { display: flex; gap: var(--s2); margin-top: var(--s3); }
+.socials a {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  color: var(--paper);
+  border-radius: 2px;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.socials svg { width: 1.15rem; height: 1.15rem; }
+.socials a:hover { background: var(--blood); border-color: var(--blood); transform: translateY(-2px); }
+.socials a:active { transform: translateY(0); background: var(--rust); }
+
+.foot-links { display: grid; gap: var(--s2); }
+.foot-links a {
+  font-size: .8125rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  width: fit-content;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.foot-links a:hover { color: var(--paper); border-bottom-color: var(--blood); }
+
+.colophon {
+  margin-top: var(--s5);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  justify-content: space-between;
+  font-size: .75rem;
+  letter-spacing: .06em;
+  color: var(--sand);
+}
+
+/* ── Sticky WhatsApp ────────────────────────────────────────── */
+.fab {
+  position: fixed;
+  right: var(--gutter);
+  bottom: max(var(--s3), env(safe-area-inset-bottom));
+  z-index: 55;
+  box-shadow: var(--lift-blood), 0 18px 40px -18px rgba(6, 4, 4, .95);
+}
+@media (max-width: 560px) {
+  .fab { right: var(--s3); left: var(--s3); }
+}
+
+/* ── Motion ─────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); }
+.reveal.in {
+  opacity: 1;
+  transform: none;
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.d1.in { transition-delay: .08s; }
+.reveal.d2.in { transition-delay: .16s; }
+.reveal.d3.in { transition-delay: .24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ─── Nav ─────────────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top">
+    <img src="assets/logo-mark.svg" alt="" width="42" height="42">
+    <span class="brand-text">
+      <b>Krabi Lion<br>Muay Thai</b>
+      <small>By Thewaritnoi</small>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="#gym">The gym</a>
+    <a href="#train">Train</a>
+    <a href="#stay">Stay</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#find">Find us</a>
+  </div>
+  <a class="btn" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+    <span>Book on WhatsApp</span>
+  </a>
+</nav>
+
+<main id="main">
+<a id="top"></a>
+
+<!-- ─── Hero ────────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-media">
+    <img src="assets/img/training-pad-coaching-01.webp" alt="A trainer holds Thai pads for a fighter throwing a punch in the Krabi Lion ring, lit from the side." fetchpriority="high" width="2000" height="1333">
+  </div>
+
+  <div class="shell poster">
+    <h1 class="poster-type reveal in">
+      <i>Krabi</i>
+      <i class="lion">Lion</i>
+      <i>Muay Thai</i>
+      <span class="poster-rule"><b>By Thewaritnoi</b></span>
+    </h1>
+
+    <p class="lead reveal d1 in">Real Muay Thai in Ao Nang, Krabi. Pads, clinch and conditioning with Thai coaches who work the round with you. Beginners welcome — no experience needed.</p>
+
+    <div class="hero-cta reveal d2 in">
+      <a class="btn" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+        Book a session
+      </a>
+      <a class="btn btn--ghost" href="#train">See training</a>
+    </div>
+
+    <div class="facts reveal d3 in">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        Ao Nang, Krabi
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+        Sat–Thu · 08:00–20:00
+      </div>
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        Beginners welcome
+      </div>
+    </div>
+  </div>
+
+  <a class="scroll-hint" href="#gym">Scroll</a>
+</header>
+
+<div class="ropes"></div>
+
+<!-- ─── The gym ─────────────────────────────────────────────── -->
+<section class="section" id="gym">
+  <div class="shell split">
+    <div>
+      <p class="eyebrow reveal">The gym</p>
+      <h2 class="head reveal" style="margin-bottom:var(--s4)">A working Muay&nbsp;Thai camp, not a holiday class</h2>
+
+      <p class="lead reveal d1">Krabi Lion Muay Thai is the gym of Thewaritnoi s.k.v. Our fighters train here and compete on Krabi cards — and the same coaches hold pads for a first-timer on their first afternoon.</p>
+
+      <p class="reveal d1">You get real coaching, not a scripted circuit. Someone watches your kick, corrects it, and makes you throw it again. Train once while you are passing through Ao Nang, or come every day for a month.</p>
+
+      <p class="reveal d2 muted">Whether you want to get fit or you are a fighter preparing to turn pro, the session is built around you. Kids train here too.</p>
+
+      <div class="reveal d2" style="margin-top:var(--s4)">
+        <span class="confirm confirm--block">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+          <i>【CONFIRM: Thewaritnoi's fight record — stadiums, titles, years training — and the year the gym opened】</i>
+        </span>
+      </div>
+
+      <dl class="stats reveal d3">
+        <div>
+          <dt>Where</dt>
+          <dd>Ao Nang<br>Krabi</dd>
+        </div>
+        <div>
+          <dt>Open</dt>
+          <dd>Sat–Thu<br>08:00–20:00</dd>
+        </div>
+        <div>
+          <dt>Level</dt>
+          <dd>First-timer<br>to pro</dd>
+        </div>
+      </dl>
+    </div>
+
+    <figure class="frame reveal d1" style="margin:0">
+      <img src="assets/img/gym-mural-heavybag-04-sm.webp" alt="A heavy bag hanging in front of the gym's hand-painted lion mural." loading="lazy" width="800" height="1000">
+      <figcaption>The lion mural on the training floor</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ─── Quote ───────────────────────────────────────────────── -->
+<section class="section section--tint">
+  <div class="shell">
+    <figure class="quote reveal" style="margin:0">
+      <blockquote>“The training is always top. Every coach is super present and supportive.”</blockquote>
+      <div>
+        <p class="muted">“These were my first real steps into Muay Thai and I'll keep coming back whenever I can.”</p>
+        <footer>A returning student — posted to the gym's Instagram</footer>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<div class="ropes"></div>
+
+<!-- ─── Training ────────────────────────────────────────────── -->
+<section class="section" id="train">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow reveal">Training</p>
+      <h2 class="reveal">What a round here<br>actually looks like</h2>
+      <p class="lead reveal d1">Warm-up, technique, then pads until the coach is satisfied. Clinch and sparring when you are ready for them — never before.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7.5A3.5 3.5 0 0 1 11.5 4h2.8A4.7 4.7 0 0 1 19 8.7V12a5 5 0 0 1-5 5h-2a4 4 0 0 1-4-4Z"/><path d="M8 8.6H6.6A2.6 2.6 0 0 0 4 11.2 2.6 2.6 0 0 0 6.6 13.8H8"/><path d="M9.2 17v1.4A1.6 1.6 0 0 0 10.8 20h3.6a1.6 1.6 0 0 0 1.6-1.6V17"/></svg>
+        <h3>Pad work</h3>
+        <p>One-to-one with a coach on the pads. Punches, elbows, knees and kicks, called in combinations until the shape is right. This is the core of every session.</p>
+      </article>
+      <article class="card reveal d1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.4A2.4 2.4 0 0 1 5.4 8h1.4a2.6 2.6 0 0 1 2.6 2.6v2.8A2.6 2.6 0 0 1 6.8 16H5.4A2.4 2.4 0 0 1 3 13.6Z"/><path d="M21 10.4A2.4 2.4 0 0 0 18.6 8h-1.4a2.6 2.6 0 0 0-2.6 2.6v2.8a2.6 2.6 0 0 0 2.6 2.6h1.4a2.4 2.4 0 0 0 2.4-2.4Z"/><path d="M12 5.6V7.4M12 16.6v1.8M10.4 9.6 11.4 11M13.6 9.6 12.6 11"/></svg>
+        <h3>Clinch &amp; sparring</h3>
+        <p>The part of Muay Thai you cannot learn from a video. Controlled clinch work and light sparring with partners at your level, supervised the whole way.</p>
+      </article>
+      <article class="card reveal d2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v2.6"/><path d="M9 5.6h6"/><path d="M8.4 8.6a3.6 3.6 0 0 1 3.6-3h0a3.6 3.6 0 0 1 3.6 3v8.2a3.6 3.6 0 0 1-3.6 3.6h0a3.6 3.6 0 0 1-3.6-3.6Z"/><path d="M8.4 10.4h7.2"/></svg>
+        <h3>Bags &amp; conditioning</h3>
+        <p>Heavy bag rounds, skipping, bodyweight and core work. Where the fitness comes from — and where you can push at your own pace on a quiet afternoon.</p>
+      </article>
+      <article class="card reveal d3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.4" r="3.2"/><path d="M12 2.4v1.4M12 13v1.4M6 8.4H4.6M19.4 8.4H18M7.8 4.2 6.8 3.2M17.2 4.2l1-1"/><path d="M3 17.6c1.8-1.5 3.6-1.5 5.4 0s3.6 1.5 5.4 0 3.6-1.5 5.4 0"/><path d="M3 21c1.8-1.5 3.6-1.5 5.4 0s3.6 1.5 5.4 0 3.6-1.5 5.4 0"/></svg>
+        <h3>Beach &amp; rooftop</h3>
+        <p>Sunrise drills on the sand with the karst islands behind, and pad rounds on the covered rooftop ring under the flags. Krabi is part of the training.</p>
+      </article>
+    </div>
+
+    <div class="split" style="margin-top:var(--s6)">
+      <div class="panel reveal">
+        <h3>When we train</h3>
+        <div class="week">
+          <div><b>Mon</b><small>Open</small></div>
+          <div><b>Tue</b><small>Open</small></div>
+          <div><b>Wed</b><small>Open</small></div>
+          <div><b>Thu</b><small>Open</small></div>
+          <div class="closed"><b>Fri</b><small>Closed</small></div>
+          <div><b>Sat</b><small>Open</small></div>
+          <div><b>Sun</b><small>Open</small></div>
+        </div>
+        <p class="muted" style="font-size:.9375rem">The gym is open <strong>08:00–20:00</strong>, Saturday through Thursday. Closed every Friday.</p>
+        <p style="margin-top:var(--s3)">
+          <span class="confirm confirm--block">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+            <i>【CONFIRM: daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open】</i>
+          </span>
+        </p>
+      </div>
+
+      <div class="panel reveal d1">
+        <h3>What it costs</h3>
+        <div class="rows">
+          <div>
+            <strong>Single session</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: single session price】</i>
+            </span>
+          </div>
+          <div>
+            <strong>Weekly package</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: weekly package price】</i>
+            </span>
+          </div>
+          <div>
+            <strong>Monthly package</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: monthly package price】</i>
+            </span>
+          </div>
+          <div>
+            <strong>Private one-to-one</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: private session price】</i>
+            </span>
+          </div>
+        </div>
+        <p class="muted" style="font-size:.9375rem; margin-top:var(--s3)">Message us on WhatsApp for current prices and to reserve your place. Advance reservation is required.</p>
+        <p style="margin-top:var(--s3)">
+          <a class="btn" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20could%20you%20send%20me%20your%20training%20prices%3F" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+            Ask for prices
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Stay ────────────────────────────────────────────────── -->
+<section class="section section--deep" id="stay">
+  <div class="shell split">
+    <div>
+      <p class="eyebrow reveal">Stay at the gym</p>
+      <h2 class="head reveal" style="margin-bottom:var(--s4)">Sleep where<br>you train</h2>
+      <p class="lead reveal d1">Two ways to stay on site, both with gym access. Places are limited and advance reservation is required.</p>
+
+      <div class="panel reveal d2" style="margin-top:var(--s4)">
+        <div class="rows" style="border-top:0">
+          <div>
+            <strong>Private bedroom</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: private bedroom nightly rate】</i>
+            </span>
+            <p>Your own bedroom, bathroom shared between three people. Gym access included.</p>
+          </div>
+          <div>
+            <strong>Private house</strong>
+            <span class="confirm">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+              <i>【CONFIRM: private house nightly rate】</i>
+            </span>
+            <p>One bedroom, living room, kitchen and bathroom to yourself. Only a limited number available.</p>
+          </div>
+        </div>
+        <p style="margin-top:var(--s3)">
+          <a class="btn" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20I%27d%20like%20to%20ask%20about%20accommodation%20at%20the%20gym." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+            Ask about rooms
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <figure class="frame reveal d1" style="margin:0">
+      <img src="assets/img/event-string-lights-02-sm.webp" alt="The team gathered in the evening under string lights and paper lanterns." loading="lazy" width="800" height="1000">
+      <figcaption>Evenings at the gym</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="ropes"></div>
+
+<!-- ─── Gallery ─────────────────────────────────────────────── -->
+<section class="section" id="gallery">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow reveal">Gallery</p>
+      <h2 class="reveal">Fight nights, pad rounds, and the beach at sunrise</h2>
+      <p class="lead reveal d1">Every photo here was taken at our gym or at a card our fighters were on.</p>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<dialog class="lb" id="lb" aria-label="Photo viewer">
+  <button class="icon-btn lb-close" type="button" data-lb="close" aria-label="Close photo viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <div class="lb-inner">
+    <img id="lb-img" alt="">
+    <div class="lb-bar">
+      <button class="icon-btn" type="button" data-lb="prev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+      </button>
+      <p id="lb-cap"></p>
+      <button class="icon-btn" type="button" data-lb="next" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<div class="ropes"></div>
+
+<!-- ─── Find us ─────────────────────────────────────────────── -->
+<section class="section section--tint" id="find">
+  <div class="shell locate">
+    <div>
+      <p class="eyebrow reveal">Find us</p>
+      <h2 class="head reveal" style="margin-bottom:var(--s4)">Ao Nang,<br>Krabi</h2>
+
+      <dl class="pin-list reveal d1">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div>
+            <dt>Address</dt>
+            <dd>
+              <span class="confirm confirm--block">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
+                <i>【CONFIRM: full street address, and that the Google Maps pin below is the current gym location】</i>
+              </span>
+            </dd>
+          </div>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
+          <div>
+            <dt>Opening hours</dt>
+            <dd>Saturday to Thursday, 08:00–20:00<br><span class="muted">Closed every Friday</span></dd>
+          </div>
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5C4 5.1 5.1 4 6.5 4h1.9c.6 0 1.1.4 1.2 1l.7 3a1.3 1.3 0 0 1-.4 1.3l-1.3 1a12 12 0 0 0 5.1 5.1l1-1.3c.3-.4.8-.5 1.3-.4l3 .7c.6.1 1 .6 1 1.2v1.9c0 1.4-1.1 2.5-2.5 2.5A15.5 15.5 0 0 1 4 6.5Z"/></svg>
+          <div>
+            <dt>Phone &amp; WhatsApp</dt>
+            <dd><a href="tel:+66891984577" style="text-decoration:none;border-bottom:1px solid var(--blood)">+66 89 198 4577</a></dd>
+          </div>
+        </div>
+      </dl>
+
+      <a class="btn reveal d2" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20how%20do%20I%20get%20to%20the%20gym%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+        Ask for directions
+      </a>
+    </div>
+
+    <a class="map-card reveal d1" href="https://maps.app.goo.gl/nfayyZR3fqpnNMxP9" target="_blank" rel="noopener">
+      <img src="assets/img/gym-training-floor-03.webp" alt="The covered training floor: heavy bags, the ring, the Krabi Lion banner and flags overhead." loading="lazy" width="2000" height="1333">
+      <div class="map-card-body">
+        <div>
+          <small>Google Maps</small>
+          <b>Open the pin</b>
+        </div>
+        <span class="go">
+          Get directions
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </span>
+      </div>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── Footer ──────────────────────────────────────────────── -->
+<footer class="foot">
+  <div class="shell">
+    <div class="foot-top">
+      <div>
+        <img src="assets/logo-mark.svg" alt="Krabi Lion Muay Thai" width="84" height="84">
+        <p class="pairing">Krabi Lion Muay Thai<br><em>— by Thewaritnoi</em></p>
+        <p class="muted" style="font-size:.875rem">Ao Nang, Krabi, Thailand</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/thewaritnoi_krabimuaythai/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61552646480668" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.55-1.5h1.65V3.6c-.29-.04-1.27-.12-2.41-.12-2.39 0-4.03 1.46-4.03 4.14V9.9H7.5V13h2.76v8Z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@krabilion_muaythai" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.3 3h-2.7v12.1a2.6 2.6 0 1 1-2.2-2.57V9.8a5.5 5.5 0 1 0 4.9 5.47V9.05a6.4 6.4 0 0 0 3.7 1.18V7.5a3.7 3.7 0 0 1-3.7-3.7V3Z"/></svg>
+          </a>
+          <a href="https://wa.me/66891984577" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#gym">The gym</a>
+        <a href="#train">Training</a>
+        <a href="#stay">Stay</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#find">Find us</a>
+        <a href="tel:+66891984577">+66 89 198 4577</a>
+      </nav>
+    </div>
+
+    <div class="colophon">
+      <span>© <span id="yr">2026</span> Krabi Lion Muay Thai — by Thewaritnoi. Ao Nang, Krabi, Thailand.</span>
+      <span>Open Sat–Thu 08:00–20:00 · Closed Fridays</span>
+    </div>
+  </div>
+</footer>
+
+<a class="btn fab" href="https://wa.me/66891984577?text=Hi%20Krabi%20Lion%20Muay%20Thai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+  Book a session
+</a>
+
+<script>
+(() => {
+  'use strict';
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ── Gallery data: names and descriptions from brand/library/INDEX.md ── */
+  const photos = [
+    ['training-pad-coaching-01', 'A trainer holds Thai pads while a fighter throws a punch, lit from the side in the Krabi Lion ring.', true],
+    ['fight-flying-knee-02', 'A fighter airborne with a flying knee against the ropes, the crowd packed behind.'],
+    ['training-beach-silhouette-04', 'Knee-raise drills on the beach at sunrise, karst islands and longtail boats behind.', true],
+    ['portrait-traditional-robe-03', 'A fighter backstage in a traditional red-and-gold robe with a victory garland and mongkol.'],
+    ['training-woman-kick-08', 'A fighter lands a head-height kick on pads under the covered rooftop ring, flags overhead.'],
+    ['gym-handwrap-prep-05', 'A trainer wraps a fighter’s hands ringside before the session.'],
+    ['fight-clinch-stadium-01', 'Two fighters locked in a clinch exchange as the referee steps in.'],
+    ['training-rooftop-kick-07', 'Pad work on the covered rooftop ring, international flags strung from the rafters.'],
+    ['event-string-lights-02', 'The team together in the evening under string lights and paper lanterns.'],
+    ['portrait-victory-referee-04', 'A fighter has her arm raised by the referee in the ring after a win.'],
+    ['training-heavybag-dynamic-10', 'A rear kick thrown at full power, Krabi Lion shorts in frame.'],
+    ['event-team-celebration-03', 'The whole gym in the ring for a post-fight group photo, the stadium crowd behind.'],
+    ['training-backlit-punch-03', 'A cross thrown into the pads, backlit, the coach calling the next shot.'],
+    ['fight-ring-victory-04', 'The referee raises the winner’s arm, Thai flag banner overhead.'],
+  ];
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = photos.map(([name, alt, wide], i) => `
+    <button class="tile${wide ? ' wide' : ''}" type="button" data-i="${i}" aria-label="Open photo: ${alt.replace(/"/g, '&quot;')}">
+      <img src="assets/img/${name}-sm.webp" alt="${alt.replace(/"/g, '&quot;')}" loading="lazy" width="800" height="800">
+      <span>${alt.split(/[,.]/)[0]}</span>
+    </button>`).join('');
+
+  /* ── Lightbox ── */
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lb-img');
+  const lbCap = document.getElementById('lb-cap');
+  let idx = 0;
+
+  const show = (i) => {
+    idx = (i + photos.length) % photos.length;
+    const [name, alt] = photos[idx];
+    lbImg.src = `assets/img/${name}.webp`;
+    lbImg.alt = alt;
+    lbCap.textContent = `${alt}  ·  ${idx + 1} / ${photos.length}`;
+  };
+
+  grid.addEventListener('click', (e) => {
+    const tile = e.target.closest('.tile');
+    if (!tile) return;
+    show(Number(tile.dataset.i));
+    lb.showModal();
+  });
+
+  lb.addEventListener('click', (e) => {
+    const act = e.target.closest('[data-lb]')?.dataset.lb;
+    if (act === 'close') lb.close();
+    else if (act === 'prev') show(idx - 1);
+    else if (act === 'next') show(idx + 1);
+    else if (e.target === lb || e.target.classList.contains('lb-inner')) lb.close();
+  });
+
+  lb.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
+  });
+
+  /* ── Nav background on scroll ── */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ── Scroll reveals ── */
+  const reveals = document.querySelectorAll('.reveal:not(.in)');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    reveals.forEach((el) => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+  }
+})();
+</script>
+</body>
+</html>
