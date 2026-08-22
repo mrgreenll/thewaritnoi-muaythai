@@ -13,3 +13,5 @@ before touching design or copy. Raw scraped media (not in git):
 
 - Shared frontend build rules (screenshot loop, design guardrails): `WEB-BUILDS.md` at
   the workspace root. This file wins where they differ.
+
+Live: https://thewaritnoi-muaythai.vercel.app (Vercel, deployed 2026-08-22).
