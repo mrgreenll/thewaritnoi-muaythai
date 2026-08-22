@@ -163,6 +163,15 @@ a { color: inherit; }
     var(--surface-1);
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip {
   position: absolute;
   left: var(--s3);
@@ -968,10 +977,11 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 
   <div class="shell poster">
     <h1 class="poster-type reveal in">
-      <i>Thewaritnoi</i>
-      <i class="accent">Krabi</i>
-      <i>Muaythai</i>
-      <span class="poster-rule"><b>Muay Thai Gym</b></span>
+      <span class="sr-only">Thewaritnoi Krabi Muaythai — </span>
+      <i>Work</i>
+      <i class="accent">The</i>
+      <i>Round</i>
+      <span class="poster-rule"><b>Muay Thai Gym · Ao Nang</b></span>
     </h1>
 
     <p class="lead reveal d1 in">Real Muay Thai in Ao Nang, Krabi. Pads, clinch and conditioning with Thai coaches who work the round with you. Beginners welcome — no experience needed.</p>
