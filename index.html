@@ -400,29 +400,7 @@ a { color: inherit; }
   isolation: isolate;
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
-/* Fenriz-style layered collage: bg photo → red panel → fighter cutout */
-.hero-panel {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 41%;
-  width: 33%;
-  z-index: 1;
-  background: linear-gradient(168deg, #d96a2b -10%, var(--blood) 55%, var(--rust) 110%);
-  opacity: .78;
-}
-.hero-cutout {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
-.hero-media img, .hero-cutout { width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; }
-@media (max-width: 560px) {
-  .hero-media img, .hero-cutout { object-position: 52% 30%; }
-  .hero-panel { left: 46%; width: 48%; opacity: .72; }
-  /* red-on-red fails where the headline crosses the panel — go all-white like Fenriz */
-  .poster-type .accent { color: var(--paper); }
-}
+
 .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; }
 /* gradient divider strip — the brand's signature bar, in reds */
 .strip {
@@ -1148,8 +1126,6 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 <header class="hero">
   <div class="hero-media">
     <img src="assets/img/hero-champ.webp" alt="Thewaritnoi holds pads for a fighter in the Krabi Lion ring." fetchpriority="high" width="2200" height="1228">
-    <div class="hero-panel" aria-hidden="true"></div>
-    <img class="hero-cutout" src="assets/img/hero-cutout.webp" alt="" aria-hidden="true" width="2200" height="1228">
   </div>
 
   <div class="shell poster">
