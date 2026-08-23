@@ -160,7 +160,17 @@ a { color: inherit; }
   margin-inline: auto;
 }
 
-.section { padding-block: var(--pad-section); position: relative; }
+.section {
+  padding-block: var(--pad-section);
+  position: relative;
+  /* full-screen panel, Fenriz-style; content-heavy sections may spill */
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.section > * { width: 100%; }
+.section--slim { min-height: 0; }
 .section--tint { background: var(--surface-1); }
 .section--deep {
   background:
@@ -1216,7 +1226,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 </div>
 
 <!-- ─── Quote ───────────────────────────────────────────────── -->
-<section class="section section--tint">
+<section class="section section--tint section--slim">
   <div class="shell">
     <figure class="quote reveal" style="margin:0">
       <blockquote>“The training is always top. Every coach is super present and supportive.”</blockquote>
