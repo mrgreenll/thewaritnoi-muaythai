@@ -23,8 +23,8 @@
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/favicon.svg">
-<link rel="preload" href="assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/barlow-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/img/training-pad-coaching-01.webp" as="image" fetchpriority="high">
 
 <style>
@@ -33,11 +33,11 @@
    brand/BRAND.md. No runtime CDN request.
    ───────────────────────────────────────────────────────────── */
 @font-face {
-  font-family: 'Bebas Neue';
+  font-family: 'Space Grotesk';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('assets/fonts/bebas-neue.woff2') format('woff2');
+  src: url('assets/fonts/space-grotesk-latin-var.woff2') format('woff2');
 }
 
 @font-face {
@@ -126,11 +126,11 @@ body::after {
 img { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, .display {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-weight: 400;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
-  line-height: 1.04;
-  letter-spacing: -.01em;
+  line-height: 1.03;
+  letter-spacing: -.02em;
   margin: 0;
 }
 
@@ -359,10 +359,10 @@ a { color: inherit; }
   .nav-word img { height: 32px; }
 }
 .brand b {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  letter-spacing: .01em;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: .9375rem;
+  letter-spacing: 0;
   text-transform: uppercase;
   line-height: 1.05;
   display: block;
@@ -415,13 +415,14 @@ a { color: inherit; }
 .hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
-  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   text-transform: uppercase;
-  font-size: clamp(2.5rem, 4.8vw, 4.8rem);
-  line-height: 1.02;
-  letter-spacing: .005em;
+  font-size: clamp(4.5rem, 6.4vw, 5.5rem);
+  line-height: .98;
+  letter-spacing: -.028em;
+  word-spacing: .02em;
   margin: 0;
-  max-width: 16ch;
+  max-width: 14ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
 }
 /* masked line-rise on load, Fenriz-style */
@@ -457,6 +458,9 @@ a { color: inherit; }
   text-transform: uppercase;
 }
 
+@media (max-width: 900px) {
+  .poster-type { font-size: clamp(2.6rem, 8.4vw, 4.5rem); line-height: 1.0; }
+}
 .hero p { max-width: 46ch; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }
 @media (max-width: 560px) {
@@ -541,10 +545,11 @@ a { color: inherit; }
 }
 .stats dd {
   margin: 0;
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 1.5rem;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.375rem;
   text-transform: uppercase;
-  letter-spacing: -.005em;
+  letter-spacing: -.012em;
   line-height: 1.1;
 }
 
@@ -559,11 +564,12 @@ a { color: inherit; }
 }
 .quote blockquote {
   margin: 0;
-  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   text-transform: uppercase;
-  font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
-  line-height: 1.06;
-  letter-spacing: -.015em;
+  font-weight: 700;
+  font-size: clamp(1.35rem, .95rem + 2vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
 }
 .quote footer { font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); margin-top: var(--s3); }
 @media (max-width: 880px) {
@@ -678,14 +684,14 @@ a { color: inherit; }
 .band--fight img { object-position: 50% 8%; }
 .band--beach img { object-position: 50% 70%; }
 .band-line {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-weight: 400;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: clamp(1.6rem, .9rem + 3.4vw, 4rem);
-  line-height: .98;
-  letter-spacing: -.015em;
+  font-size: clamp(1.5rem, .88rem + 2.95vw, 3.5rem);
+  line-height: 1.02;
+  letter-spacing: -.022em;
   margin: 0;
-  max-width: 19ch;
+  max-width: 16ch;
   padding-block: var(--s5);
   text-wrap: balance;
   text-shadow: 0 10px 36px rgba(6, 4, 4, .75);
@@ -717,11 +723,11 @@ a { color: inherit; }
 }
 .week b {
   display: block;
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-weight: 400;
-  font-size: clamp(.875rem, .7rem + .8vw, 1.375rem);
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: clamp(.8125rem, .68rem + .6vw, 1.15rem);
   text-transform: uppercase;
-  letter-spacing: 0;
+  letter-spacing: -.005em;
 }
 .week small {
   display: block;
@@ -925,12 +931,13 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   flex-wrap: wrap;
 }
 .map-card b {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-weight: 400;
-  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.875rem);
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.125rem, .95rem + .95vw, 1.6rem);
   text-transform: uppercase;
   display: block;
-  line-height: 1;
+  line-height: 1.05;
+  letter-spacing: -.012em;
 }
 .map-card small { font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); }
 .map-card .go {
@@ -956,12 +963,14 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 .foot-top { display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between; align-items: flex-start; }
 .foot img { width: 84px; height: 84px; }
 .foot .pairing {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(1.125rem, 1rem + .8vw, 1.625rem);
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.05rem, .95rem + .62vw, 1.4rem);
   text-transform: uppercase;
-  line-height: 1.12;
+  letter-spacing: -.015em;
+  line-height: 1.14;
   margin: var(--s3) 0 var(--s2);
-  max-width: 18ch;
+  max-width: 16ch;
 }
 .foot .pairing em { font-style: normal; color: var(--blood); }
 
@@ -1034,9 +1043,10 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   pointer-events: auto;
 }
 .fab a {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: .78rem;
-  letter-spacing: .09em;
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
@@ -1055,8 +1065,12 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 .fab .fab-book:hover { background: var(--rust); color: var(--paper); }
 @media (max-width: 430px) {
-  .fab a { font-size: .7rem; padding: .5rem .5rem; }
-  .fab .fab-book { padding: .5rem .8rem; }
+  .fab a { font-size: .68rem; letter-spacing: .03em; padding: .5rem .45rem; }
+  .fab .fab-book { padding: .5rem .7rem; }
+}
+@media (max-width: 360px) {
+  .fab a { font-size: .64rem; letter-spacing: .015em; padding: .5rem .35rem; }
+  .fab .fab-book { padding: .5rem .55rem; }
 }
 
 
@@ -1064,7 +1078,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 @media (min-width: 561px) and (max-height: 940px) {
   .hero { padding-block: 5.5rem var(--s3); }
   .poster { gap: var(--s3); }
-  .poster-type { font-size: clamp(2.2rem, 5.6vh, 3.9rem); }
+  .poster-type { font-size: clamp(3rem, 7.6vh, 5.2rem); }
   .lead { font-size: 1.05rem; line-height: 1.5; }
   .hero p { max-width: 52ch; }
   :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
@@ -1072,7 +1086,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 @media (min-width: 561px) and (max-height: 800px) {
   .hero { padding-block: 4.5rem var(--s3); }
-  .poster-type { font-size: clamp(2rem, 5.2vh, 3.4rem); }
+  .poster-type { font-size: clamp(2.8rem, 7vh, 4.6rem); }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */

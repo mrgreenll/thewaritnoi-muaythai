@@ -75,18 +75,20 @@ Usage rules:
 
 ## Typography
 
-Display: **Bebas Neue** — headings, ALL CAPS. Chosen 2026-08-23 to align
-with the Fenriz-gym editorial direction (their Kenyan Coffee is commercial;
-Bebas Neue is the free equivalent). The logo's own lettering is traced
+Display: **Space Grotesk** — headings, ALL CAPS, weight 700 (its heaviest).
+Chosen 2026-08-23. Its squared bowls and cut counters read mechanical
+rather than neutral, which keeps the display type in the gym's world
+without the condensed-poster cliche. Set tight: -.022em tracking on
+section headings, -.028em on the hero. The logo's own lettering is traced
 vector paths, so the wordmark keeps its original collegiate forms
 independent of this change.
 
 Body: **Roboto** — variable weight (100–900); 400 running text, 700 for
-emphasis/labels. Matches Fenriz's body font exactly.
+emphasis/labels.
 
 Self-hosted, latin subset only, no runtime CDN request. Files live in
 `assets/fonts/`:
-- `assets/fonts/bebas-neue.woff2`
+- `assets/fonts/space-grotesk-latin-var.woff2`
 - `assets/fonts/roboto-latin-var.woff2`
 
 `@font-face` block — copy verbatim into site CSS (paths are relative to
@@ -94,11 +96,11 @@ the site root, alongside `index.html`):
 
 ```css
 @font-face {
-  font-family: 'Bebas Neue';
+  font-family: 'Space Grotesk';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300 700;
   font-display: swap;
-  src: url('assets/fonts/bebas-neue.woff2') format('woff2');
+  src: url('assets/fonts/space-grotesk-latin-var.woff2') format('woff2');
 }
 
 @font-face {
@@ -110,9 +112,12 @@ the site root, alongside `index.html`):
 }
 ```
 
-Stack fallbacks: `font-family: 'Bebas Neue', Impact, sans-serif;` for
-display, `font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;`
-for body. (Previous pairing until 2026-08-23: Anton + Barlow.)
+Both files are preloaded in `<head>`.
+
+Stack fallbacks: `font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;`
+for display, `font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;`
+for body. (Pairing history: Anton + Barlow → Bebas Neue + Roboto, both
+until 2026-08-23.)
 
 ## Logo
 
