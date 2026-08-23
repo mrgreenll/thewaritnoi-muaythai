@@ -33,27 +33,19 @@
    brand/BRAND.md. No runtime CDN request.
    ───────────────────────────────────────────────────────────── */
 @font-face {
-  font-family: 'Anton';
+  font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('assets/fonts/anton-latin.woff2') format('woff2');
+  src: url('assets/fonts/bebas-neue.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Barlow';
+  font-family: 'Roboto';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('assets/fonts/barlow-regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Barlow';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('assets/fonts/barlow-600.woff2') format('woff2');
+  src: url('assets/fonts/roboto-latin-var.woff2') format('woff2');
 }
 
 /* ── Tokens ─────────────────────────────────────────────────── */
@@ -113,7 +105,7 @@ body {
   margin: 0;
   background: var(--ink);
   color: var(--paper);
-  font-family: 'Barlow', -apple-system, 'Segoe UI', sans-serif;
+  font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;
   font-size: clamp(1rem, .96rem + .2vw, 1.0625rem);
   line-height: 1.7;
   overflow-x: hidden;
@@ -134,7 +126,7 @@ body::after {
 img { max-width: 100%; height: auto; display: block; }
 
 h1, h2, h3, .display {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   line-height: 1.04;
@@ -196,7 +188,7 @@ a { color: inherit; }
   background: var(--blood);
   color: var(--paper);
   padding: var(--s2) var(--s3);
-  font-weight: 600;
+  font-weight: 700;
   transition: transform var(--dur) var(--ease);
 }
 .skip:focus { transform: translateY(5rem); }
@@ -204,7 +196,7 @@ a { color: inherit; }
 /* ── Utility type ───────────────────────────────────────────── */
 .eyebrow {
   font-size: .6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .24em;
   text-transform: uppercase;
   color: var(--sand);
@@ -251,8 +243,8 @@ a { color: inherit; }
   gap: .4em;
   background: #ffe200;
   color: #0a0a0a;
-  font-family: 'Barlow', sans-serif;
-  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
   font-size: .8125em;
   line-height: 1.25;
   letter-spacing: .04em;
@@ -278,7 +270,7 @@ a { color: inherit; }
   padding: .9rem 1.6rem;
   background: var(--btn-bg);
   color: var(--btn-fg);
-  font-weight: 600;
+  font-weight: 700;
   font-size: .9375rem;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -367,7 +359,7 @@ a { color: inherit; }
   .nav-word img { height: 32px; }
 }
 .brand b {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   letter-spacing: .01em;
@@ -378,7 +370,7 @@ a { color: inherit; }
 .brand small {
   display: block;
   font-size: .625rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--sand);
@@ -433,7 +425,7 @@ a { color: inherit; }
 .hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   text-transform: uppercase;
   font-size: clamp(2.5rem, 4.8vw, 4.8rem);
   line-height: 1.02;
@@ -470,7 +462,7 @@ a { color: inherit; }
 }
 .poster-rule b {
   font-size: clamp(.75rem, .68rem + .35vw, .9375rem);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .3em;
   text-transform: uppercase;
 }
@@ -492,7 +484,7 @@ a { color: inherit; }
   bottom: var(--s5);
   writing-mode: vertical-rl;
   font-size: .625rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .3em;
   text-transform: uppercase;
   color: var(--sand);
@@ -531,7 +523,7 @@ a { color: inherit; }
 .frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: var(--bw); }
 .frame figcaption {
   font-size: .6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -551,7 +543,7 @@ a { color: inherit; }
 .section--tint .stats div, .section--deep .stats div { background: var(--surface-1); }
 .stats dt {
   font-size: .6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--sand);
@@ -559,7 +551,7 @@ a { color: inherit; }
 }
 .stats dd {
   margin: 0;
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: -.005em;
@@ -577,13 +569,13 @@ a { color: inherit; }
 }
 .quote blockquote {
   margin: 0;
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   text-transform: uppercase;
   font-size: clamp(1.5rem, 1rem + 2.4vw, 3rem);
   line-height: 1.06;
   letter-spacing: -.015em;
 }
-.quote footer { font-size: .8125rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); margin-top: var(--s3); }
+.quote footer { font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); margin-top: var(--s3); }
 @media (max-width: 880px) {
   .quote { grid-template-columns: minmax(0, 1fr); align-items: start; }
 }
@@ -696,7 +688,7 @@ a { color: inherit; }
 .band--fight img { object-position: 50% 8%; }
 .band--beach img { object-position: 50% 70%; }
 .band-line {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   font-size: clamp(1.6rem, .9rem + 3.4vw, 4rem);
@@ -735,7 +727,7 @@ a { color: inherit; }
 }
 .week b {
   display: block;
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-weight: 400;
   font-size: clamp(.875rem, .7rem + .8vw, 1.375rem);
   text-transform: uppercase;
@@ -744,7 +736,7 @@ a { color: inherit; }
 .week small {
   display: block;
   font-size: .625rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
@@ -776,7 +768,7 @@ a { color: inherit; }
   padding: var(--s3) 0;
   border-bottom: 1px solid var(--hairline);
 }
-.rows strong { font-weight: 600; font-size: .9375rem; letter-spacing: .06em; text-transform: uppercase; }
+.rows strong { font-weight: 700; font-size: .9375rem; letter-spacing: .06em; text-transform: uppercase; }
 .rows p { font-size: .875rem; color: var(--muted); margin: .2rem 0 0; flex-basis: 100%; }
 
 /* ── Gallery ────────────────────────────────────────────────── */
@@ -823,7 +815,7 @@ a { color: inherit; }
   bottom: var(--s2);
   z-index: 1;
   font-size: .625rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--paper);
@@ -907,7 +899,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 .pin-list svg { width: 1.35rem; height: 1.35rem; color: var(--blood); flex: none; margin-top: .3rem; }
 .pin-list dt {
   font-size: .6875rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--muted);
@@ -943,20 +935,20 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   flex-wrap: wrap;
 }
 .map-card b {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-weight: 400;
   font-size: clamp(1.25rem, 1rem + 1.2vw, 1.875rem);
   text-transform: uppercase;
   display: block;
   line-height: 1;
 }
-.map-card small { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); }
+.map-card small { font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); }
 .map-card .go {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
   font-size: .75rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--paper);
@@ -974,7 +966,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 .foot-top { display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between; align-items: flex-start; }
 .foot img { width: 84px; height: 84px; }
 .foot .pairing {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: clamp(1.125rem, 1rem + .8vw, 1.625rem);
   text-transform: uppercase;
   line-height: 1.12;
@@ -1001,7 +993,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 .foot-links { display: grid; gap: var(--s2); }
 .foot-links a {
   font-size: .8125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .16em;
   text-transform: uppercase;
   text-decoration: none;
@@ -1052,7 +1044,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   pointer-events: auto;
 }
 .fab a {
-  font-family: 'Anton', Impact, sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: .78rem;
   letter-spacing: .09em;
   text-transform: uppercase;

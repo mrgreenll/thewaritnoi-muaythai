@@ -75,49 +75,44 @@ Usage rules:
 
 ## Typography
 
-Display: **Anton** — headings, ALL CAPS, tight tracking (`letter-spacing:
--0.01em` to `0` depending on size; Anton is already condensed so avoid
-loosening it). Matches the collegiate wordmark energy of the logo.
+Display: **Bebas Neue** — headings, ALL CAPS. Chosen 2026-08-23 to align
+with the Fenriz-gym editorial direction (their Kenyan Coffee is commercial;
+Bebas Neue is the free equivalent). The logo's own lettering is traced
+vector paths, so the wordmark keeps its original collegiate forms
+independent of this change.
 
-Body: **Barlow** — 400 for running text, 600 for emphasis/labels/nav.
+Body: **Roboto** — variable weight (100–900); 400 running text, 700 for
+emphasis/labels. Matches Fenriz's body font exactly.
 
 Self-hosted, latin subset only, no runtime CDN request. Files live in
 `assets/fonts/`:
-- `assets/fonts/anton-latin.woff2`
-- `assets/fonts/barlow-regular.woff2`
-- `assets/fonts/barlow-600.woff2`
+- `assets/fonts/bebas-neue.woff2`
+- `assets/fonts/roboto-latin-var.woff2`
 
 `@font-face` block — copy verbatim into site CSS (paths are relative to
 the site root, alongside `index.html`):
 
 ```css
 @font-face {
-  font-family: 'Anton';
+  font-family: 'Bebas Neue';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('assets/fonts/anton-latin.woff2') format('woff2');
+  src: url('assets/fonts/bebas-neue.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Barlow';
+  font-family: 'Roboto';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('assets/fonts/barlow-regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Barlow';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('assets/fonts/barlow-600.woff2') format('woff2');
+  src: url('assets/fonts/roboto-latin-var.woff2') format('woff2');
 }
 ```
 
-Stack fallbacks: `font-family: 'Anton', Impact, sans-serif;` for display,
-`font-family: 'Barlow', -apple-system, 'Segoe UI', sans-serif;` for body.
+Stack fallbacks: `font-family: 'Bebas Neue', Impact, sans-serif;` for
+display, `font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;`
+for body. (Previous pairing until 2026-08-23: Anton + Barlow.)
 
 ## Logo
 
