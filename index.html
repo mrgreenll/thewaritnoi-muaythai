@@ -6,1140 +6,66 @@
 <title>Thewaritnoi Krabi Muaythai | Muay Thai gym in Ao Nang, Krabi</title>
 <meta name="description" content="Train real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches at Thewaritnoi Krabi Muaythai. Beginners welcome, no experience needed. Open Saturday to Thursday, 08:00–20:00.">
 <meta name="theme-color" content="#060404">
+<link rel="canonical" href="https://thewaritnoi-muaythai.vercel.app/">
 
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://thewaritnoi-muaythai.vercel.app">
+<meta property="og:url" content="https://thewaritnoi-muaythai.vercel.app/">
 <meta property="og:site_name" content="Thewaritnoi Krabi Muaythai">
-<meta property="og:title" content="Thewaritnoi Krabi Muaythai">
-<meta property="og:description" content="Real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches. Beginners welcome, no experience needed.">
+<meta property="og:title" content="Thewaritnoi Krabi Muaythai | Muay Thai gym in Ao Nang, Krabi">
+<meta property="og:description" content="Train real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches at Thewaritnoi Krabi Muaythai. Beginners welcome, no experience needed. Open Saturday to Thursday, 08:00–20:00.">
 <meta property="og:image" content="https://thewaritnoi-muaythai.vercel.app/assets/img/og-cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="A trainer holding Thai pads for a fighter in the gym's ring.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Thewaritnoi Krabi Muaythai">
-<meta name="twitter:description" content="Real Muay Thai in Ao Nang, Krabi. Beginners welcome, no experience needed.">
+<meta name="twitter:title" content="Thewaritnoi Krabi Muaythai | Muay Thai gym in Ao Nang, Krabi">
+<meta name="twitter:description" content="Train real Muay Thai in Ao Nang, Krabi. Pad work, clinch and conditioning with experienced Thai coaches at Thewaritnoi Krabi Muaythai. Beginners welcome, no experience needed. Open Saturday to Thursday, 08:00–20:00.">
 <meta name="twitter:image" content="https://thewaritnoi-muaythai.vercel.app/assets/img/og-cover.jpg">
 
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/favicon.svg">
-<link rel="preload" href="assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/training-pad-coaching-01.webp" as="image" fetchpriority="high">
-
-<style>
-/* ─────────────────────────────────────────────────────────────
-   Fonts — self-hosted, latin subset. Block copied verbatim from
-   brand/BRAND.md. No runtime CDN request.
-   ───────────────────────────────────────────────────────────── */
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('assets/fonts/space-grotesk-latin-var.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('assets/fonts/roboto-latin-var.woff2') format('woff2');
-}
-
-/* ── Tokens ─────────────────────────────────────────────────── */
-:root {
-  /* palette — brand/BRAND.md, sampled values only */
-  --ink: #060404;
-  --paper: #eeeadc;
-  --blood: #c52d18;
-  --sand: #7d7663;
-  --midnight: #12122f;
-  --rust: #883635;
-
-  /* derived surfaces: base → elevated → floating */
-  --surface-1: color-mix(in srgb, var(--ink) 94%, var(--paper));
-  --surface-2: color-mix(in srgb, var(--ink) 89%, var(--paper));
-  --surface-3: color-mix(in srgb, var(--midnight) 82%, var(--paper));
-  --hairline: color-mix(in srgb, var(--sand) 34%, transparent);
-  --hairline-strong: color-mix(in srgb, var(--sand) 62%, transparent);
-  --muted: color-mix(in srgb, var(--paper) 62%, var(--ink));
-
-  /* layered, colour-tinted shadows */
-  --lift-1: 0 1px 0 color-mix(in srgb, var(--paper) 8%, transparent),
-            0 8px 20px -10px color-mix(in srgb, var(--ink) 90%, transparent);
-  --lift-2: 0 1px 0 color-mix(in srgb, var(--paper) 10%, transparent),
-            0 12px 28px -14px rgba(6, 4, 4, .9),
-            0 26px 60px -34px color-mix(in srgb, var(--midnight) 88%, transparent);
-  --lift-blood: 0 10px 26px -12px color-mix(in srgb, var(--blood) 55%, transparent),
-                0 2px 0 color-mix(in srgb, var(--ink) 70%, transparent);
-
-  /* spacing scale */
-  --s1: .375rem; --s2: .75rem; --s3: 1.25rem; --s4: 2rem;
-  --s5: 3rem;    --s6: 4.5rem; --s7: 7rem;
-  --pad-section: clamp(4.25rem, 8vw, 7.5rem);
-  --gutter: clamp(1.25rem, 4.5vw, 3.5rem);
-  --measure: 62ch;
-  --shell: 1280px;
-
-  --ease: cubic-bezier(.2, .8, .26, 1);
-  --dur: .42s;
-
-  /* Monochrome photo discipline — every photograph on the page runs
-     through this. Red stays the only colour on screen. The two documented
-     exceptions are the SVG logo lockup (never filtered) and the lightbox
-     full view (colour returns when a photo is opened). */
-  --bw: grayscale(1) contrast(1.07) brightness(.93);
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;
-  font-size: clamp(1rem, .96rem + .2vw, 1.0625rem);
-  line-height: 1.7;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* film grain — inline SVG noise, no external request */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: .05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-img { max-width: 100%; height: auto; display: block; }
-
-h1, h2, h3, .display {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  line-height: 1.03;
-  letter-spacing: -.02em;
-  margin: 0;
-}
-
-p { margin: 0 0 var(--s3); max-width: var(--measure); }
-p:last-child { margin-bottom: 0; }
-
-a { color: inherit; }
-
-::selection { background: var(--blood); color: var(--paper); }
-
-:focus-visible {
-  outline: 2px solid var(--blood);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-.shell {
-  width: min(100% - (var(--gutter) * 2), var(--shell));
-  margin-inline: auto;
-}
-
-.section {
-  padding-block: var(--pad-section);
-  position: relative;
-  /* full-screen panel, Fenriz-style; content-heavy sections may spill */
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.section > * { width: 100%; }
-.section--slim { min-height: 0; }
-.section--tint { background: var(--surface-1); }
-.section--deep {
-  background:
-    radial-gradient(120% 90% at 82% 0%, color-mix(in srgb, var(--midnight) 78%, transparent), transparent 62%),
-    radial-gradient(90% 70% at 6% 100%, color-mix(in srgb, var(--rust) 20%, transparent), transparent 60%),
-    var(--surface-1);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-
-.skip {
-  position: absolute;
-  left: var(--s3);
-  top: -4rem;
-  z-index: 100;
-  background: var(--blood);
-  color: var(--paper);
-  padding: var(--s2) var(--s3);
-  font-weight: 700;
-  transition: transform var(--dur) var(--ease);
-}
-.skip:focus { transform: translateY(5rem); }
-
-/* ── Utility type ───────────────────────────────────────────── */
-.eyebrow {
-  font-size: .6875rem;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: var(--sand);
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  margin: 0 0 var(--s3);
-}
-.eyebrow::before {
-  content: '';
-  width: 1.75rem;
-  height: 2px;
-  background: var(--blood);
-  flex: none;
-}
-
-.lead {
-  font-size: clamp(1.0625rem, 1rem + .45vw, 1.3125rem);
-  line-height: 1.62;
-  color: color-mix(in srgb, var(--paper) 88%, var(--ink));
-}
-
-.muted { color: var(--muted); }
-
-/* the ropes — three-line divider, taken from the ring itself */
-.ropes {
-  height: 15px;
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  position: relative;
-}
-.ropes::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; top: 6px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--blood) 0 22%, var(--hairline-strong) 22% 100%);
-}
-
-/* ── Placeholders — must never ship unnoticed ───────────────── */
-.confirm {
-  display: inline-flex;
-  align-items: center;
-  gap: .4em;
-  background: #ffe200;
-  color: #0a0a0a;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: .8125em;
-  line-height: 1.25;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  padding: .3em .6em;
-  border: 2px solid #0a0a0a;
-  box-shadow: 3px 3px 0 #0a0a0a;
-  text-wrap: balance;
-}
-.confirm svg { width: 1.05em; height: 1.05em; flex: none; margin-top: .1em; }
-/* the text needs its own box, or it sits at max-content and overflows */
-.confirm i { font-style: normal; min-width: 0; }
-.confirm--block { display: flex; width: fit-content; max-width: 100%; align-items: flex-start; }
-
-/* ── Buttons ────────────────────────────────────────────────── */
-.btn {
-  --btn-bg: var(--blood);
-  --btn-fg: var(--paper);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .6em;
-  padding: .9rem 1.6rem;
-  background: var(--btn-bg);
-  color: var(--btn-fg);
-  font-weight: 700;
-  font-size: .9375rem;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 2px solid var(--btn-bg);
-  border-radius: 2px;
-  cursor: pointer;
-  box-shadow: var(--lift-blood);
-  transition: transform var(--dur) var(--ease),
-              background-color var(--dur) var(--ease),
-              border-color var(--dur) var(--ease),
-              box-shadow var(--dur) var(--ease),
-              color var(--dur) var(--ease);
-}
-.btn svg { width: 1.15em; height: 1.15em; flex: none; }
-.btn:hover { --btn-bg: var(--rust); transform: translateY(-2px); box-shadow: var(--lift-2); }
-.btn:active { transform: translateY(1px); box-shadow: none; }
-
-.btn--ghost {
-  --btn-bg: transparent;
-  --btn-fg: var(--paper);
-  border-color: var(--hairline-strong);
-  box-shadow: none;
-}
-.btn--ghost:hover {
-  --btn-bg: transparent;
-  --btn-fg: var(--paper);
-  border-color: var(--paper);
-  box-shadow: inset 0 0 0 100px color-mix(in srgb, var(--paper) 8%, transparent);
-}
-
-/* ── Nav ────────────────────────────────────────────────────── */
-.nav {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: var(--s4);
-  padding: var(--s3) var(--gutter);
-  background: linear-gradient(180deg, rgba(6, 4, 4, .82), rgba(6, 4, 4, 0));
-  transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.nav.scrolled {
-  background: color-mix(in srgb, var(--ink) 92%, transparent);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 1px 0 var(--hairline), var(--lift-1);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  text-decoration: none;
-  margin-right: auto;
-  min-width: 0;
-}
-.brand img { height: 46px; width: auto; flex: none; }
-.nav-word {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 0;
-}
-.nav-word img { height: 44px; width: auto; }
-.burger {
-  margin-left: auto;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
-  background: transparent;
-  color: var(--paper);
-  cursor: pointer;
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.burger svg { width: 22px; height: 22px; }
-.burger:hover { border-color: var(--paper); }
-.burger:focus-visible { outline: 2px solid var(--blood); outline-offset: 2px; }
-.burger:active { transform: scale(.94); }
-@media (max-width: 560px) {
-  .brand img { height: 40px; }
-  .nav-word img { height: 32px; }
-}
-.brand b {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: .9375rem;
-  letter-spacing: 0;
-  text-transform: uppercase;
-  line-height: 1.05;
-  display: block;
-}
-.brand small {
-  display: block;
-  font-size: .625rem;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--sand);
-}
-
-
-
-@media (max-width: 900px) {
-    .brand small { display: none; }
-  /* One booking CTA at a time on mobile: the hero (or the fab) has it */
-  }
-@media (max-width: 420px) {
-  .nav .btn span { display: none; }
-  }
-@media (max-width: 340px) {
-  .brand-text { display: none; }
-}
-
-/* ── Hero — built like a Thai fight poster ──────────────────── */
-.hero {
-  position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  padding-block: 10rem var(--s4);
-  overflow: hidden;
-  isolation: isolate;
-}
-.hero-media { position: absolute; inset: 0; z-index: -2; }
-
-.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; }
-/* gradient divider strip — the brand's signature bar, in reds */
-.strip {
-  height: 7px;
-  border: 0;
-  margin: 0;
-  background: linear-gradient(90deg, var(--rust), var(--blood) 45%, #d96a2b 100%);
-}
-
-.poster { display: grid; gap: var(--s4); }
-.poster-type i, .poster-rule, .lead { text-shadow: 0 2px 18px rgba(6,4,4,.92), 0 1px 4px rgba(6,4,4,.95), 0 0 40px rgba(6,4,4,.6); }
-.hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
-
-.poster-type {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  text-transform: uppercase;
-  font-size: clamp(4.5rem, 6.4vw, 5.5rem);
-  line-height: .98;
-  letter-spacing: -.028em;
-  word-spacing: .02em;
-  margin: 0;
-  max-width: 14ch;
-  text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
-}
-/* masked line-rise on load, Fenriz-style */
-.poster-type i { overflow: hidden; }
-.poster-type i span { display: block; transform: translateY(112%); animation: lineRise .72s cubic-bezier(.22,.9,.24,1) forwards; }
-.poster-type i:nth-child(2) span { animation-delay: .1s; }
-.poster-type i:nth-child(3) span { animation-delay: .22s; }
-.poster-type i:nth-child(4) span { animation-delay: .34s; }
-@keyframes lineRise { to { transform: translateY(0); } }
-@media (prefers-reduced-motion: reduce) {
-  .poster-type i span { transform: none; animation: none; }
-}
-.poster-type i { font-style: normal; display: block; }
-.poster-type .accent { color: var(--blood); }
-
-.poster-rule {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-  margin-top: var(--s2);
-}
-.poster-rule::before {
-  content: '';
-  height: 3px;
-  width: clamp(2rem, 8vw, 6rem);
-  background: var(--blood);
-  flex: none;
-}
-.poster-rule b {
-  font-size: clamp(.75rem, .68rem + .35vw, .9375rem);
-  font-weight: 700;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-}
-
-@media (max-width: 900px) {
-  .poster-type { font-size: clamp(2.6rem, 8.4vw, 4.5rem); line-height: 1.0; }
-}
-.hero p { max-width: 46ch; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }
-@media (max-width: 560px) {
-  .hero-cta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero-cta .btn { padding-inline: .6rem; font-size: .78rem; }
-}
-
-@media (max-width: 780px) {
-  /* stacked: vertical rules between rows read as stray marks */
-    }
-
-.scroll-hint {
-  position: absolute;
-  right: var(--gutter);
-  bottom: var(--s5);
-  writing-mode: vertical-rl;
-  font-size: .625rem;
-  font-weight: 700;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--sand);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.scroll-hint::after { content: ''; width: 1px; height: 3.5rem; background: linear-gradient(var(--sand), transparent); }
-.scroll-hint:hover { color: var(--paper); }
-.scroll-hint:active { transform: translateY(2px); }
-@media (max-width: 1100px) { .scroll-hint { display: none; } }
-
-/* ── Section heads ──────────────────────────────────────────── */
-.head { max-width: 68ch; margin-bottom: var(--s5); }
-/* `.head` is used both as a wrapper and directly on the heading */
-.head h2, h2.head { font-size: clamp(2.1rem, 1.5rem + 3vw, 4rem); margin-bottom: var(--s3); text-wrap: balance; }
-
-/* ── About ──────────────────────────────────────────────────── */
-.split {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-}
-@media (max-width: 880px) { .split { grid-template-columns: minmax(0, 1fr); } }
-
-.frame {
-  position: relative;
-  border: 1px solid var(--hairline);
-  padding: var(--s2);
-  background: var(--surface-2);
-  box-shadow: var(--lift-2);
-}
-.frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: var(--bw); }
-.frame figcaption {
-  font-size: .6875rem;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: var(--s2) var(--s1) var(--s1);
-}
-@media (max-width: 880px) { .frame img { aspect-ratio: 3 / 2; } }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
-  gap: 1px;
-  margin-top: var(--s5);
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
-}
-.stats div { background: var(--ink); padding: var(--s3); }
-.section--tint .stats div, .section--deep .stats div { background: var(--surface-1); }
-.stats dt {
-  font-size: .6875rem;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--sand);
-  margin-bottom: .35rem;
-}
-.stats dd {
-  margin: 0;
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: 1.375rem;
-  text-transform: uppercase;
-  letter-spacing: -.012em;
-  line-height: 1.1;
-}
-
-/* ── Quote ──────────────────────────────────────────────────── */
-.quote {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: end;
-  border-left: 3px solid var(--blood);
-  padding-left: clamp(1.25rem, 3vw, 2.5rem);
-}
-.quote blockquote {
-  margin: 0;
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: clamp(1.35rem, .95rem + 2vw, 2.6rem);
-  line-height: 1.1;
-  letter-spacing: -.02em;
-}
-.quote footer { font-size: .8125rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); margin-top: var(--s3); }
-@media (max-width: 880px) {
-  .quote { grid-template-columns: minmax(0, 1fr); align-items: start; }
-}
-
-/* ── Training tiles — photograph + stencil label ────────────── */
-.tt-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s3) var(--s2);
-}
-@media (max-width: 700px) { .tt-grid { grid-template-columns: minmax(0, 1fr); } }
-
-.tt-item { display: grid; gap: var(--s2); align-content: start; }
-
-.tt {
-  position: relative;
-  display: block;
-  margin: 0; /* figure's UA 40px inline margin would inset the tile */
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--surface-2);
-  border: 1px solid var(--hairline);
-  box-shadow: var(--lift-1);
-  /* label scales to the tile, not the viewport — a 2-col and a 1-col
-     tile are very different widths at the same breakpoint */
-  container-type: inline-size;
-  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-@media (max-width: 700px) { .tt { aspect-ratio: 16 / 10; } }
-
-.tt img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: var(--bw);
-  transition: transform .7s var(--ease);
-}
-.tt::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  /* flat scrim + foot gradient: keeps --paper above 4.5:1 even where the
-     photograph blows out to white behind the label */
-  background:
-    linear-gradient(180deg, rgba(6, 4, 4, .38) 0%, rgba(6, 4, 4, .06) 38%, rgba(6, 4, 4, .9) 100%),
-    color-mix(in srgb, var(--ink) 24%, transparent);
-  transition: opacity var(--dur) var(--ease);
-}
-.tt h3 {
-  position: absolute;
-  z-index: 1;
-  left: clamp(.85rem, 4.4cqi, 1.75rem);
-  right: clamp(.85rem, 4.4cqi, 1.75rem);
-  bottom: clamp(.6rem, 3.4cqi, 1.4rem);
-  margin: 0;
-  font-size: 2rem; /* fallback where cqi is unsupported */
-  font-size: clamp(1.5rem, 8.4cqi, 3.1rem);
-  line-height: .94;
-  letter-spacing: -.005em;
-  color: var(--paper);
-  text-shadow: 0 2px 20px rgba(6, 4, 4, .8);
-  transition: color var(--dur) var(--ease);
-}
-
-/* Tiles are not links — there is nothing to activate — so this is pointer
-   affordance only. :focus-within is carried for parity if a focusable
-   child is ever added. */
-.tt-item:hover .tt, .tt-item:focus-within .tt { border-color: var(--hairline-strong); box-shadow: var(--lift-2); }
-.tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: scale(1.055); }
-.tt-item:hover .tt h3, .tt-item:focus-within .tt h3 { color: var(--blood); }
-.tt-item:hover .tt::after, .tt-item:focus-within .tt::after { opacity: .9; }
-
-.tt-item p {
-  margin: 0;
-  font-size: .9375rem;
-  line-height: 1.55;
-  color: var(--muted);
-  max-width: 48ch;
-}
-
-/* ── Full-bleed photo bands ─────────────────────────────────── */
-.band {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: clamp(19rem, 54vh, 34rem);
-  display: grid;
-  align-items: end;
-  border-block: 1px solid var(--hairline);
-}
-.band img {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: var(--bw);
-}
-.band::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(6, 4, 4, .62) 0%, rgba(6, 4, 4, .28) 30%, rgba(6, 4, 4, .56) 60%, rgba(6, 4, 4, .95) 100%);
-}
-/* per-band framing: the crop is doing real work, not decoration */
-.band--fight img { object-position: 50% 8%; }
-.band--beach img { object-position: 50% 70%; }
-.band-line {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: clamp(1.5rem, .88rem + 2.95vw, 3.5rem);
-  line-height: 1.02;
-  letter-spacing: -.022em;
-  margin: 0;
-  max-width: 16ch;
-  padding-block: var(--s5);
-  text-wrap: balance;
-  text-shadow: 0 10px 36px rgba(6, 4, 4, .75);
-}
-/* same red rule the hero and every eyebrow use — the bands are part of
-   that system, not a new decoration */
-.band-line::before {
-  content: '';
-  display: block;
-  width: clamp(2rem, 7vw, 5rem);
-  height: 3px;
-  background: var(--blood);
-  margin-bottom: var(--s3);
-}
-
-/* ── Week strip — real opening pattern, Friday is closed ────── */
-.week {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--hairline);
-  border: 1px solid var(--hairline);
-  margin-bottom: var(--s3);
-}
-.week div {
-  background: var(--surface-2);
-  padding: var(--s3) var(--s1);
-  text-align: center;
-}
-.week b {
-  display: block;
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: clamp(.8125rem, .68rem + .6vw, 1.15rem);
-  text-transform: uppercase;
-  letter-spacing: -.005em;
-}
-.week small {
-  display: block;
-  font-size: .625rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: .3rem;
-}
-.week .closed { background: color-mix(in srgb, var(--blood) 16%, var(--surface-2)); }
-.week .closed b { color: var(--blood); text-decoration: line-through; text-decoration-thickness: 2px; }
-.week .closed small { color: var(--muted); }
-@media (max-width: 560px) {
-  .week div { padding-inline: 0; }
-  .week small { font-size: .5rem; letter-spacing: .03em; }
-}
-
-.panel {
-  background: var(--surface-2);
-  border: 1px solid var(--hairline);
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  box-shadow: var(--lift-2);
-}
-.panel h3 { font-size: 1.625rem; margin-bottom: var(--s3); }
-
-.rows { border-top: 1px solid var(--hairline); }
-.rows > div {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--s2);
-  justify-content: space-between;
-  padding: var(--s3) 0;
-  border-bottom: 1px solid var(--hairline);
-}
-.rows strong { font-weight: 700; font-size: .9375rem; letter-spacing: .06em; text-transform: uppercase; }
-.rows p { font-size: .875rem; color: var(--muted); margin: .2rem 0 0; flex-basis: 100%; }
-
-/* ── Gallery ────────────────────────────────────────────────── */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-flow: dense; /* wide tiles must not leave holes */
-  gap: var(--s2);
-}
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-.tile {
-  position: relative;
-  padding: 0;
-  border: 0;
-  background: var(--surface-2);
-  cursor: pointer;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: block;
-  transition: box-shadow var(--dur) var(--ease);
-}
-.tile.wide { grid-column: span 2; aspect-ratio: 2 / 1; }
-@media (max-width: 900px) { .tile.wide { grid-column: span 2; aspect-ratio: 3 / 2; } }
-.tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .6s var(--ease);
-  filter: var(--bw);
-}
-.tile::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(6, 4, 4, .72));
-  opacity: .75;
-  transition: opacity var(--dur) var(--ease);
-}
-.tile span {
-  position: absolute;
-  left: var(--s2);
-  right: var(--s2);
-  bottom: var(--s2);
-  z-index: 1;
-  font-size: .625rem;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.tile:hover img, .tile:focus-visible img { transform: scale(1.06); }
-.tile:hover::after, .tile:focus-visible::after { opacity: 1; }
-.tile:hover span, .tile:focus-visible span { opacity: 1; transform: translateY(0); }
-.tile:active img { transform: scale(1.02); }
-
-/* lightbox */
-dialog.lb {
-  border: 0;
-  padding: 0;
-  background: transparent;
-  max-width: 100vw;
-  max-height: 100vh;
-  width: 100%;
-  height: 100%;
-  color: var(--paper);
-  overflow: hidden;
-}
-dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
-.lb-inner {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: var(--s3);
-  padding: clamp(3.5rem, 6vw, 4.5rem) var(--gutter) var(--s4);
-  place-items: center;
-}
-.lb-inner img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
-  box-shadow: var(--lift-2);
-  /* the one place colour comes back */
-  filter: none;
-}
-.lb-bar {
-  display: flex;
-  align-items: center;
-  gap: var(--s3);
-  flex-wrap: wrap;
-  justify-content: center;
-  text-align: center;
-}
-.lb-bar p {
-  margin: 0;
-  font-size: .8125rem;
-  letter-spacing: .04em;
-  color: var(--muted);
-  max-width: 52ch;
-}
-.icon-btn {
-  width: 2.75rem;
-  height: 2.75rem;
-  display: grid;
-  place-items: center;
-  background: var(--surface-2);
-  color: var(--paper);
-  border: 1px solid var(--hairline-strong);
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.icon-btn svg { width: 1.15rem; height: 1.15rem; }
-.icon-btn:hover { background: var(--blood); border-color: var(--blood); }
-.icon-btn:active { transform: scale(.94); }
-.lb-close { position: absolute; top: var(--s3); right: var(--gutter); z-index: 2; }
-
-/* ── Location ───────────────────────────────────────────────── */
-.locate { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
-@media (max-width: 880px) { .locate { grid-template-columns: minmax(0, 1fr); } }
-
-.pin-list { display: grid; gap: var(--s3); margin-bottom: var(--s4); }
-.pin-list > div { display: flex; gap: var(--s3); align-items: flex-start; }
-.pin-list svg { width: 1.35rem; height: 1.35rem; color: var(--blood); flex: none; margin-top: .3rem; }
-.pin-list dt {
-  font-size: .6875rem;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: .2rem;
-}
-.pin-list dd { margin: 0; }
-
-.map-card {
-  position: relative;
-  display: block;
-  border: 1px solid var(--hairline);
-  overflow: hidden;
-  box-shadow: var(--lift-2);
-  text-decoration: none;
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-.map-card img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; filter: var(--bw) brightness(.74); }
-.map-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(70% 60% at 50% 45%, color-mix(in srgb, var(--midnight) 30%, transparent), rgba(6, 4, 4, .84));
-}
-.map-card-body {
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 1;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--s3);
-  flex-wrap: wrap;
-}
-.map-card b {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.125rem, .95rem + .95vw, 1.6rem);
-  text-transform: uppercase;
-  display: block;
-  line-height: 1.05;
-  letter-spacing: -.012em;
-}
-.map-card small { font-size: .75rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--sand); }
-.map-card .go {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--paper);
-  border-bottom: 2px solid var(--blood);
-  padding-bottom: .2rem;
-  transition: color var(--dur) var(--ease);
-}
-.map-card .go svg { width: 1rem; height: 1rem; }
-.map-card:hover { transform: translateY(-3px); border-color: var(--hairline-strong); box-shadow: var(--lift-2), 0 0 0 1px color-mix(in srgb, var(--blood) 40%, transparent); }
-.map-card:hover .go { color: var(--blood); }
-.map-card:active { transform: translateY(0); }
-
-/* ── Footer ─────────────────────────────────────────────────── */
-.foot { background: var(--ink); padding-block: var(--s6) calc(var(--s6) + 3rem); }
-.foot-top { display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between; align-items: flex-start; }
-.foot img { width: 84px; height: 84px; }
-.foot .pairing {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.05rem, .95rem + .62vw, 1.4rem);
-  text-transform: uppercase;
-  letter-spacing: -.015em;
-  line-height: 1.14;
-  margin: var(--s3) 0 var(--s2);
-  max-width: 16ch;
-}
-.foot .pairing em { font-style: normal; color: var(--blood); }
-
-.socials { display: flex; gap: var(--s2); margin-top: var(--s3); }
-.socials a {
-  width: 2.75rem;
-  height: 2.75rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--hairline);
-  color: var(--paper);
-  border-radius: 2px;
-  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.socials svg { width: 1.15rem; height: 1.15rem; }
-.socials a:hover { background: var(--blood); border-color: var(--blood); transform: translateY(-2px); }
-.socials a:active { transform: translateY(0); background: var(--rust); }
-
-.foot-links { display: grid; gap: var(--s2); }
-.foot-links a {
-  font-size: .8125rem;
-  font-weight: 700;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--muted);
-  width: fit-content;
-  border-bottom: 1px solid transparent;
-  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), opacity var(--dur) var(--ease);
-}
-.foot-links a:hover { color: var(--paper); border-bottom-color: var(--blood); }
-.foot-links a:active { opacity: .7; }
-
-.colophon {
-  margin-top: var(--s5);
-  padding-top: var(--s3);
-  border-top: 1px solid var(--hairline);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s3);
-  justify-content: space-between;
-  font-size: .75rem;
-  letter-spacing: .06em;
-  color: var(--sand);
-}
-
-/* ── Sticky WhatsApp ────────────────────────────────────────── */
-.fab {
-  position: fixed;
-  left: 50%;
-  bottom: max(var(--s3), env(safe-area-inset-bottom));
-  z-index: 55;
-  display: flex;
-  align-items: center;
-  gap: .25rem;
-  padding: .3rem;
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--lift-2), 0 18px 40px -18px rgba(6, 4, 4, .95);
-  opacity: 0;
-  transform: translate(-50%, 120%);
-  pointer-events: none;
-  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.fab.show {
-  opacity: 1;
-  transform: translate(-50%, 0);
-  pointer-events: auto;
-}
-.fab a {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
-  font-size: .75rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  text-decoration: none;
-  padding: .55rem .7rem;
-  border-radius: 999px;
-  transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.fab a:hover { color: var(--paper); }
-.fab a:focus-visible { outline: 2px solid var(--blood); outline-offset: -2px; }
-.fab a:active { transform: scale(.95); }
-.fab .fab-book {
-  color: var(--paper);
-  background: var(--blood);
-  padding: .55rem 1rem;
-  box-shadow: var(--lift-blood);
-}
-.fab .fab-book:hover { background: var(--rust); color: var(--paper); }
-@media (max-width: 430px) {
-  .fab a { font-size: .68rem; letter-spacing: .03em; padding: .5rem .45rem; }
-  .fab .fab-book { padding: .5rem .7rem; }
-}
-@media (max-width: 360px) {
-  .fab a { font-size: .64rem; letter-spacing: .015em; padding: .5rem .35rem; }
-  .fab .fab-book { padding: .5rem .55rem; }
-}
-
-
-/* ── Short screens (laptops): every panel fits the viewport ──── */
-@media (min-width: 561px) and (max-height: 940px) {
-  .hero { padding-block: 5.5rem var(--s3); }
-  .poster { gap: var(--s3); }
-  .poster-type { font-size: clamp(3rem, 7.6vh, 5.2rem); }
-  .lead { font-size: 1.05rem; line-height: 1.5; }
-  .hero p { max-width: 52ch; }
-  :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
-  .band { min-height: clamp(15rem, 44vh, 26rem); }
-}
-@media (min-width: 561px) and (max-height: 800px) {
-  .hero { padding-block: 4.5rem var(--s3); }
-  .poster-type { font-size: clamp(2.8rem, 7vh, 4.6rem); }
-}
-
-/* ── Motion ─────────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(22px); }
-.reveal.in {
-  opacity: 1;
-  transform: none;
-  transition: opacity .7s var(--ease), transform .7s var(--ease);
-}
-.reveal.d1.in { transition-delay: .08s; }
-.reveal.d2.in { transition-delay: .16s; }
-.reveal.d3.in { transition-delay: .24s; }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
-  /* the tile/gallery zoom is motion, not affordance — the label colour,
-     scrim and border still carry the hover state */
-  .tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: none; }
-  .tile:hover img, .tile:focus-visible img, .tile:active img { transform: none; }
-  *, *::before, *::after {
-    animation-duration: .001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .001ms !important;
-  }
-}
-</style>
-<noscript><style>.reveal{opacity:1;transform:none}.fab{opacity:1;transform:translate(-50%,0);pointer-events:auto}</style></noscript>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/favicon.svg">
+<link rel="preload" href="/assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/img/hero-champ.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
-
 <a class="skip" href="#main">Skip to content</a>
-
-<!-- ─── Nav ─────────────────────────────────────────────────── -->
 <nav class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Thewaritnoi Krabi Muaythai — back to top">
-    <img src="assets/logo-fighter.svg" alt="" width="26" height="46">
+  <a class="brand" href="/" aria-label="Thewaritnoi Krabi Muaythai — home">
+    <img src="/assets/logo-fighter.svg" alt="" width="26" height="46">
   </a>
-  <a class="nav-word" href="#top" tabindex="-1" aria-hidden="true">
-    <img src="assets/logo-wordmark.svg" alt="" width="179" height="46">
+  <a class="nav-word" href="/" tabindex="-1" aria-hidden="true">
+    <img src="/assets/logo-wordmark.svg" alt="" width="179" height="46">
   </a>
-  <button class="burger" type="button" aria-label="Menu — coming soon" aria-expanded="false">
+  <div class="nav-links">
+      <a href="/training/">Training</a>
+      <a href="/stay/">Stay</a>
+      <a href="/gallery/">Gallery</a>
+      <a href="/find-us/">Find us</a>
+      <a class="nav-book" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">Book</a>
+  </div>
+  <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navmenu">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
   </button>
 </nav>
 
+<div class="navmenu" id="navmenu" hidden>
+  <button class="navmenu-close" type="button" aria-label="Close menu">&times;</button>
+    <a href="/" aria-current="page">Home</a>
+    <a href="/training/">Training</a>
+    <a href="/stay/">Stay</a>
+    <a href="/gallery/">Gallery</a>
+    <a href="/find-us/">Find us</a>
+    <a href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">Book a session</a>
+</div>
+
 <main id="main">
 <a id="top"></a>
 
-<!-- ─── Hero ────────────────────────────────────────────────── -->
 <header class="hero">
   <div class="hero-media">
-    <img src="assets/img/hero-champ.webp" alt="Thewaritnoi holds pads for a fighter in the Krabi Lion ring." fetchpriority="high" width="2200" height="1228">
+    <img src="/assets/img/hero-champ.webp" alt="Thewaritnoi holds pads for a fighter in the Krabi Lion ring." fetchpriority="high" width="2200" height="1228">
   </div>
 
   <div class="shell poster">
@@ -1158,7 +84,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
         Book a session
       </a>
-      <a class="btn btn--ghost" href="#train">See training</a>
+      <a class="btn btn--ghost" href="/training/">See prices</a>
     </div>
   </div>
 
@@ -1169,6 +95,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 <div class="ropes"></div>
 
 <!-- ─── The gym ─────────────────────────────────────────────── -->
+
 <section class="section" id="gym">
   <div class="shell split">
     <div>
@@ -1207,7 +134,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
     </div>
 
     <figure class="frame reveal d1" style="margin:0">
-      <img src="assets/img/gym-mural-heavybag-04-sm.webp" alt="A heavy bag hanging in front of the gym's hand-painted lion mural." loading="lazy" width="800" height="1000">
+      <img src="/assets/img/gym-mural-heavybag-04-sm.webp" alt="A heavy bag hanging in front of the gym's hand-painted lion mural." loading="lazy" width="800" height="1000">
       <figcaption>The lion mural on the training floor</figcaption>
     </figure>
   </div>
@@ -1215,13 +142,14 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 
 <!-- ─── Band 1 ──────────────────────────────────────────────── -->
 <div class="band band--fight">
-  <img src="assets/img/fight-punch-exchange-03.webp" alt="Two fighters trading punches at range in the ring, the referee and a packed crowd behind them." loading="lazy" decoding="async" width="1080" height="720">
+  <img src="/assets/img/fight-punch-exchange-03.webp" alt="Two fighters trading punches at range in the ring, the referee and a packed crowd behind them." loading="lazy" decoding="async" width="1080" height="720">
   <div class="shell">
     <p class="band-line reveal">First day or tenth fight, same coaches.</p>
   </div>
 </div>
 
 <!-- ─── Quote ───────────────────────────────────────────────── -->
+
 <section class="section section--tint section--slim">
   <div class="shell">
     <figure class="quote reveal" style="margin:0">
@@ -1237,266 +165,51 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 <div class="ropes"></div>
 
 <!-- ─── Training ────────────────────────────────────────────── -->
-<section class="section" id="train">
+
+
+<!-- ─── Where to next ───────────────────────────────────────── -->
+<section class="section" id="routes">
   <div class="shell">
     <div class="head">
-      <p class="eyebrow reveal">Training</p>
-      <h2 class="reveal">What a round here<br>actually looks like</h2>
-      <p class="lead reveal d1">Warm-up, technique, then pads until the coach is satisfied. Clinch and sparring when you are ready for them — never before.</p>
+      <p class="eyebrow reveal">Where to next</p>
+      <h2 class="reveal" style="margin-bottom:var(--s4)">Prices, rooms,<br>photos and the map</h2>
     </div>
-
-    <div class="tt-grid">
-      <article class="tt-item reveal">
-        <figure class="tt">
-          <img src="assets/img/training-dynamic-kick-02-sm.webp" alt="A fighter lands a full-extension roundhouse kick on the coach's Thai pads, lit from the side." loading="lazy" decoding="async" width="800" height="800">
-          <h3>Pad work</h3>
-        </figure>
-        <p>One-to-one with a coach. Combinations called until the shape is right — the core of every session.</p>
-      </article>
-
-      <article class="tt-item reveal d1">
-        <figure class="tt">
-          <img src="assets/img/fight-clinch-stadium-01-sm.webp" alt="Two fighters locked in a clinch exchange as the referee steps in." loading="lazy" decoding="async" width="800" height="533">
-          <h3>Clinch &amp; sparring</h3>
-        </figure>
-        <p>The part you cannot learn from a video. Partners at your level, supervised the whole way.</p>
-      </article>
-
-      <article class="tt-item reveal d2">
-        <figure class="tt">
-          <img src="assets/img/gym-mural-heavybag-04-sm.webp" alt="A heavy bag hanging in front of the gym's hand-painted lion mural." loading="lazy" decoding="async" width="800" height="800">
-          <h3>Bags &amp; conditioning</h3>
-        </figure>
-        <p>Bag rounds, skipping, bodyweight and core work. Push at your own pace on a quiet afternoon.</p>
-      </article>
-
-      <article class="tt-item reveal d3">
-        <figure class="tt">
-          <img src="assets/img/training-beach-padwork-05-sm.webp" alt="A fighter lands a high kick on pads held by a partner on the beach, karst islands behind." loading="lazy" decoding="async" width="800" height="533">
-          <h3>Beach &amp; rooftop</h3>
-        </figure>
-        <p>Sunrise drills on the sand, pad rounds on the rooftop ring under the flags. Krabi is part of the training.</p>
-      </article>
-    </div>
-
-    <div class="split" style="margin-top:var(--s6)">
-      <div class="panel reveal">
-        <h3>When we train</h3>
-        <div class="week">
-          <div><b>Mon</b><small>Open</small></div>
-          <div><b>Tue</b><small>Open</small></div>
-          <div><b>Wed</b><small>Open</small></div>
-          <div><b>Thu</b><small>Open</small></div>
-          <div class="closed"><b>Fri</b><small>Closed</small></div>
-          <div><b>Sat</b><small>Open</small></div>
-          <div><b>Sun</b><small>Open</small></div>
-        </div>
-        <p class="muted" style="font-size:.9375rem">The gym is open <strong>08:00–20:00</strong>, Saturday through Thursday. Closed every Friday.</p>
-        <p style="margin-top:var(--s3)">
-          <span class="confirm confirm--block">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-            <i>【CONFIRM: daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open】</i>
-          </span>
-        </p>
-      </div>
-
-      <div class="panel reveal d1">
-        <h3>What it costs</h3>
-        <div class="rows">
-          <div>
-            <strong>Single session</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: single session price】</i>
-            </span>
-          </div>
-          <div>
-            <strong>Weekly package</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: weekly package price】</i>
-            </span>
-          </div>
-          <div>
-            <strong>Monthly package</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: monthly package price】</i>
-            </span>
-          </div>
-          <div>
-            <strong>Private one-to-one</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: private session price】</i>
-            </span>
-          </div>
-        </div>
-        <p class="muted" style="font-size:.9375rem; margin-top:var(--s3)">Message us on WhatsApp for current prices and to reserve your place. Advance reservation is required.</p>
-        <p style="margin-top:var(--s3)">
-          <a class="btn" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20could%20you%20send%20me%20your%20training%20prices%3F" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-            Ask for prices
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Band 2 ──────────────────────────────────────────────── -->
-<div class="band band--beach">
-  <img src="assets/img/training-beach-silhouette-04.webp" alt="Fighters doing knee-raise drills on the beach at sunrise, karst islands and longtail boats behind." loading="lazy" decoding="async" width="1080" height="720">
-  <div class="shell">
-    <p class="band-line reveal">The sand counts as conditioning.</p>
-  </div>
-</div>
-
-<!-- ─── Stay ────────────────────────────────────────────────── -->
-<section class="section section--deep" id="stay">
-  <div class="shell split">
-    <div>
-      <p class="eyebrow reveal">Stay at the gym</p>
-      <h2 class="head reveal" style="margin-bottom:var(--s4)">Sleep where<br>you train</h2>
-      <p class="lead reveal d1">Two ways to stay on site, both with gym access. Places are limited and advance reservation is required.</p>
-
-      <div class="panel reveal d2" style="margin-top:var(--s4)">
-        <div class="rows" style="border-top:0">
-          <div>
-            <strong>Private bedroom</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: private bedroom nightly rate】</i>
-            </span>
-            <p>Your own bedroom, bathroom shared between three people. Gym access included.</p>
-          </div>
-          <div>
-            <strong>Private house</strong>
-            <span class="confirm">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-              <i>【CONFIRM: private house nightly rate】</i>
-            </span>
-            <p>One bedroom, living room, kitchen and bathroom to yourself. Only a limited number available.</p>
-          </div>
-        </div>
-        <p style="margin-top:var(--s3)">
-          <a class="btn" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20I%27d%20like%20to%20ask%20about%20accommodation%20at%20the%20gym." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-            Ask about rooms
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <figure class="frame reveal d1" style="margin:0">
-      <img src="assets/img/event-string-lights-02-sm.webp" alt="The team gathered in the evening under string lights and paper lanterns." loading="lazy" width="800" height="1000">
-      <figcaption>Evenings at the gym</figcaption>
-    </figure>
-  </div>
-</section>
-
-<div class="ropes"></div>
-
-<!-- ─── Gallery ─────────────────────────────────────────────── -->
-<section class="section" id="gallery">
-  <div class="shell">
-    <div class="head">
-      <p class="eyebrow reveal">Gallery</p>
-      <h2 class="reveal">Fight nights, pad rounds, and the beach at sunrise</h2>
-      <p class="lead reveal d1">Every photo here was taken at our gym or at a card our fighters were on.</p>
-    </div>
-
-    <div class="grid" id="grid"></div>
-  </div>
-</section>
-
-<dialog class="lb" id="lb" aria-label="Photo viewer">
-  <button class="icon-btn lb-close" type="button" data-lb="close" aria-label="Close photo viewer">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-  </button>
-  <div class="lb-inner">
-    <img id="lb-img" alt="">
-    <div class="lb-bar">
-      <button class="icon-btn" type="button" data-lb="prev" aria-label="Previous photo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
-      </button>
-      <p id="lb-cap"></p>
-      <button class="icon-btn" type="button" data-lb="next" aria-label="Next photo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
-      </button>
-    </div>
-  </div>
-</dialog>
-
-<div class="ropes"></div>
-
-<!-- ─── Find us ─────────────────────────────────────────────── -->
-<section class="section section--tint" id="find">
-  <div class="shell locate">
-    <div>
-      <p class="eyebrow reveal">Find us</p>
-      <h2 class="head reveal" style="margin-bottom:var(--s4)">Ao Nang,<br>Krabi</h2>
-
-      <dl class="pin-list reveal d1">
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-          <div>
-            <dt>Address</dt>
-            <dd>
-              <span class="confirm confirm--block">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4"/><path d="M12 17h.01"/></svg>
-                <i>【CONFIRM: full street address, and that the Google Maps pin below is the current gym location】</i>
-              </span>
-            </dd>
-          </div>
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg>
-          <div>
-            <dt>Opening hours</dt>
-            <dd>Saturday to Thursday, 08:00–20:00<br><span class="muted">Closed every Friday</span></dd>
-          </div>
-        </div>
-        <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5C4 5.1 5.1 4 6.5 4h1.9c.6 0 1.1.4 1.2 1l.7 3a1.3 1.3 0 0 1-.4 1.3l-1.3 1a12 12 0 0 0 5.1 5.1l1-1.3c.3-.4.8-.5 1.3-.4l3 .7c.6.1 1 .6 1 1.2v1.9c0 1.4-1.1 2.5-2.5 2.5A15.5 15.5 0 0 1 4 6.5Z"/></svg>
-          <div>
-            <dt>Phone &amp; WhatsApp</dt>
-            <dd><a href="tel:+66891984577" style="text-decoration:none;border-bottom:1px solid var(--blood)">+66 89 198 4577</a></dd>
-          </div>
-        </div>
-      </dl>
-
-      <a class="btn reveal d2" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20how%20do%20I%20get%20to%20the%20gym%3F" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-        Ask for directions
+    <div class="routes">
+      <a class="route reveal" href="/training/">
+        <img src="/assets/img/training-pad-coaching-01-sm.webp" alt="" loading="lazy" width="800" height="800">
+        <b>Training</b>
+        <span>Prices, the weekly schedule, and what a round actually looks like.</span>
+        <span class="go">See prices</span>
+      </a>
+      <a class="route reveal d1" href="/stay/">
+        <img src="/assets/img/event-string-lights-02-sm.webp" alt="" loading="lazy" width="800" height="800">
+        <b>Stay</b>
+        <span>Sleep where you train. A private bedroom or the whole house.</span>
+        <span class="go">See rooms</span>
+      </a>
+      <a class="route reveal d2" href="/gallery/">
+        <img src="/assets/img/fight-flying-knee-02-sm.webp" alt="" loading="lazy" width="800" height="800">
+        <b>Gallery</b>
+        <span>Fight nights, pad rounds, and the beach at sunrise.</span>
+        <span class="go">See photos</span>
+      </a>
+      <a class="route reveal d3" href="/find-us/">
+        <img src="/assets/img/gym-floor-wordmark-02-sm.webp" alt="" loading="lazy" width="800" height="800">
+        <b>Find us</b>
+        <span>Ao Nang, Krabi. Opening hours, the pin, and directions.</span>
+        <span class="go">Open the map</span>
       </a>
     </div>
-
-    <a class="map-card reveal d1" href="https://maps.app.goo.gl/nfayyZR3fqpnNMxP9" target="_blank" rel="noopener">
-      <img src="assets/img/gym-training-floor-03.webp" alt="The covered training floor: heavy bags, the ring, and flags overhead." loading="lazy" width="2000" height="1333">
-      <div class="map-card-body">
-        <div>
-          <small>Google Maps</small>
-          <b>Open the pin</b>
-        </div>
-        <span class="go">
-          Get directions
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-        </span>
-      </div>
-    </a>
   </div>
 </section>
 
 </main>
 
-<!-- ─── Footer ──────────────────────────────────────────────── -->
-<div class="strip" aria-hidden="true"></div>
 <footer class="foot">
   <div class="shell">
     <div class="foot-top">
       <div>
-        <img src="assets/logo-mark.svg" alt="Thewaritnoi Krabi Muaythai" width="84" height="84">
+        <img src="/assets/logo-mark.svg" alt="Thewaritnoi Krabi Muaythai" width="84" height="84">
         <p class="pairing">Thewaritnoi<br><em>Krabi Muaythai</em></p>
         <p class="muted" style="font-size:.875rem">Ao Nang, Krabi, Thailand</p>
         <div class="socials">
@@ -1516,11 +229,11 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
       </div>
 
       <nav class="foot-links" aria-label="Footer">
-        <a href="#gym">The gym</a>
-        <a href="#train">Training</a>
-        <a href="#stay">Stay</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#find">Find us</a>
+        <a href="/#gym">The gym</a>
+        <a href="/training/">Training</a>
+        <a href="/stay/">Stay</a>
+        <a href="/gallery/">Gallery</a>
+        <a href="/find-us/">Find us</a>
         <a href="tel:+66891984577">+66 89 198 4577</a>
       </nav>
     </div>
@@ -1533,109 +246,14 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 </footer>
 
 <nav class="fab" aria-label="Quick menu">
-  <a href="#gym">Gym</a>
-  <a href="#train">Train</a>
-  <a href="#stay">Stay</a>
-  <a href="#gallery">Photos</a>
-  <a href="#find">Map</a>
+  <a href="/#gym">Gym</a>
+  <a href="/training/">Train</a>
+  <a href="/stay/">Stay</a>
+  <a href="/gallery/">Photos</a>
+  <a href="/find-us/">Map</a>
   <a class="fab-book" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">Book</a>
 </nav>
 
-<script>
-(() => {
-  'use strict';
-
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  /* ── Gallery data: names and descriptions from brand/library/INDEX.md ── */
-  const photos = [
-    ['training-pad-coaching-01', 'A trainer holds Thai pads while a fighter throws a punch, lit from the side in the gym\'s ring.', true],
-    ['fight-flying-knee-02', 'A fighter airborne with a flying knee against the ropes, the crowd packed behind.'],
-    ['training-beach-silhouette-04', 'Knee-raise drills on the beach at sunrise, karst islands and longtail boats behind.', true],
-    ['portrait-traditional-robe-03', 'A fighter backstage in a traditional red-and-gold robe with a victory garland and mongkol.'],
-    ['training-woman-kick-08', 'A fighter lands a head-height kick on pads under the covered rooftop ring, flags overhead.'],
-    ['gym-handwrap-prep-05', 'A trainer wraps a fighter’s hands ringside before the session.'],
-    ['fight-clinch-stadium-01', 'Two fighters locked in a clinch exchange as the referee steps in.'],
-    ['training-rooftop-kick-07', 'Pad work on the covered rooftop ring, international flags strung from the rafters.'],
-    ['event-string-lights-02', 'The team together in the evening under string lights and paper lanterns.'],
-    ['portrait-victory-referee-04', 'A fighter has her arm raised by the referee in the ring after a win.'],
-    ['training-heavybag-dynamic-10', 'A rear kick thrown at full power, gym-branded shorts in frame.'],
-    ['event-team-celebration-03', 'The whole gym in the ring for a post-fight group photo, the stadium crowd behind.'],
-    ['training-backlit-punch-03', 'A cross thrown into the pads, backlit, the coach calling the next shot.'],
-    ['fight-ring-victory-04', 'The referee raises the winner’s arm, Thai flag banner overhead.'],
-  ];
-
-  const grid = document.getElementById('grid');
-  grid.innerHTML = photos.map(([name, alt, wide], i) => `
-    <button class="tile${wide ? ' wide' : ''}" type="button" data-i="${i}" aria-label="Open photo: ${alt.replace(/"/g, '&quot;')}">
-      <img src="assets/img/${name}-sm.webp" alt="${alt.replace(/"/g, '&quot;')}" loading="lazy" width="800" height="800">
-      <span>${alt.split(/[,.]/)[0]}</span>
-    </button>`).join('');
-
-  /* ── Lightbox ── */
-  const lb = document.getElementById('lb');
-  const lbImg = document.getElementById('lb-img');
-  const lbCap = document.getElementById('lb-cap');
-  let idx = 0;
-
-  const show = (i) => {
-    idx = (i + photos.length) % photos.length;
-    const [name, alt] = photos[idx];
-    lbImg.src = `assets/img/${name}.webp`;
-    lbImg.alt = alt;
-    lbCap.textContent = `${alt}  ·  ${idx + 1} / ${photos.length}`;
-  };
-
-  grid.addEventListener('click', (e) => {
-    const tile = e.target.closest('.tile');
-    if (!tile) return;
-    show(Number(tile.dataset.i));
-    lb.showModal();
-  });
-
-  lb.addEventListener('click', (e) => {
-    const act = e.target.closest('[data-lb]')?.dataset.lb;
-    if (act === 'close') lb.close();
-    else if (act === 'prev') show(idx - 1);
-    else if (act === 'next') show(idx + 1);
-    else if (e.target === lb || e.target.classList.contains('lb-inner')) lb.close();
-  });
-
-  lb.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') { e.preventDefault(); show(idx - 1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); show(idx + 1); }
-  });
-
-  /* ── Nav background on scroll ── */
-  const nav = document.getElementById('nav');
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  /* ── Sticky booking CTA: appears once the hero's own CTA is gone ── */
-  const fab = document.querySelector('.fab');
-  const hero = document.querySelector('.hero');
-  if (fab && hero && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => {
-      fab.classList.toggle('show', !entry.isIntersecting);
-    }, { threshold: 0.25 }).observe(hero);
-  } else if (fab) {
-    fab.classList.add('show');
-  }
-
-  /* ── Scroll reveals ── */
-  const reveals = document.querySelectorAll('.reveal:not(.in)');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    reveals.forEach((el) => el.classList.add('in'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-    reveals.forEach((el) => io.observe(el));
-  }
-})();
-</script>
+<script src="/assets/site.js"></script>
 </body>
 </html>

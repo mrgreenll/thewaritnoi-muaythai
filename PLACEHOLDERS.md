@@ -8,17 +8,21 @@ Delete each marker (and its line here) as the real answer arrives.
 
 ## Open markers
 
-| # | index.html | Confirm |
-|---|---|---|
-| 1 | `index.html:1008` | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. Sits in the "The gym" section where his story should be. |
-| 2 | `index.html:1098` | Daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open. (Opening hours themselves are confirmed: Sat–Thu 08:00–20:00.) |
-| 3 | `index.html:1110` | Single session price |
-| 4 | `index.html:1117` | Weekly package price |
-| 5 | `index.html:1124` | Monthly package price |
-| 6 | `index.html:1131` | Private one-to-one session price |
-| 7 | `index.html:1161` | Nightly rate — private bedroom with shared bathroom (3 people), gym access included |
-| 8 | `index.html:1169` | Nightly rate — private house (1 bedroom, living room, kitchen, bathroom) |
-| 9 | `index.html:1240` | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
+Referenced by page and section — not line number, which goes stale on every edit.
+
+| # | Page | Section | Confirm |
+|---|---|---|---|
+| 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. |
+| 2 | `/training/` | When we train | Daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open. (Opening hours themselves are confirmed: Sat–Thu 08:00–20:00.) |
+| 3 | `/training/` | What it costs | Single session price |
+| 4 | `/training/` | What it costs | Weekly package price |
+| 5 | `/training/` | What it costs | Monthly package price |
+| 6 | `/training/` | What it costs | Private one-to-one session price |
+| 7 | `/stay/` | Sleep where you train | Nightly rate — private bedroom with shared bathroom (3 people), gym access included |
+| 8 | `/stay/` | Sleep where you train | Nightly rate — private house (1 bedroom, living room, kitchen, bathroom) |
+| 9 | `/find-us/` | Address | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
+
+To find one in the source: `grep -rn "CONFIRM" --include=index.html .`
 
 ## Resolved
 
