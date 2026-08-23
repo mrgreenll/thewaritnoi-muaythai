@@ -334,7 +334,7 @@ a { color: inherit; }
   transform: translate(-50%, -50%);
   line-height: 0;
 }
-.nav-word img { height: 30px; width: auto; }
+.nav-word img { height: 44px; width: auto; }
 .burger {
   margin-left: auto;
   display: grid;
@@ -354,7 +354,7 @@ a { color: inherit; }
 .burger:active { transform: scale(.94); }
 @media (max-width: 560px) {
   .brand img { height: 40px; }
-  .nav-word img { height: 24px; }
+  .nav-word img { height: 32px; }
 }
 .brand b {
   font-family: 'Anton', Impact, sans-serif;
@@ -399,25 +399,6 @@ a { color: inherit; }
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 40%; filter: grayscale(1) contrast(1.05) brightness(1.12); }
-.hero-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: color-mix(in srgb, var(--midnight) 34%, transparent);
-  mix-blend-mode: multiply;
-}
-/* red wash burning through the mono photo, Fenriz-style, on the right side */
-.hero-media::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(104deg,
-    transparent 42%,
-    color-mix(in srgb, var(--rust) 38%, transparent) 62%,
-    color-mix(in srgb, var(--blood) 55%, transparent) 86%);
-  mix-blend-mode: color;
-}
 /* gradient divider strip — the brand's signature bar, in reds */
 .strip {
   height: 7px;
@@ -425,17 +406,10 @@ a { color: inherit; }
   margin: 0;
   background: linear-gradient(90deg, var(--rust), var(--blood) 45%, #d96a2b 100%);
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(180deg, rgba(6, 4, 4, .62) 0%, rgba(6, 4, 4, .08) 34%, rgba(6, 4, 4, .78) 82%, var(--ink) 100%),
-    linear-gradient(90deg, rgba(6, 4, 4, .78) 0%, rgba(6, 4, 4, .04) 58%);
-}
 
 .poster { display: grid; gap: var(--s4); }
+.poster-type i, .poster-rule, .lead { text-shadow: 0 2px 18px rgba(6,4,4,.92), 0 1px 4px rgba(6,4,4,.95), 0 0 40px rgba(6,4,4,.6); }
+.hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
   font-family: 'Anton', Impact, sans-serif;
@@ -472,7 +446,8 @@ a { color: inherit; }
 .hero p { max-width: 46ch; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }
 @media (max-width: 560px) {
-  .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .hero-cta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-cta .btn { padding-inline: .6rem; font-size: .78rem; }
 }
 
 @media (max-width: 780px) {
