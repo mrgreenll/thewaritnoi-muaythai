@@ -1045,6 +1045,22 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   .fab .fab-book { padding: .5rem .8rem; }
 }
 
+
+/* ── Short screens (laptops): every panel fits the viewport ──── */
+@media (min-width: 561px) and (max-height: 940px) {
+  .hero { padding-block: 5.5rem var(--s3); }
+  .poster { gap: var(--s3); }
+  .poster-type { font-size: clamp(3rem, 11.5vh, 7.5rem); }
+  .lead { font-size: 1.05rem; line-height: 1.5; }
+  .hero p { max-width: 52ch; }
+  :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
+  .band { min-height: clamp(15rem, 44vh, 26rem); }
+}
+@media (min-width: 561px) and (max-height: 800px) {
+  .hero { padding-block: 4.5rem var(--s3); }
+  .poster-type { font-size: clamp(2.6rem, 10.5vh, 6rem); }
+}
+
 /* ── Motion ─────────────────────────────────────────────────── */
 .reveal { opacity: 0; transform: translateY(22px); }
 .reveal.in {
