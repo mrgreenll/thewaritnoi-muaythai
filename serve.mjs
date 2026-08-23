@@ -14,7 +14,10 @@ const mime = {
 };
 
 const server = createServer(async (req, res) => {
-  let url = req.url === '/' ? '/index.html' : req.url.split('?')[0];
+  let url = req.url.split('?')[0];
+  // Directory requests resolve to their index.html, matching how Vercel
+  // serves /training/ from training/index.html.
+  if (url.endsWith('/')) url += 'index.html';
   const filePath = join(__dirname, decodeURIComponent(url));
   const contentType = mime[extname(filePath).toLowerCase()] || 'application/octet-stream';
   try {
@@ -22,6 +25,14 @@ const server = createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': contentType });
     res.end(data);
   } catch {
+    // Extensionless path: try it as a directory index (/training -> /training/).
+    if (!extname(filePath)) {
+      try {
+        const data = await readFile(join(filePath, 'index.html'));
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        return res.end(data);
+      } catch { /* fall through */ }
+    }
     res.writeHead(404);
     res.end('Not found');
   }
