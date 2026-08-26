@@ -432,7 +432,7 @@ a { color: inherit; }
   font-family: 'Anton', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(4.5rem, 8.6vw, 8rem);
+  font-size: clamp(4.5rem, 11.2vw, 10.5rem);
   line-height: 1.04;
   letter-spacing: .005em;
   word-spacing: .02em;
@@ -1038,7 +1038,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 @media (min-width: 561px) and (max-height: 940px) {
   .hero { padding-block: 5.5rem var(--s3); }
   .poster { gap: var(--s3); }
-  .poster-type { font-size: clamp(3.2rem, 8vh, 5.4rem); }
+  .poster-type { font-size: clamp(4rem, 11.5vh, 8.5rem); }
   .lead { font-size: 1.05rem; line-height: 1.5; }
   .hero p { max-width: 52ch; }
   :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
@@ -1046,7 +1046,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 @media (min-width: 561px) and (max-height: 800px) {
   .hero { padding-block: 4.5rem var(--s3); }
-  .poster-type { font-size: clamp(3rem, 7.4vh, 4.8rem); }
+  .poster-type { font-size: clamp(3.6rem, 10.5vh, 7rem); }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */
