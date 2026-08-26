@@ -75,9 +75,10 @@ Usage rules:
 
 ## Typography
 
-Hero headline: **Lemon Milk Bold** (`assets/fonts/lemon-milk-bold.woff2`) —
-the home hero only, Leo's pick 2026-08-26. ⚠️ Lemon Milk is free for
-personal use; commercial use needs a license from the foundry (marsnev).
+Hero headline: **Archivo Black** (`assets/fonts/archivo-black.woff2`) —
+the home hero only. Leo's pick 2026-08-26 after Lemon Milk was dropped
+over its personal-use-only license. Archivo Black is OFL — free for
+commercial use. Single-weight face: always `font-weight: 400`.
 
 Display: **Space Grotesk** — all other headings, ALL CAPS, weight 700 (its heaviest).
 Chosen 2026-08-23. Its squared bowls and cut counters read mechanical

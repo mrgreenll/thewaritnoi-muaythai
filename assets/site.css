@@ -11,11 +11,11 @@
 }
 
 @font-face {
-  font-family: 'Lemon Milk';
+  font-family: 'Archivo Black';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/lemon-milk-bold.woff2') format('woff2');
+  src: url('/assets/fonts/archivo-black.woff2') format('woff2');
 }
 
 @font-face {
@@ -416,17 +416,19 @@ a { color: inherit; }
 .hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
-  /* Hero headline only — Lemon Milk Bold (Leo, 2026-08-26). Rest of the
-     display type stays Space Grotesk. */
-  font-family: 'Lemon Milk', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
-  font-weight: 700;
+  /* Hero headline only — Archivo Black (Leo, 2026-08-26; free commercial
+     license). Single-weight black face: weight stays 400, anything else
+     faux-bolds it. Rest of the display type stays Space Grotesk. */
+  font-family: 'Archivo Black', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(4.5rem, 6.4vw, 5.5rem);
-  line-height: .98;
-  letter-spacing: -.028em;
+  font-size: clamp(3.6rem, 5.3vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: 0;
   word-spacing: .02em;
   margin: 0;
-  max-width: 14ch;
+  /* Archivo Black is wide — "With the Champ." overruns a 14ch box at any size */
+  max-width: 17ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
 }
 /* masked line-rise on load, Fenriz-style */
@@ -464,7 +466,7 @@ a { color: inherit; }
 
 @media (max-width: 900px) {
   /* Lemon Milk runs wide — size so "With the Champ." holds one line on phones */
-  .poster-type { font-size: clamp(1.9rem, 7vw, 4.5rem); line-height: 1.04; letter-spacing: -.01em; }
+  .poster-type { font-size: clamp(1.75rem, 6.4vw, 4.2rem); line-height: 1.06; letter-spacing: -.01em; }
 }
 .hero p { max-width: 46ch; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }
@@ -1083,7 +1085,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 @media (min-width: 561px) and (max-height: 940px) {
   .hero { padding-block: 5.5rem var(--s3); }
   .poster { gap: var(--s3); }
-  .poster-type { font-size: clamp(3rem, 7.6vh, 5.2rem); }
+  .poster-type { font-size: clamp(2.6rem, 6.6vh, 4.4rem); }
   .lead { font-size: 1.05rem; line-height: 1.5; }
   .hero p { max-width: 52ch; }
   :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
@@ -1091,7 +1093,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 @media (min-width: 561px) and (max-height: 800px) {
   .hero { padding-block: 4.5rem var(--s3); }
-  .poster-type { font-size: clamp(2.8rem, 7vh, 4.6rem); }
+  .poster-type { font-size: clamp(2.4rem, 6.1vh, 4rem); }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */
