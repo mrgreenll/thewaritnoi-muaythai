@@ -378,7 +378,9 @@ a { color: inherit; }
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
 
-.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 38% 30%; }
+/* Crop favours the right of the frame: Thewaritnoi on the pads — the champ
+   the headline names. At 38% the window sat on the poster wall instead. */
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 90% 30%; }
 /* gradient divider strip — the brand's signature bar, in reds */
 .strip {
   height: 7px;
