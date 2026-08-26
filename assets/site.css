@@ -377,14 +377,16 @@ a { color: inherit; }
   isolation: isolate;
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
-/* Scrim: the photo alone can't guarantee legible text — on phones the crop
-   puts bright pads and banners behind the lead. Same device the sub-page
-   headers already use. */
-.hero-media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(6,4,4,.55) 0%, rgba(6,4,4,.28) 30%, rgba(6,4,4,.62) 62%, rgba(6,4,4,.9) 100%);
+/* Scrim — PHONES/TABLETS ONLY. On small screens the crop puts bright pads
+   and banners behind the lead text. Desktop is untouched by explicit
+   instruction (Leo, 2026-08-26): photo as shot, no overlay. */
+@media (max-width: 1023px) {
+  .hero-media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6,4,4,.55) 0%, rgba(6,4,4,.28) 30%, rgba(6,4,4,.62) 62%, rgba(6,4,4,.9) 100%);
+  }
 }
 
 /* Crop favours the right of the frame: Thewaritnoi on the pads — the champ
