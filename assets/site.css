@@ -11,11 +11,11 @@
 }
 
 @font-face {
-  font-family: 'Archivo Black';
+  font-family: 'Anton';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/assets/fonts/archivo-black.woff2') format('woff2');
+  src: url('/assets/fonts/anton-latin.woff2') format('woff2');
 }
 
 @font-face {
@@ -427,18 +427,17 @@ a { color: inherit; }
 .hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
-  /* Hero headline only — Archivo Black (Leo, 2026-08-26; free commercial
-     license). Single-weight black face: weight stays 400, anything else
-     faux-bolds it. Rest of the display type stays Space Grotesk. */
-  font-family: 'Archivo Black', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  /* Hero headline only — Anton (Leo, 2026-08-26): tall, heavy, tight,
+     matching the condensed poster reference. Single-weight face, keep 400.
+     Rest of the display type stays Space Grotesk. */
+  font-family: 'Anton', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(3.6rem, 5.3vw, 4.6rem);
+  font-size: clamp(4.5rem, 6.6vw, 6rem);
   line-height: 1.04;
-  letter-spacing: 0;
+  letter-spacing: .005em;
   word-spacing: .02em;
   margin: 0;
-  /* Archivo Black is wide — "With the Champ." overruns a 14ch box at any size */
   max-width: 17ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
 }
@@ -1040,7 +1039,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 @media (min-width: 561px) and (max-height: 940px) {
   .hero { padding-block: 5.5rem var(--s3); }
   .poster { gap: var(--s3); }
-  .poster-type { font-size: clamp(2.6rem, 6.6vh, 4.4rem); }
+  .poster-type { font-size: clamp(3.2rem, 8vh, 5.4rem); }
   .lead { font-size: 1.05rem; line-height: 1.5; }
   .hero p { max-width: 52ch; }
   :root { --pad-section: clamp(3.5rem, 9vh, 5.5rem); }
@@ -1048,7 +1047,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 @media (min-width: 561px) and (max-height: 800px) {
   .hero { padding-block: 4.5rem var(--s3); }
-  .poster-type { font-size: clamp(2.4rem, 6.1vh, 4rem); }
+  .poster-type { font-size: clamp(3rem, 7.4vh, 4.8rem); }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */
@@ -1374,10 +1373,6 @@ body.menu-open { overflow: hidden; }
   .hero-media::after {
     background: linear-gradient(180deg, rgba(6,4,4,.42) 0%, rgba(6,4,4,.1) 26%, rgba(6,4,4,.55) 55%, rgba(6,4,4,.94) 100%);
   }
-  .poster-type { max-width: none; letter-spacing: 0; }
-
-  .poster-type i:nth-of-type(1) { font-size: 13.2vw; line-height: 1.02; }
-  .poster-type i:nth-of-type(2) { font-size: 8.15vw; line-height: 1.22; }
-  .poster-type i:nth-of-type(3) { font-size: 10.15vw; line-height: 1.08; }
+  .poster-type { max-width: none; font-size: 12.6vw; line-height: 1.04; letter-spacing: .005em; }
   .hero .lead { font-size: .9375rem; line-height: 1.55; }
 }
