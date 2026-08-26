@@ -11,6 +11,14 @@
 }
 
 @font-face {
+  font-family: 'Lemon Milk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/assets/fonts/lemon-milk-bold.woff2') format('woff2');
+}
+
+@font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100 900;
@@ -408,7 +416,10 @@ a { color: inherit; }
 .hero .btn--ghost { background: color-mix(in srgb, var(--ink) 72%, transparent); backdrop-filter: blur(4px); }
 
 .poster-type {
-  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  /* Hero headline only — Lemon Milk Bold (Leo, 2026-08-26). Rest of the
+     display type stays Space Grotesk. */
+  font-family: 'Lemon Milk', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
   font-size: clamp(4.5rem, 6.4vw, 5.5rem);
   line-height: .98;
@@ -452,7 +463,8 @@ a { color: inherit; }
 }
 
 @media (max-width: 900px) {
-  .poster-type { font-size: clamp(2.6rem, 8.4vw, 4.5rem); line-height: 1.0; }
+  /* Lemon Milk runs wide — size so "With the Champ." holds one line on phones */
+  .poster-type { font-size: clamp(1.9rem, 7vw, 4.5rem); line-height: 1.04; letter-spacing: -.01em; }
 }
 .hero p { max-width: 46ch; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: var(--s2); }

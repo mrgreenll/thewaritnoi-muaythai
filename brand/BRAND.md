@@ -75,7 +75,11 @@ Usage rules:
 
 ## Typography
 
-Display: **Space Grotesk** — headings, ALL CAPS, weight 700 (its heaviest).
+Hero headline: **Lemon Milk Bold** (`assets/fonts/lemon-milk-bold.woff2`) —
+the home hero only, Leo's pick 2026-08-26. ⚠️ Lemon Milk is free for
+personal use; commercial use needs a license from the foundry (marsnev).
+
+Display: **Space Grotesk** — all other headings, ALL CAPS, weight 700 (its heaviest).
 Chosen 2026-08-23. Its squared bowls and cut counters read mechanical
 rather than neutral, which keeps the display type in the gym's world
 without the condensed-poster cliche. Set tight: -.022em tracking on
