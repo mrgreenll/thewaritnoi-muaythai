@@ -420,7 +420,6 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: var(--s3);
-  margin-top: auto;
 }
 .hero-bottom p { margin: 0; }
 .poster-type i, .poster-rule, .lead { text-shadow: 0 2px 18px rgba(6,4,4,.92), 0 1px 4px rgba(6,4,4,.95), 0 0 40px rgba(6,4,4,.6); }
@@ -437,7 +436,7 @@ a { color: inherit; }
   line-height: 1.04;
   letter-spacing: .005em;
   word-spacing: .02em;
-  margin: 0;
+  margin: auto 0;
   max-width: 17ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
 }
