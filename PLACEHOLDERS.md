@@ -14,15 +14,31 @@ Referenced by page and section — not line number, which goes stale on every ed
 |---|---|---|---|
 | 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. |
 | 2 | `/training/` | When we train | Daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open. (Opening hours themselves are confirmed: Sat–Thu 08:00–20:00.) |
-| 3 | `/training/` | What it costs | Single session price |
-| 4 | `/training/` | What it costs | Weekly package price |
-| 5 | `/training/` | What it costs | Monthly package price |
-| 6 | `/training/` | What it costs | Private one-to-one session price |
-| 7 | `/stay/` | Sleep where you train | Nightly rate — private bedroom with shared bathroom (3 people), gym access included |
-| 8 | `/stay/` | Sleep where you train | Nightly rate — private house (1 bedroom, living room, kitchen, bathroom) |
-| 9 | `/find-us/` | Address | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
+| 3 | `/training/` | What it costs | The 12 train-and-stay package prices (room/house × with/without meals × 1wk/2wk/1mo). Pre-rename numbers are on file below — confirm they still hold. |
+| 4 | `/training/` | What it costs | Single session price, for visitors training without staying at the gym |
+| 5 | `/training/` | What it costs | Private one-to-one session price |
+| 6 | `/stay/` | Sleep where you train | Motorbike rental rates (pre-rename: 300/day, 1,700/wk, 3,000/2wk, 5,000/mo) |
+| 7 | `/find-us/` | Address | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
 
 To find one in the source: `grep -rn "CONFIRM" --include=index.html .`
+
+## Reference: pre-rename price card (photographed 2026-08-26)
+
+Source: front-desk card, Krabi Lion branding ("Thewaritnoy" spelling), so it
+predates the March 2026 rename. Photo: `../asset/price-card-pre-rename.jpg`.
+These numbers must NOT be published until Thewaritnoi confirms they are current.
+
+Train + stay packages, THB:
+
+| | 1 week | 2 weeks | 1 month |
+|---|---|---|---|
+| Room | 7,900 | 14,900 | 27,900 |
+| Room + meals | 9,900 | 18,900 | 35,900 |
+| House | 11,900 | 21,900 | 39,900 |
+| House + meals | 14,900 | 27,900 | 47,900 |
+
+Motorbike rental: 300/day · 1,700/week · 3,000/two weeks · 5,000/month.
+Meals = two per day (brunch and dinner). Bookings via WhatsApp.
 
 ## Resolved
 
@@ -64,3 +80,14 @@ that domain exists, add `canonical` and repoint `og:url`/`og:image` to it.
 ## Notes
 
 - Stay section added beyond spec's six sections — controller-approved deviation; Leo may cut.
+
+**Nightly room rates (old markers 7–8).** Superseded 2026-08-26: the gym's own
+price card shows accommodation is sold only as train-and-stay packages by the
+week — there are no nightly rates. `/stay/` now points at the package matrix
+on `/training/`.
+
+**Training-only weekly/monthly packages (old markers 4–5).** Dropped
+2026-08-26: the price card lists no training-only packages beyond what a
+single session and private one-to-one would cover. If Thewaritnoi says
+walk-in weekly/monthly training exists, re-add it.
+

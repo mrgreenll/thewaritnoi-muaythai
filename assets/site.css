@@ -1297,3 +1297,36 @@ body.menu-open { overflow: hidden; }
    the exact problem the split was meant to remove. */
 .page-head ~ .section,
 .page-head ~ .band { min-height: 0; }
+
+/* ── Package matrix: train + stay pricing (2026-08-26) ─────────
+   The gym sells camp packages — training and accommodation bundled
+   by duration — per its front-desk price card. Durations as columns
+   so all twelve prices read in one glance. */
+.matrix-scroll { overflow-x: auto; border-top: 1px solid var(--hairline); }
+.matrix {
+  width: 100%;
+  min-width: 26rem;
+  border-collapse: collapse;
+  font-size: .9375rem;
+}
+.matrix th, .matrix td {
+  padding: .7rem .5rem;
+  border-bottom: 1px solid var(--hairline);
+  text-align: right;
+  white-space: nowrap;
+}
+.matrix thead th {
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--sand);
+}
+.matrix tbody th {
+  text-align: left;
+  font-weight: 700;
+  font-size: .9375rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.matrix td { color: var(--muted); font-variant-numeric: tabular-nums; }
