@@ -305,7 +305,7 @@ a { color: inherit; }
   margin-right: auto;
   min-width: 0;
 }
-.brand img { height: 46px; width: auto; flex: none; }
+.brand img { height: 56px; width: auto; flex: none; }
 .nav-word {
   position: absolute;
   left: 50%;
@@ -332,7 +332,7 @@ a { color: inherit; }
 .burger:focus-visible { outline: 2px solid var(--blood); outline-offset: 2px; }
 .burger:active { transform: scale(.94); }
 @media (max-width: 560px) {
-  .brand img { height: 40px; }
+  .brand img { height: 48px; }
   .nav-word img { height: 32px; }
 }
 .brand b {
@@ -1351,3 +1351,6 @@ body.menu-open { overflow: hidden; }
   .matrix th, .matrix td { padding: .55rem .3rem; }
   .matrix tbody th { font-size: .75rem; white-space: normal; padding-right: .5rem; }
 }
+
+/* Anchored jumps land below the fixed nav */
+#packages { scroll-margin-top: 6rem; }
