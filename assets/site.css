@@ -287,7 +287,10 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: var(--s4);
-  padding: var(--s3) var(--gutter);
+  /* Tighter block padding: the 56px mark sets the bar's height — with the
+     old 20px padding the whole header grew. 10px keeps the bar at ~76px,
+     slimmer than before the logo change, logos untouched. */
+  padding: .625rem var(--gutter);
   background: linear-gradient(180deg, rgba(6, 4, 4, .82), rgba(6, 4, 4, 0));
   transition: background-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
