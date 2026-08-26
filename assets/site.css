@@ -432,7 +432,7 @@ a { color: inherit; }
   font-family: 'Anton', 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 400;
   text-transform: uppercase;
-  font-size: clamp(4.5rem, 6.6vw, 6rem);
+  font-size: clamp(4.5rem, 8.6vw, 8rem);
   line-height: 1.04;
   letter-spacing: .005em;
   word-spacing: .02em;
