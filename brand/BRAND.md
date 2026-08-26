@@ -75,10 +75,11 @@ Usage rules:
 
 ## Typography
 
-Hero headline: **Archivo Black** (`assets/fonts/archivo-black.woff2`) —
-the home hero only. Leo's pick 2026-08-26 after Lemon Milk was dropped
-over its personal-use-only license. Archivo Black is OFL — free for
-commercial use. Single-weight face: always `font-weight: 400`.
+Hero headline: **Anton** (`assets/fonts/anton-latin.woff2`) — the home
+hero only. Leo's pick 2026-08-26, matching the tall/tight condensed
+poster reference (Fenriz-style); replaced Archivo Black the same day.
+Anton is OFL — free for commercial use. Single-weight face: always
+`font-weight: 400`, tracking ~.005em.
 
 Display: **Space Grotesk** — all other headings, ALL CAPS, weight 700 (its heaviest).
 Chosen 2026-08-23. Its squared bowls and cut counters read mechanical
