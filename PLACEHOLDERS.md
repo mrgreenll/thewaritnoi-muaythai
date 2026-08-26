@@ -8,25 +8,17 @@ Delete each marker (and its line here) as the real answer arrives.
 
 ## Open markers
 
-Referenced by page and section — not line number, which goes stale on every edit.
-
 | # | Page | Section | Confirm |
 |---|---|---|---|
-| 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. |
-| 2 | `/training/` | When we train | Daily class times — morning and afternoon session start times, and whether drop-ins can train any hour the gym is open. (Opening hours themselves are confirmed: Sat–Thu 08:00–20:00.) |
-| 3 | `/training/` | What it costs | The 12 train-and-stay package prices (room/house × with/without meals × 1wk/2wk/1mo). Pre-rename numbers are on file below — confirm they still hold. |
-| 4 | `/training/` | What it costs | Single session price, for visitors training without staying at the gym |
-| 5 | `/training/` | What it costs | Private one-to-one session price |
-| 6 | `/stay/` | Sleep where you train | Motorbike rental rates (pre-rename: 300/day, 1,700/wk, 3,000/2wk, 5,000/mo) |
-| 7 | `/find-us/` | Address | Full street address to print on the page, and confirmation that the Google Maps pin already linked is the current gym location |
+| 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. Asked 2026-08-26; Leo doesn't know yet — needs to come from Thewaritnoi himself. |
 
-To find one in the source: `grep -rn "CONFIRM" --include=index.html .`
+To find it in the source: `grep -rn "CONFIRM" --include=index.html .`
 
 ## Reference: pre-rename price card (photographed 2026-08-26)
 
 Source: front-desk card, Krabi Lion branding ("Thewaritnoy" spelling), so it
 predates the March 2026 rename. Photo: `../asset/price-card-pre-rename.jpg`.
-These numbers must NOT be published until Thewaritnoi confirms they are current.
+Published 2026-08-26 on Leo's instruction: use the old prices; he will tell us if they change.
 
 Train + stay packages, THB:
 
@@ -90,4 +82,15 @@ on `/training/`.
 2026-08-26: the price card lists no training-only packages beyond what a
 single session and private one-to-one would cover. If Thewaritnoi says
 walk-in weekly/monthly training exists, re-add it.
+
+**Everything except the fight record — resolved 2026-08-26, answers from Leo:**
+- 12 package prices: old card's numbers published as current, per Leo. He notifies us of changes.
+- Classes only (from the gym's rate sheet, season 1 Nov–31 May): 1 class 600 · 10 classes 5,000 ·
+  1 week 1/day 3,000 · 1 week 2/day 4,500 · 1 month 15,000 THB.
+- Personal 1-on-1: 1 session 1,000 · 10 sessions 9,000 · 20 sessions 16,000 THB.
+- Motorbike rates confirmed unchanged; published on /stay/.
+- Class times: 08:00–10:00 and 16:00–18:00 daily; published on /training/.
+- Address: pin https://maps.app.goo.gl/KXW2GVkEBX3cpjxx7 (8.031096, 98.855529). No street
+  address text — page says "Ao Nang, Krabi" + pin link. NOTE: the Google Business listing
+  still shows the old name "Krabi Lion Muay Thai" — Leo should update it to the new name.
 
