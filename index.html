@@ -27,7 +27,8 @@
 <link rel="preload" href="/assets/fonts/space-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/archivo-black.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/img/hero-champ-mono.webp" as="image" fetchpriority="high">
+<link rel="preload" href="/assets/img/hero-champ-mono.webp" as="image" fetchpriority="high" media="(min-width: 768px)">
+<link rel="preload" href="/assets/img/hero-champ-mobile.webp" as="image" fetchpriority="high" media="(max-width: 767px)">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
@@ -66,7 +67,10 @@
 
 <header class="hero">
   <div class="hero-media">
-    <img src="/assets/img/hero-champ-mono.webp" alt="Thewaritnoi holds pads for a fighter in the gym's ring." fetchpriority="high" width="2750" height="1536">
+    <picture>
+      <source media="(max-width: 767px)" srcset="/assets/img/hero-champ-mobile.webp" width="1024" height="1536">
+      <img src="/assets/img/hero-champ-mono.webp" alt="Thewaritnoi holds pads for a fighter in the gym's ring." fetchpriority="high" width="2750" height="1536">
+    </picture>
   </div>
 
   <div class="shell poster">
