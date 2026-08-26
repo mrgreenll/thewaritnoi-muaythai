@@ -1330,3 +1330,11 @@ body.menu-open { overflow: hidden; }
   text-transform: uppercase;
 }
 .matrix td { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Small screens: the package matrix must show all three durations at once —
+   a sideways-scrolling table hides the month column with no hint it exists. */
+@media (max-width: 560px) {
+  .matrix { min-width: 0; font-size: .8125rem; }
+  .matrix th, .matrix td { padding: .55rem .3rem; }
+  .matrix tbody th { font-size: .75rem; white-space: normal; padding-right: .5rem; }
+}
