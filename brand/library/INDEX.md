@@ -1,5 +1,11 @@
 # Brand Photo Library — Krabi Lion Muay Thai
 
+42 originals in two batches: **30 curated** from the Instagram scrape (below), and **12
+added 2026-08-27** supplied directly by Leo — see "Batch 2" at the end of this file. The
+counts and selection notes in this opening section describe batch 1 only.
+
+## Batch 1 — 30 curated originals
+
 30 curated originals from `../asset/ig-scrape-2026-08/media/` (1,240 source jpgs, 42 contact
 sheets reviewed in full). Selection criteria: sharp, decently lit, no meme/TV-screenshot
 reposts, no heavy text overlays, real Muay Thai (not tourist-brochure gloss) — dark/gritty
@@ -107,6 +113,59 @@ Target mix was ~8 fight / ~10 training / ~5 gym / ~4 portrait / ~3 event. Achiev
 - **event-team-celebration-03.jpg** — Post-fight group photo in the ring with the full
   stadium crowd and a large Thai flag visible in the stands behind. Kept as the best
   "the whole gym showed up" competition-night crowd shot.
+
+
+---
+
+## Batch 2 — 12 added 2026-08-27
+
+Supplied directly by Leo, not from the Instagram scrape. Resized to 1080px wide here to
+match batch 1; the higher-resolution originals he provided (1440–2048px wide, named
+`gal1.jpg`–`gal12.jpg`) are kept outside this repo at
+`../asset/from-website-assets-2026-08-27/`, where that folder's README carries the name
+mapping. All twelve are gym-floor and
+team photographs — daylight, on the mat, at the home gym — which is the register batch 1
+was thinnest in. All twelve are in the site gallery.
+
+**Note on branding:** every photo in this batch shows the former *Krabi Lion* name — on the
+rooftop banner, the floor logo, the mat, trainers' vests and pad faces. It is unmissable in
+`event-banner-group-07`, `training-highkick-banner-14` and `training-knee-pad-16`. This is
+the gym as it actually looks, but it is the old name on a site that has moved to
+Thewaritnoi Krabi Muaythai — worth a decision before these go much further.
+
+### training (7)
+
+- **training-flags-highkick-11.jpg** — A head-height kick landing on the trainer's pads under
+  the covered rooftop ring, national flags strung overhead, gym floor logo in frame. Kept for
+  the flags-and-daylight look that batch 1 only had one of.
+- **training-knee-bellypad-12.jpg** — A knee driven into a trainer's belly pad, both braced,
+  a second pair working behind. Kept for close-range clinch-and-knee work.
+- **training-kick-coaching-13.jpg** — A student's kick caught on the pads while the trainer
+  calls the next shot mid-laugh, ring and palms behind. Kept for the coaching relationship
+  rather than the technique.
+- **training-highkick-banner-14.jpg** — A high kick caught clean on the pads, gym banner and
+  floor wordmark filling the background. Kept as the strongest single pad-work frame in the
+  batch.
+- **training-group-knees-15.jpg** — A row of students working knees down the line, trainers
+  moving between them. Kept as the only wide shot of a full class mid-session.
+- **training-knee-pad-16.jpg** — A knee buried into the pad at close range, trainer absorbing
+  it square, ring ropes and banner behind. Square crop. Kept for the impact moment.
+- **training-punch-mitt-17.jpg** — A straight punch snapping into a focus mitt, ring open to
+  daylight behind. Square crop, shallow depth of field — the most photographic frame in the
+  batch.
+
+### event (5)
+
+- **event-team-lineup-04.jpg** — The team lined up across the mat in fighting stance, the
+  youngest student at the front. Kept as the clearest "this is the squad" portrait.
+- **event-team-trainers-05.jpg** — Trainers in gym vests and students shoulder to shoulder
+  after a session, fists raised. Kept for showing the coaching staff as a group.
+- **event-kids-group-06.jpg** — The kids' class packed onto the mat with the adult squad
+  behind. Kept as the only photograph of the children's programme.
+- **event-banner-group-07.jpg** — The whole gym under the rooftop banner, every fist up.
+  Kept as the widest team shot; carries the old gym name at full size.
+- **event-trophy-win-08.jpg** — A fighter holding the cup after a win at an outdoor evening
+  card, her corner and coaches around her. Kept as a real competition result.
 
 ## Notes on sourcing
 
