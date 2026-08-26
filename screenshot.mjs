@@ -180,7 +180,10 @@ try {
     document.head.appendChild(st);
   })()`, false);
 
-  const BAND = isMobile ? 1600 : 1800;
+  // 1200, not 1800: Page.captureScreenshot hangs outright on /gallery/ once
+  // the viewport passes ~1500px tall (reproduces on the pre-masonry page
+  // too, so it is the harness, not the layout). Smaller bands, more of them.
+  const BAND = 1200;
   await call('Emulation.setDeviceMetricsOverride', { width, height: BAND, deviceScaleFactor: scale, mobile: isMobile });
   await sleep(500);
 
