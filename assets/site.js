@@ -96,16 +96,6 @@
     matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
   }
 
-  /* ── Sticky booking CTA: appears once the hero's own CTA is gone ── */
-  const fab = document.querySelector('.fab');
-  const hero = document.querySelector('.hero');
-  if (fab && hero && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => {
-      fab.classList.toggle('show', !entry.isIntersecting);
-    }, { threshold: 0.25 }).observe(hero);
-  } else if (fab) {
-    fab.classList.add('show');
-  }
 
   /* ── Scroll reveals ── */
   const reveals = document.querySelectorAll('.reveal:not(.in)');

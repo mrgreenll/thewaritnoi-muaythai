@@ -11,6 +11,7 @@ Delete each marker (and its line here) as the real answer arrives.
 | # | Page | Section | Confirm |
 |---|---|---|---|
 | 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. Asked 2026-08-26; Leo doesn't know yet — needs to come from Thewaritnoi himself. |
+| 2 | `/stay/` | Sleep where you train | Room photography — private bedroom and private house. Scrollable gallery strips are live with "photo coming soon" tiles; swap each figure for an img when the shots arrive. |
 
 To find it in the source: `grep -rn "CONFIRM" --include=index.html .`
 
