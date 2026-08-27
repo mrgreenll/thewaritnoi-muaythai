@@ -143,7 +143,11 @@
     </div>
 
     <figure class="frame reveal d1" style="margin:0">
-      <img src="/assets/img/gym-pad-kick-about.webp" alt="A fighter drives a kick into Thewaritnoi's pads in the ring, jungle light behind." loading="lazy" width="1200" height="1200">
+      <picture>
+        <!-- Phones already show the pad-kick photo as the hero; swap in the champ shot here so the page never repeats itself. -->
+        <source media="(max-width: 767px)" srcset="/assets/img/gym-champ-mobile.webp" width="1400" height="933">
+        <img src="/assets/img/gym-pad-kick-about.webp" alt="A fighter works pads with Thewaritnoi in the gym's ring." loading="lazy" width="1200" height="1200">
+      </picture>
       <figcaption>Pad rounds in the ring with Thewaritnoi</figcaption>
     </figure>
   </div>
