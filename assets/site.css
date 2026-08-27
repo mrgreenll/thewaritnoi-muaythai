@@ -1422,8 +1422,11 @@ body.menu-open { overflow: hidden; }
   .hero { align-items: flex-end; padding-bottom: 3rem; }
   .hero-media img { object-position: 50% 30%; }
   .hero-media::after {
-    background: linear-gradient(180deg, rgba(6,4,4,.42) 0%, rgba(6,4,4,.1) 26%, rgba(6,4,4,.55) 55%, rgba(6,4,4,.94) 100%);
+    /* flat darken + bottom ramp — legibility lives here now, not in
+       text shadows, which read as smudges over the grey grade */
+    background: linear-gradient(180deg, rgba(6,4,4,.5) 0%, rgba(6,4,4,.38) 40%, rgba(6,4,4,.6) 62%, rgba(6,4,4,.95) 100%);
   }
+  .poster-type, .poster-type i, .poster-rule, .hero .lead { text-shadow: none; }
   .poster-type { max-width: none; font-size: 12.6vw; line-height: 1.04; letter-spacing: .005em; }
   .hero .lead { font-size: .9375rem; line-height: 1.55; }
 }
@@ -1441,3 +1444,9 @@ body.menu-open { overflow: hidden; }
   #gym .stats dd { font-size: 1.125rem; }
   #gym .confirm { font-size: .8125rem; }
 }
+
+/* ── Training: prices above the fold (Leo, 2026-08-27) ─────────
+   Shorter page head and tighter top padding so the What-it-costs
+   table is on screen at load, no scroll needed. */
+.page-head--short { min-height: clamp(14rem, 30vh, 18rem); padding-block: 7rem var(--s4); }
+#prices { padding-block: var(--s5) var(--pad-section); min-height: 0; justify-content: flex-start; }
