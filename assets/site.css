@@ -440,34 +440,34 @@ a { color: inherit; }
   max-width: 17ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
 }
-/* Masked per-character wipe on load. Every letter sits in its own
-   overflow-hidden box holding two copies: the one you see at load (.cc)
-   wipes out to the right, and the real letter (.ch) slides in from the
-   left behind it, line by line. Split is done by the inline script under
-   the <h1> so it happens before first paint; without JS the headline just
-   renders as plain text. */
-.poster-type .w  { display: inline-block; }
-.poster-type .cm { display: inline-block; position: relative; overflow: hidden; }
-.poster-type .ch { display: inline-block; }
-.poster-type .cc { display: inline-block; position: absolute; left: 0; top: 0; }
+/* Masked per-letter wipe on load — the home hero headline and every
+   sub-page <h1>. Each letter sits in its own overflow-hidden box holding
+   two copies: the one you see at load (.wipe-ghost) wipes out to the right,
+   and the real letter (.wipe-char) slides in from the left behind it, line
+   by line. assets/hero-split.js builds the boxes, running before first
+   paint; without JS the heading just renders as plain text. */
+.wipe-word { display: inline-block; }
+.wipe-mask { display: inline-block; position: relative; overflow: hidden; }
+.wipe-char { display: inline-block; }
+.wipe-ghost { display: inline-block; position: absolute; left: 0; top: 0; }
 
-@keyframes charIn  { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
-@keyframes charOut { from { opacity: 1; transform: translateX(0); }     to { opacity: 0; transform: translateX(100%); } }
+@keyframes wipeIn  { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes wipeOut { from { opacity: 1; transform: translateX(0); }     to { opacity: 0; transform: translateX(100%); } }
 
 /* --c letter index within the line, --l line index. Lines start .25s apart;
-   inside a line the real letter trails its clone by .15s. */
-.poster-type.is-wiped .ch {
+   inside a line the real letter trails its ghost by .15s. */
+.is-wiped .wipe-char {
   opacity: 0;
-  animation: charIn .5s cubic-bezier(.5, 1, .89, 1) forwards;
+  animation: wipeIn .5s cubic-bezier(.5, 1, .89, 1) forwards;
   animation-delay: calc(var(--l) * .25s + .15s + var(--c) * .01s);
 }
-.poster-type.is-wiped .cc {
-  animation: charOut .5s cubic-bezier(.5, 1, .89, 1) forwards;
+.is-wiped .wipe-ghost {
+  animation: wipeOut .5s cubic-bezier(.5, 1, .89, 1) forwards;
   animation-delay: calc(var(--l) * .25s + var(--c) * .01s);
 }
 @media (prefers-reduced-motion: reduce) {
-  .poster-type.is-wiped .ch { opacity: 1; animation: none; }
-  .poster-type.is-wiped .cc { display: none; }
+  .is-wiped .wipe-char { opacity: 1; animation: none; }
+  .is-wiped .wipe-ghost { display: none; }
 }
 .poster-type i { font-style: normal; display: block; }
 .poster-type .accent { color: var(--blood); }

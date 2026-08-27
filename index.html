@@ -28,7 +28,7 @@
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/roboto-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/img/hero-champ-mono.webp" as="image" fetchpriority="high" media="(min-width: 768px)">
-<link rel="preload" href="/assets/img/hero-champ-mobile.webp" as="image" fetchpriority="high" media="(max-width: 767px)">
+<link rel="preload" href="/assets/img/hero-mobile-padkick.webp" as="image" fetchpriority="high" media="(max-width: 767px)">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
@@ -68,7 +68,7 @@
 <header class="hero">
   <div class="hero-media">
     <picture>
-      <source media="(max-width: 767px)" srcset="/assets/img/hero-champ-mobile.webp" width="1024" height="1536">
+      <source media="(max-width: 767px)" srcset="/assets/img/hero-mobile-padkick.webp" width="1240" height="1840">
       <img src="/assets/img/hero-champ-mono.webp" alt="Thewaritnoi holds pads for a fighter in the gym's ring." fetchpriority="high" width="2750" height="1536">
     </picture>
   </div>
@@ -80,47 +80,7 @@
       <i class="accent"><span>With the Champ.</span></i>
       <i><span>Family Vibes.</span></i>
     </h1>
-    <script>
-    /* Splits the headline into per-letter masks for the load wipe (see
-       .poster-type .cm in site.css). Inline and directly under the <h1> so
-       it runs before the first paint — no flash of un-split text. */
-    (function () {
-      var h1 = document.querySelector('.poster-type');
-      if (!h1) return;
-      /* One letter per span makes some screen readers spell the heading out.
-         Freeze the accessible name to the sentence before splitting. */
-      h1.setAttribute('aria-label', h1.textContent.replace(/\s+/g, ' ').trim());
-      Array.prototype.forEach.call(h1.querySelectorAll('i > span'), function (line, li) {
-        var frag = document.createDocumentFragment(), c = 0;
-        line.textContent.split(/(\s+)/).forEach(function (chunk) {
-          if (!chunk) return;
-          if (!chunk.trim()) { frag.appendChild(document.createTextNode(chunk)); return; }
-          var word = document.createElement('span');
-          word.className = 'w';
-          chunk.split('').forEach(function (letter) {
-            var mask = document.createElement('span');
-            mask.className = 'cm';
-            mask.style.setProperty('--c', c++);
-            mask.style.setProperty('--l', li);
-            var real = document.createElement('span');
-            real.className = 'ch';
-            real.textContent = letter;
-            var clone = document.createElement('span');
-            clone.className = 'cc';
-            clone.setAttribute('aria-hidden', 'true');
-            clone.textContent = letter;
-            mask.appendChild(real);
-            mask.appendChild(clone);
-            word.appendChild(mask);
-          });
-          frag.appendChild(word);
-        });
-        line.textContent = '';
-        line.appendChild(frag);
-      });
-      h1.classList.add('is-wiped');
-    })();
-    </script>
+    <script src="/assets/hero-split.js"></script>
 
     <div class="hero-bottom">
     <p class="poster-rule reveal in" style="margin:0"><b>Ao Nang · Krabi</b></p>
