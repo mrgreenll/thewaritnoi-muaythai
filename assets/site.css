@@ -855,7 +855,7 @@ a { color: inherit; }
   display: block;
   width: 100%;
   height: auto;
-  transition: transform .6s var(--ease);
+  transition: transform .6s var(--ease), filter .45s var(--ease);
   filter: var(--bw);
 }
 .tile-in::after {
@@ -881,8 +881,9 @@ a { color: inherit; }
   transform: translateY(6px);
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
-/* the tilt already reads as lift, so the zoom pulls back from 1.06 */
-.tile:hover img, .tile:focus-visible img { transform: scale(1.04); }
+/* the tilt already reads as lift, so the zoom pulls back from 1.06.
+   Colour returns on hover — a preview of the lightbox, where it stays. */
+.tile:hover img, .tile:focus-visible img { transform: scale(1.04); filter: none; }
 .tile:hover .tile-in::after, .tile:focus-visible .tile-in::after { opacity: 1; }
 .tile:hover .tile-cap, .tile:focus-visible .tile-cap { opacity: 1; transform: translateY(0); }
 .tile:active img { transform: scale(1.02); }
