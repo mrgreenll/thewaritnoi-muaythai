@@ -208,6 +208,17 @@
     onScroll();
   }
 
+  /* ── Nav link roll-up hover ──
+     The label slides up and out while an aria-hidden copy rolls in from
+     below. Wrapped here so the five pages share one nav markup; without
+     JS the links keep their plain colour hover. The Book button keeps
+     its own background swap. */
+  document.querySelectorAll('.nav-links a:not(.nav-book)').forEach((a) => {
+    const label = a.textContent.trim();
+    a.classList.add('has-roll');
+    a.innerHTML = `<span class="roll"><span class="roll-in">${label}<span class="roll-dup" aria-hidden="true">${label}</span></span></span>`;
+  });
+
   /* ── Burger menu (below 1024px, where the inline nav is hidden) ── */
   const burger = document.querySelector('.burger');
   const menu = document.getElementById('navmenu');
