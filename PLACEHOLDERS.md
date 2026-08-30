@@ -91,7 +91,11 @@ walk-in weekly/monthly training exists, re-add it.
 - Personal 1-on-1: 1 session 1,000 · 10 sessions 9,000 · 20 sessions 16,000 THB.
 - Motorbike rates confirmed unchanged; published on /stay/.
 - Class times: 08:00–10:00 and 16:00–18:00 daily; published on /training/.
-- Address: pin https://maps.app.goo.gl/KXW2GVkEBX3cpjxx7 (8.031096, 98.855529). No street
-  address text — page says "Ao Nang, Krabi" + pin link. NOTE: the Google Business listing
-  still shows the old name "Krabi Lion Muay Thai" — Leo should update it to the new name.
+- Address: pin https://maps.app.goo.gl/KXW2GVkEBX3cpjxx7 (8.031096, 98.855529).
+  Superseded 2026-08-30, on Leo's request for the full address: /find-us/ now shows the
+  street address from the gym's own Google Business listing — 4 Soi Ao Nam Mao Phatthana
+  (ซ.อ่าวน้ำเมาพัฒนา), Sai Thai, Mueang Krabi, Krabi 81000 — in English plus a Thai line
+  for taxi drivers. "Ao Nang" stays as the site's branding locality (footer, headlines).
+  NOTE: the Google Business listing still shows the old name "Krabi Lion Muay Thai" —
+  Leo should update it to the new name.
 
