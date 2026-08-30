@@ -1438,10 +1438,9 @@ body.menu-open { overflow: hidden; }
 }
 
 /* ── Room strip: real photography (private house, 2026-08-27) ──
-   Same box as the placeholder tile, filled. The site grade is
-   grayscale(1); rooms get a brightness lift on top of it, because a
-   bedroom under the full fight-photo grade reads as a cell rather than
-   somewhere to sleep. Precedent: .map-card runs var(--bw) brightness(.74). */
+   Same box as the placeholder tile, filled. Rooms are exempt from the
+   site's B&W grade entirely (Leo, 2026-08-30): guests are choosing a
+   bed, not admiring a fight photo — they need to see the actual room. */
 .roomgal figure.shot {
   position: relative;
   overflow: hidden;
@@ -1453,7 +1452,6 @@ body.menu-open { overflow: hidden; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: var(--bw) brightness(1.16);
 }
 .roomgal figure.shot::after {
   content: '';
