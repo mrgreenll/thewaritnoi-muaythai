@@ -69,6 +69,12 @@
      exceptions are the SVG logo lockup (never filtered) and the lightbox
      full view (colour returns when a photo is opened). */
   --bw: grayscale(1) contrast(1.07) brightness(.93);
+
+  /* Training tiles run hotter than the site default: harder mid-contrast
+     and a deeper foot so the four photographs carry real weight. Hover
+     brings the colour back — the one place on the page a photograph does. */
+  --tt-bw: grayscale(1) contrast(1.34) brightness(.84) saturate(0);
+  --tt-color: grayscale(0) contrast(1.16) brightness(1.02) saturate(1.16);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -642,8 +648,8 @@ a { color: inherit; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: var(--bw);
-  transition: transform .7s var(--ease);
+  filter: var(--tt-bw);
+  transition: transform .7s var(--ease), filter .55s var(--ease);
 }
 .tt::after {
   content: '';
@@ -653,6 +659,8 @@ a { color: inherit; }
      photograph blows out to white behind the label */
   background:
     linear-gradient(180deg, rgba(6, 4, 4, .38) 0%, rgba(6, 4, 4, .06) 38%, rgba(6, 4, 4, .9) 100%),
+    /* vignette: pulls the corners down so the subject reads as lit */
+    radial-gradient(115% 90% at 50% 42%, transparent 38%, rgba(6, 4, 4, .5) 100%),
     color-mix(in srgb, var(--ink) 24%, transparent);
   transition: opacity var(--dur) var(--ease);
 }
@@ -676,7 +684,7 @@ a { color: inherit; }
    affordance only. :focus-within is carried for parity if a focusable
    child is ever added. */
 .tt-item:hover .tt, .tt-item:focus-within .tt { border-color: var(--hairline-strong); box-shadow: var(--lift-2); }
-.tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: scale(1.055); }
+.tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: scale(1.055); filter: var(--tt-color); }
 .tt-item:hover .tt h3, .tt-item:focus-within .tt h3 { color: var(--blood); }
 .tt-item:hover .tt::after, .tt-item:focus-within .tt::after { opacity: .9; }
 
