@@ -724,7 +724,6 @@ a { color: inherit; }
 }
 /* per-band framing: the crop is doing real work, not decoration */
 .band--fight img { object-position: 50% 8%; }
-.band--beach img { object-position: 50% 70%; }
 .band-line {
   font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 700;
