@@ -724,6 +724,13 @@ a { color: inherit; }
 }
 /* per-band framing: the crop is doing real work, not decoration */
 .band--fight img { object-position: 50% 8%; }
+.band--beach img { object-position: 50% 70%; }
+/* a band carrying no line needs far less scrim — the gradient exists to
+   keep --paper legible, and there is nothing to keep legible here.
+   Its height is set beside the .page-head rule that would collapse it. */
+.band--quiet::before {
+  background: linear-gradient(180deg, rgba(6, 4, 4, .42) 0%, rgba(6, 4, 4, .12) 40%, rgba(6, 4, 4, .5) 100%);
+}
 .band-line {
   font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 700;
@@ -1362,6 +1369,10 @@ body.menu-open { overflow: hidden; }
    the exact problem the split was meant to remove. */
 .page-head ~ .section,
 .page-head ~ .band { min-height: 0; }
+/* ...but a quiet band has no line inside it, so "size to content" means
+   size to nothing. It carries its own height, at this specificity so the
+   rule above does not flatten it. */
+.page-head ~ .band--quiet { min-height: clamp(15rem, 40vh, 26rem); }
 
 /* ── Package matrix: train + stay pricing (2026-08-26) ─────────
    The gym sells camp packages — training and accommodation bundled
