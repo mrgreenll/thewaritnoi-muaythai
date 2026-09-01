@@ -167,6 +167,20 @@ Thewaritnoi Krabi Muaythai — worth a decision before these go much further.
 - **event-trophy-win-08.jpg** — A fighter holding the cup after a win at an outdoor evening
   card, her corner and coaches around her. Kept as a real competition result.
 
+## Batch 3 — 1 added 2026-09-01
+
+Supplied directly by Leo. Original (1440x1800) kept outside this repo at
+`../asset/from-leo-2026-09-01/`.
+
+### training (1)
+
+- **training-women-sparring-18.jpg** — Two fighters sparring in the covered rooftop
+  ring, gloves up as a kick comes in, shin guards on, national flags strung overhead
+  and the Krabi Lion ropes across the foreground. Replaced a professional stadium
+  bout on the /training/ "Clinch & sparring" tile — real supervised sparring, which
+  is what that tile actually describes. 4:5 frame, so it needs
+  `object-position: 50% 30%` in the 4:3 tile or both heads crop out.
+
 ## Notes on sourcing
 
 - All files are unedited full-resolution originals copied directly from the source scrape —
