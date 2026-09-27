@@ -79,47 +79,12 @@
         .join('');
     };
 
-    /* ── Reveal ──
-       Tiles carry .reveal so the reduced-motion rules and the screenshot
-       harness treat them like every other revealed block, but they get
-       their own observer: a re-layout replaces the elements, and the
-       shared observer has already finished with the old ones. */
-    let io = null;
-    const revealed = new Set();
-
-    const stage = () => {
-      const tiles = Array.from(grid.querySelectorAll('.tile'));
-      if (io) io.disconnect();
-
-      tiles.forEach((t) => {
-        const col = Number(t.parentElement.dataset.col || 0);
-        /* one step per column: a screenful deals itself out left to right */
-        if (!reduced.matches) t.style.transitionDelay = `${col * 70}ms`;
-        /* a photo already seen must not fade back in after a re-layout */
-        if (reduced.matches || revealed.has(t.dataset.i)) t.classList.add('in');
-      });
-
-      if (reduced.matches || !('IntersectionObserver' in window)) {
-        tiles.forEach((t) => t.classList.add('in'));
-        return;
-      }
-      io = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          entry.target.classList.add('in');
-          revealed.add(entry.target.dataset.i);
-          obs.unobserve(entry.target);
-        });
-      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-      tiles.forEach((t) => { if (!t.classList.contains('in')) io.observe(t); });
-    };
-
     const layout = () => {
       const n = columnCount();
       if (grid.dataset.cols === String(n)) return;
       build(n);
       Array.from(grid.children).forEach((c, i) => { c.dataset.col = i; });
-      stage();
+      document.dispatchEvent(new CustomEvent('tkm:gallery-layout', { detail: { tiles: Array.from(grid.querySelectorAll('.tile')) } }));
     };
 
     layout();
@@ -240,16 +205,14 @@
   }
 
 
-  /* ── Scroll reveals ── */
-  const reveals = document.querySelectorAll('.reveal:not(.in)');
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    reveals.forEach((el) => el.classList.add('in'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-    reveals.forEach((el) => io.observe(el));
-  }
+  /* ── Motion layer fallback ──
+     The head gate adds html.motion before first paint; assets/motion.js
+     (deferred) takes over from there. Deferred scripts have all run by
+     DOMContentLoaded, so if motion.js never registered itself — a vendor
+     file failed to load, or motion.js did — drop the classes and show the
+     static page now rather than waiting on the CSS fail-safe. */
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
+    if (root.classList.contains('motion') && !window.TKMMotion) root.classList.remove('motion', 'intro');
+  });
 })();

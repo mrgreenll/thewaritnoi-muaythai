@@ -1113,19 +1113,12 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 }
 
 /* ── Motion ─────────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(22px); }
-.reveal.in {
-  opacity: 1;
-  transform: none;
-  transition: opacity .7s var(--ease), transform .7s var(--ease);
-}
-.reveal.d1.in { transition-delay: .08s; }
-.reveal.d2.in { transition-delay: .16s; }
-.reveal.d3.in { transition-delay: .24s; }
+/* `.reveal` marks blocks the motion layer animates in. It hides nothing
+   here: start states live in motion.css under html.motion, so the page
+   is fully visible with JavaScript off or motion reduced. */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal.in { opacity: 1; transform: none; transition: none; }
   /* the tile/gallery zoom is motion, not affordance — the label colour,
      scrim and border still carry the hover state */
   .tt-item:hover .tt img, .tt-item:focus-within .tt img { transform: none; }
