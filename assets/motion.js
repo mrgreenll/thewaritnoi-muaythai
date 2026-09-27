@@ -837,8 +837,12 @@
     });
   }
 
-  /* ═══ Gallery (site.js builds the grid, and rebuilds it on resize) ══ */
+  /* ═══ Photographs you open ═══════════════════════════════════ */
 
+  /* Gallery tiles (site.js builds them once): each rises and its photo
+     settles inside the frame. Filtering re-deals the same elements, and
+     Flip carries every photo from where it was to where it lands. */
+  let tileTriggers = [];
   function galleryTiles(tiles) {
     const fresh = tiles.filter((t) => !t.dataset.motion);
     fresh.forEach((t) => {
@@ -846,11 +850,110 @@
       if (fine) t.dataset.cursor = 'View';
     });
     if (!fresh.length) return;
-    gsap.set(fresh, { autoAlpha: 0, y: 24 });
-    ScrollTrigger.batch(fresh, {
-      start: 'top 92%',
+    gsap.set(fresh, { autoAlpha: 0, y: 40 });
+    gsap.set(fresh.map((t) => $('img', t)), { scale: 1.25 });
+    tileTriggers = ScrollTrigger.batch(fresh, {
+      start: 'top 94%',
       once: true,
-      onEnter: (batch) => gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.8, ease: settle, stagger: 0.07, clearProps: 'transform' }),
+      onEnter: (batch) => {
+        const cols = batch.map((t) => Number(t.parentElement.dataset.col || 0));
+        gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'punch', delay: (i) => cols[i] * 0.08, clearProps: 'transform' });
+        gsap.to(batch.map((t) => $('img', t)), { scale: 1, duration: 1.4, ease: 'expo.out', delay: (i) => cols[i] * 0.08, clearProps: 'transform' });
+      },
+    });
+  }
+
+  hooks.flip = (container, mutate) => {
+    const { Flip } = window;
+    if (!Flip) return false;
+    /* once someone filters, every photo counts as seen */
+    tileTriggers.forEach((st) => st.kill());
+    tileTriggers = [];
+    const tiles = $$('.tile', container);
+    gsap.set(tiles, { autoAlpha: 1, y: 0 });
+    gsap.set(tiles.map((t) => $('img', t)), { scale: 1 });
+    const state = Flip.getState(tiles);
+    mutate();
+    Flip.from(state, {
+      duration: 0.8,
+      ease: 'expo.inOut',
+      absolute: true,
+      stagger: 0.012,
+      onEnter: (els) => gsap.fromTo(els, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.6, delay: 0.3, ease: 'punch' }),
+      onLeave: (els) => gsap.to(els, { autoAlpha: 0, scale: 0.8, duration: 0.35, ease: 'power2.in' }),
+      onComplete: () => ScrollTrigger.refresh(),
+    });
+    return true;
+  };
+
+  /* The viewer: the photo grows out of the thumbnail you touched and turns
+     to colour on the way (a filter tween — the documented exception, as on
+     hover); steps slide in the direction you move; closing sends the photo
+     back to its thumbnail when that is still on screen. */
+  const onScreen = (el) => {
+    if (!el || !el.isConnected) return false;
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+  };
+  hooks.lightboxOpen = ({ lb, img, from }) => {
+    const shade = $('.lb-shade', lb);
+    const chrome = [$('.lb-bar', lb), $('.lb-close', lb)];
+    gsap.killTweensOf([shade, img, ...chrome]);
+    gsap.fromTo(shade, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: settle });
+    /* opacity only: visibility:hidden would knock focus off the close
+       button the dialog just focused */
+    gsap.fromTo(chrome, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.4, stagger: 0.05, ease: settle });
+    if (window.Flip && onScreen(from)) {
+      const grade = getComputedStyle(from).filter;
+      window.Flip.fit(img, from, { scale: true });
+      gsap.to(img, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.8, ease: 'expo.inOut', clearProps: 'transform' });
+      if (grade && grade !== 'none') gsap.fromTo(img, { filter: grade }, { filter: 'grayscale(0) contrast(1) brightness(1)', duration: 0.9, delay: 0.15, ease: settle, clearProps: 'filter' });
+    } else {
+      gsap.fromTo(img, { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: settle, clearProps: 'transform,opacity,visibility' });
+    }
+    return true;
+  };
+  hooks.lightboxClose = ({ lb, img, to }, done) => {
+    const shade = $('.lb-shade', lb);
+    const chrome = [$('.lb-bar', lb), $('.lb-close', lb)];
+    gsap.killTweensOf([shade, img, ...chrome]);
+    /* closing mid-step: bring the photo back to rest before it flies home */
+    gsap.set(img, { autoAlpha: 1, x: 0 });
+    gsap.to(chrome, { autoAlpha: 0, duration: 0.2 });
+    gsap.to(shade, { opacity: 0, duration: 0.5, delay: 0.1, ease: 'power2.in' });
+    const finish = () => { gsap.set([img, shade, ...chrome], { clearProps: 'transform,filter,opacity,visibility' }); done(); };
+    if (window.Flip && onScreen(to)) {
+      const grade = getComputedStyle(to).filter;
+      if (grade && grade !== 'none') gsap.to(img, { filter: grade, duration: 0.5, ease: settle });
+      window.Flip.fit(img, to, { scale: true, duration: 0.65, ease: 'expo.inOut', onComplete: finish });
+    } else {
+      gsap.to(img, { autoAlpha: 0, scale: 0.94, duration: 0.35, ease: 'power2.in', onComplete: finish });
+    }
+    return true;
+  };
+  hooks.lightboxStep = ({ lb, img }, dir, swap) => {
+    const cap = $('#lb-cap', lb);
+    gsap.killTweensOf([img, cap]);
+    gsap.timeline()
+      .to(img, { x: -80 * dir, autoAlpha: 0, duration: 0.22, ease: 'power2.in' })
+      .to(cap, { autoAlpha: 0, duration: 0.15 }, 0)
+      .add(swap)
+      .fromTo(img, { x: 80 * dir, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55, ease: 'expo.out', clearProps: 'transform,opacity,visibility' })
+      .to(cap, { autoAlpha: 1, duration: 0.35 }, '<0.1');
+    return true;
+  };
+
+  /* Room strips (/stay/): the photos slide in along the strip. */
+  function roomStrips() {
+    $$('.roomgal').forEach((strip) => {
+      if (fine) strip.dataset.cursor = 'Drag';
+      const shots = $$(':scope > figure', strip);
+      if (fine) shots.forEach((f) => { const b = $('.shot-open', f); if (b) b.dataset.cursor = 'View'; });
+      gsap.set(shots, { autoAlpha: 0, x: 60 });
+      gsap.to(shots, {
+        autoAlpha: 1, x: 0, duration: 0.9, stagger: 0.08, ease: 'punch', clearProps: 'transform',
+        scrollTrigger: { trigger: strip, start: 'top 90%', once: true },
+      });
     });
   }
 
@@ -871,6 +974,7 @@
   safe('odometers', odometers);
   safe('week', week);
   safe('tiles', tiles);
+  safe('roomStrips', roomStrips);
   safe('indexList', indexList);
   safe('ropes', ropes);
   safe('footer', footer);

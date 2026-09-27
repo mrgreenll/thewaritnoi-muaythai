@@ -865,6 +865,38 @@ a { color: inherit; }
   gap: var(--s2);
 }
 
+/* Filters: the photos arrive in three kinds; a person looking for fight
+   nights should not have to scroll past twenty pad rounds. */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-bottom: var(--s4);
+}
+.filters[hidden] { display: none; }
+.filter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .55em;
+  padding: .55rem 1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  font-size: .8125rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.filter-n { font-family: 'Roboto', sans-serif; font-size: .6875rem; letter-spacing: .04em; color: var(--sand); }
+.filter:hover { color: var(--paper); border-color: var(--paper); }
+.filter:active { transform: scale(.97); }
+.filter[aria-pressed="true"] { color: var(--paper); border-color: var(--blood); background: color-mix(in srgb, var(--blood) 18%, transparent); }
+.filter[aria-pressed="true"] .filter-n { color: var(--paper); }
+
 .tile {
   display: block;
   width: 100%;
@@ -928,6 +960,7 @@ a { color: inherit; }
 .tile:hover .tile-in::after, .tile:focus-visible .tile-in::after { opacity: 1; }
 .tile:hover .tile-cap, .tile:focus-visible .tile-cap { opacity: 1; transform: translateY(0); }
 .tile:active img { transform: scale(1.02); }
+.tile[hidden] { display: none; }
 
 /* lightbox */
 dialog.lb {
@@ -941,7 +974,12 @@ dialog.lb {
   color: var(--paper);
   overflow: hidden;
 }
-dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
+/* The shade is an element, not ::backdrop, so the motion layer can fade
+   it; the backdrop itself stays clear. */
+dialog.lb::backdrop { background: transparent; }
+dialog.lb { touch-action: pan-y pinch-zoom; }
+.lb-shade { position: fixed; inset: 0; background: rgba(6, 4, 4, .94); }
+.lb-inner, .lb-close { position: relative; }
 .lb-inner {
   height: 100%;
   display: grid;
@@ -990,6 +1028,7 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
 .icon-btn:hover { background: var(--blood); border-color: var(--blood); }
 .icon-btn:active { transform: scale(.94); }
 .lb-close { position: absolute; top: var(--s3); right: var(--gutter); z-index: 2; }
+.lb-inner { z-index: 1; }
 
 /* ── Location ───────────────────────────────────────────────── */
 .locate { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
@@ -1547,6 +1586,37 @@ body.menu-open { overflow: hidden; }
   text-transform: uppercase;
 }
 
+/* Room strips: mouse users can drag them (site.js); a thin line shows
+   the position and two buttons step a photo at a time. */
+@media (hover: hover) and (pointer: fine) {
+  .roomgal { cursor: grab; }
+}
+.roomgal.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.roomgal.is-dragging .shot-open { pointer-events: none; }
+.roomgal-bar {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin-top: var(--s2);
+}
+.roomgal-bar[hidden] { display: none; }
+.roomgal-track { flex: 1; height: 2px; overflow: hidden; background: var(--hairline); }
+.roomgal-track i { display: block; height: 100%; background: var(--blood); }
+.roomgal-bar .icon-btn { width: 2.25rem; height: 2.25rem; }
+.roomgal-bar .icon-btn:disabled { opacity: .35; cursor: default; }
+.roomgal-bar .icon-btn:disabled:hover { background: var(--surface-2); border-color: var(--hairline-strong); }
+.shot-open {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.shot-open:focus-visible { outline: 2px solid var(--blood); outline-offset: -2px; }
+
 /* ── Room strip: real photography (private house, 2026-08-27) ──
    Same box as the placeholder tile, filled. Rooms are exempt from the
    site's B&W grade entirely (Leo, 2026-08-30): guests are choosing a
@@ -1568,6 +1638,7 @@ body.menu-open { overflow: hidden; }
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, transparent 64%, rgba(6, 4, 4, .74));
+  pointer-events: none; /* the photo underneath is a button */
 }
 .roomgal figure.shot figcaption {
   position: absolute;
@@ -1580,6 +1651,7 @@ body.menu-open { overflow: hidden; }
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--paper);
+  pointer-events: none;
 }
 
 /* ── Mobile hero: poster stack (Leo picked variant A, 2026-08-26) ──
