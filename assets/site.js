@@ -165,6 +165,30 @@
     });
   }
 
+  /* ── Live opening status (assets/hours.js, Bangkok time) ──
+     [data-live="gym"] says whether the gym is open; [data-live="classes"]
+     whether a class is running or when the next one starts. The week strip
+     on /training/ marks today. Repainted every 30s so an open tab keeps up. */
+  const lives = document.querySelectorAll('[data-live]');
+  const days = document.querySelectorAll('.week > div');
+  if ((lives.length || days.length) && window.TKMHours) {
+    const paint = () => {
+      const s = window.TKMHours.status(new Date());
+      lives.forEach((el) => {
+        const classes = el.dataset.live === 'classes';
+        const text = classes ? s.classes : s.gym;
+        el.dataset.state = (classes ? s.classNow : s.open) ? 'on' : 'off';
+        if (el.dataset.text === text) return;
+        el.dataset.text = text;
+        el.innerHTML = '<i class="live-dot" aria-hidden="true"></i><span></span>';
+        el.lastChild.textContent = text;
+      });
+      days.forEach((d, i) => d.classList.toggle('is-today', i === s.dayIndex));
+    };
+    paint();
+    setInterval(paint, 30000);
+  }
+
   /* ── Nav background on scroll ── */
   const nav = document.getElementById('nav');
   if (nav) {
