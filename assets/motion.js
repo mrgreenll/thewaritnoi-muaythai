@@ -957,6 +957,63 @@
     });
   }
 
+  /* ═══ Find us ═══════════════════════════════════════════════ */
+
+  /* Digits run through random values and settle left to right, like a
+     location fix coming in. Text content only; the final string is the
+     real one, restored exactly on completion. */
+  const scramble = (el, duration) => {
+    const final = el.textContent;
+    const digits = [...final].map((c, i) => (/\d/.test(c) ? i : -1)).filter((i) => i >= 0);
+    const state = { p: 0 };
+    return gsap.to(state, {
+      p: 1, duration, ease: 'none',
+      onUpdate: () => {
+        const settled = Math.floor(state.p * digits.length);
+        el.textContent = [...final].map((c, i) => (digits.indexOf(i) >= settled ? String(Math.floor(Math.random() * 10)) : c)).join('');
+      },
+      onComplete: () => { el.textContent = final; },
+    });
+  };
+
+  /* The address list: each row arrives and its icon draws itself. The
+     stroke-dashoffset tween is the second documented exception to
+     transform/opacity-only motion — three 20px line icons. Then the map
+     card: the photo settles, the pin locks on, the coordinates come in. */
+  function findUs() {
+    const list = $('.pin-list');
+    if (list) {
+      claim(list, 'pins');
+      const rows = $$(':scope > div', list);
+      const strokes = $$('svg path, svg circle', list);
+      strokes.forEach((el) => {
+        const len = el.getTotalLength();
+        gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
+      });
+      gsap.set(rows, { autoAlpha: 0, y: 20 });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: list, start: 'top 88%', once: true } });
+      rows.forEach((row, i) => {
+        tl.to(row, { autoAlpha: 1, y: 0, duration: 0.7, ease: settle, clearProps: 'transform' }, i * 0.12)
+          .to($$('svg path, svg circle', row), { strokeDashoffset: 0, duration: 1.1, stagger: 0.12, ease: 'rope' }, i * 0.12 + 0.1);
+      });
+    }
+
+    const card = $('.map-card');
+    if (!card) return;
+    claim(card, 'map');
+    const img = $(':scope > img', card);
+    const pin = $('.reticle', card);
+    const coords = $('.coords', card);
+    gsap.set(card, { autoAlpha: 0, y: 36 });
+    if (img) gsap.set(img, { scale: 1.18 });
+    if (pin) gsap.set(pin, { autoAlpha: 0, scale: 2.4, rotate: -45 });
+    const tl = gsap.timeline({ scrollTrigger: { trigger: card, start: 'top 88%', once: true } })
+      .to(card, { autoAlpha: 1, y: 0, duration: 0.9, ease: settle, clearProps: 'transform' });
+    if (img) tl.to(img, { scale: 1, duration: 1.8, ease: 'expo.out' }, 0);
+    if (pin) tl.to(pin, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.9, ease: 'punch' }, 0.5);
+    if (coords) tl.add(scramble(coords, 0.9), 0.7);
+  }
+
   /* ═══ Boot ══════════════════════════════════════════════════ */
 
   safe('smoothScroll', smoothScroll);
@@ -975,6 +1032,7 @@
   safe('week', week);
   safe('tiles', tiles);
   safe('roomStrips', roomStrips);
+  safe('findUs', findUs);
   safe('indexList', indexList);
   safe('ropes', ropes);
   safe('footer', footer);
