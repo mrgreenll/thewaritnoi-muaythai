@@ -26,6 +26,11 @@ html.motion:not(.motion-lit) :is(.poster-type, .hero-bottom, .scroll-hint, .page
   animation: m-failsafe 0s 4s forwards;
 }
 html.intro:not(.motion-lit) .nav { opacity: 0; animation: m-failsafe 0s 4s forwards; }
+/* /training/: prices and the week sit above the fold at load */
+html.motion:not(.motion-ready) :is(.rows > div > span, .matrix td, .week > div > *) {
+  opacity: 0;
+  animation: m-failsafe 0s 4s forwards;
+}
 /* the camera starts pushed in; motion.js settles it */
 html.motion:not(.motion-lit) .hero-cam { transform: scale(1.12); animation: m-failsafe-cam 0s 4s forwards; }
 
@@ -179,6 +184,38 @@ html.motion .eyebrow-label { display: inline-block; }
   object-fit: cover;
 }
 
+/* ── Prices roll in like an odometer (/training/) ──
+   The real number stays in place, transparent, for layout and screen
+   readers; a strip of digits rides over it and is removed when it lands. */
+.odo-host { position: relative; -webkit-text-fill-color: transparent; }
+.odo {
+  position: absolute;
+  left: 0; top: 0;
+  display: flex;
+  -webkit-text-fill-color: currentColor;
+  pointer-events: none;
+}
+.odo-col { display: block; height: 1lh; overflow: hidden; }
+.odo-strip { display: block; }
+.odo-strip i { display: block; height: 1lh; font-style: normal; }
+
+/* ── The week strip flips in like a departure board — the labels flip
+   inside fixed cells, as real flaps do. Friday's strike is drawn. ── */
+html.motion .week .closed b { position: relative; text-decoration: none; }
+html.motion .week .closed b::after {
+  content: '';
+  position: absolute;
+  left: -.12em; right: -.12em; top: 50%;
+  height: 2px;
+  background: var(--blood);
+  transform: scaleX(var(--strike, 1));
+  transform-origin: left;
+}
+
+/* ── Round tiles: the photograph wipes up into the tile ── */
+.tt-mask, .tt-inner { position: absolute; inset: 0; overflow: hidden; }
+.tt-inner { overflow: visible; }
+
 /* ── Ring ropes you can pluck ───────────────────────────────────
    motion.js swaps the CSS lines of every .ropes for three SVG strings
    (same weights and colours) that bend when the pointer crosses them. */
@@ -233,7 +270,7 @@ html.motion .nav-links a:not(.nav-book) { border-bottom-color: transparent; }
 .nav-line {
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: 0;
   width: 1px;
   height: 2px;
   background: var(--blood);

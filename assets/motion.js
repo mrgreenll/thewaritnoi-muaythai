@@ -753,6 +753,90 @@
     });
   }
 
+  /* ═══ Training ══════════════════════════════════════════════ */
+
+  /* Prices roll up like an odometer, one digit column after another. */
+  function odometers() {
+    const els = $$('.rows > div > span, .matrix td').filter((el) => /^[\d,]+$/.test(el.textContent.trim()));
+    if (!els.length) return;
+    const groups = new Map(); // panel → digit strips, so each panel rolls as it arrives
+    els.forEach((el) => {
+      claim(el, 'odometer');
+      let host = el;
+      if (el.tagName === 'TD') { host = wrap(el, 'odo-num'); }
+      host.classList.add('odo-host');
+      const over = document.createElement('span');
+      over.className = 'odo';
+      over.setAttribute('aria-hidden', 'true');
+      const panel = el.closest('.panel') || document.body;
+      if (!groups.has(panel)) groups.set(panel, []);
+      for (const ch of host.textContent.trim()) {
+        if (!/\d/.test(ch)) { const c = document.createElement('span'); c.textContent = ch; over.appendChild(c); continue; }
+        const col = document.createElement('span');
+        col.className = 'odo-col';
+        const strip = document.createElement('span');
+        strip.className = 'odo-strip';
+        strip.innerHTML = '01234567890123456789'.split('').map((d) => `<i>${d}</i>`).join('');
+        col.appendChild(strip);
+        over.appendChild(col);
+        groups.get(panel).push({ strip, d: Number(ch), host, over });
+      }
+      host.appendChild(over);
+    });
+    groups.forEach((digits, panel) => {
+      const tl = gsap.timeline({ paused: true, onComplete: () => digits.forEach(({ host, over }) => { if (over.isConnected) { over.remove(); host.classList.remove('odo-host'); } }) });
+      digits.forEach(({ strip, d }, i) => tl.fromTo(strip, { yPercent: 0 }, { yPercent: -(10 + d) * 5, duration: 1.15, ease: 'expo.out' }, i * 0.014));
+      ScrollTrigger.create({ trigger: panel, start: 'top 88%', once: true, onEnter: () => gsap.delayedCall(0.45, () => tl.play()) });
+    });
+  }
+
+  /* The week strip flips in like a departure board: each day's labels
+     flip down inside their fixed cell, one day after another; the strike
+     through Friday draws across after it lands. */
+  function week() {
+    const wk = $('.week');
+    if (!wk) return;
+    claim(wk, 'week');
+    const flaps = $$(':scope > div', wk).map((day) => $$(':scope > *', day));
+    const closed = $('.closed b', wk);
+    gsap.set(flaps.flat(), { rotateX: -100, transformPerspective: 400, transformOrigin: '50% 0%', autoAlpha: 0 });
+    if (closed) gsap.set(closed, { '--strike': 0 });
+    const tl = gsap.timeline({ paused: true });
+    flaps.forEach((flap, i) => tl.to(flap, { rotateX: 0, autoAlpha: 1, duration: 0.7, stagger: 0.05, ease: 'punch', clearProps: 'transform' }, i * 0.07));
+    if (closed) tl.to(closed, { '--strike': 1, duration: 0.45, ease: 'rope' }, '-=0.25');
+    ScrollTrigger.create({ trigger: wk, start: 'top 90%', once: true, onEnter: () => gsap.delayedCall(0.35, () => tl.play()) });
+  }
+
+  /* Round tiles: the photograph wipes up into the tile and settles; the
+     label follows. The hover colour bloom (site.css) is untouched. */
+  function tiles() {
+    $$('.tt-item').forEach((item) => {
+      const tt = $('.tt', item);
+      const img = tt && $('img', tt);
+      if (!img) return;
+      claim(item, 'tile');
+      const mask = document.createElement('div');
+      mask.className = 'tt-mask';
+      const inner = document.createElement('div');
+      inner.className = 'tt-inner';
+      img.replaceWith(mask);
+      inner.appendChild(img);
+      mask.appendChild(inner);
+      const label = $('h3', tt);
+      const text = $('p', item);
+      gsap.set(mask, { yPercent: 100 });
+      gsap.set(inner, { yPercent: -100, scale: 1.3 });
+      if (label) gsap.set(label, { autoAlpha: 0, y: 28 });
+      if (text) gsap.set(text, { autoAlpha: 0, y: 12 });
+      const tl = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 86%', once: true } })
+        .to(mask, { yPercent: 0, duration: 1.1, ease: 'expo.inOut' })
+        .to(inner, { yPercent: 0, duration: 1.1, ease: 'expo.inOut' }, 0)
+        .to(inner, { scale: 1, duration: 1.6, ease: 'expo.out' }, 0.2);
+      if (label) tl.to(label, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'punch' }, 0.7);
+      if (text) tl.to(text, { autoAlpha: 1, y: 0, duration: 0.6, ease: settle }, 0.85);
+    });
+  }
+
   /* ═══ Gallery (site.js builds the grid, and rebuilds it on resize) ══ */
 
   function galleryTiles(tiles) {
@@ -784,6 +868,9 @@
   safe('stats', stats);
   safe('bands', bands);
   safe('quote', quote);
+  safe('odometers', odometers);
+  safe('week', week);
+  safe('tiles', tiles);
   safe('indexList', indexList);
   safe('ropes', ropes);
   safe('footer', footer);

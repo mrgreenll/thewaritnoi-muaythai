@@ -189,6 +189,22 @@
     setInterval(paint, 30000);
   }
 
+  /* ── Package matrix crosshair (/training/) ── */
+  const matrix = document.querySelector('.matrix');
+  if (matrix) {
+    const clear = () => matrix.querySelectorAll('.is-row, .is-col, .is-hit').forEach((c) => c.classList.remove('is-row', 'is-col', 'is-hit'));
+    matrix.addEventListener('pointerover', (e) => {
+      const cell = e.target.closest('td');
+      clear();
+      if (!cell) return;
+      const col = cell.cellIndex;
+      cell.parentElement.querySelectorAll('th, td').forEach((c) => c.classList.add('is-row'));
+      matrix.querySelectorAll('tr').forEach((tr) => { if (tr.children[col]) tr.children[col].classList.add('is-col'); });
+      cell.classList.add('is-hit');
+    });
+    matrix.addEventListener('pointerleave', clear);
+  }
+
   /* ── Nav background on scroll ── */
   const nav = document.getElementById('nav');
   if (nav) {

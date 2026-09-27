@@ -827,7 +827,7 @@ a { color: inherit; }
   padding: clamp(1.5rem, 3vw, 2.5rem);
   box-shadow: var(--lift-2);
 }
-.panel h3 { font-size: 1.625rem; margin-bottom: var(--s3); }
+.panel h3, .panel .panel-title { font-size: 1.625rem; margin-bottom: var(--s3); }
 
 .rows { border-top: 1px solid var(--hairline); }
 .rows > div {
@@ -1491,6 +1491,24 @@ body.menu-open { overflow: hidden; }
 
 /* Anchored jumps land below the fixed nav */
 #packages { scroll-margin-top: 6rem; }
+
+/* Crosshair: the row and column under the pointer light up, so a price
+   reads against both its package and its duration (site.js). Opacity
+   on a tinted layer, not a background transition. */
+.matrix th, .matrix td { position: relative; }
+.matrix tbody :is(th, td)::before,
+.matrix thead th::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--paper) 5%, transparent);
+  opacity: 0;
+  transition: opacity .25s var(--ease);
+  pointer-events: none;
+}
+.matrix .is-row::before, .matrix .is-col::before { opacity: 1; }
+.matrix td.is-hit { color: var(--paper); font-weight: 700; }
+.matrix td.is-hit::before { background: color-mix(in srgb, var(--blood) 22%, transparent); opacity: 1; }
 
 /* ── Room photo strips on /stay/ (2026-08-26) ─────────────────
    Horizontally scrollable, snap per tile. Ships with honest
