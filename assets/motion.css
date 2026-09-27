@@ -93,6 +93,10 @@ html.motion .poster-type i {
   padding: .06em .3em .24em;
   margin: -.06em -.3em -.24em;
 }
+/* Split pieces are spans (valid inside headings and paragraphs), so they
+   get their display here; SplitText clips the masks itself. */
+.m-line, .m-line-mask { display: block; }
+.m-word, .m-char { display: inline-block; }
 html.motion .m-line-mask {
   padding: .04em .2em .14em;
   margin: -.04em -.2em -.14em;

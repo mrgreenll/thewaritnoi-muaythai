@@ -71,70 +71,70 @@ cross-document View Transitions, Node 26 `node:test`, Chrome DevTools Protocol c
 hidden state removed), `assets/site.js` (fallback + old reveal observer removed),
 `.vercelignore`; move `assets/fonts/lemon_milk*` → `../asset/fonts-unused-lemon-milk/`.
 
-- [ ] Write `check.mjs`; run it on the current site → expect FAIL in no-JS mode (reveals invisible).
-- [ ] Download GSAP 3.15.0 + Lenis 1.3.26 dist files from the npm registry into `assets/vendor/`.
-- [ ] Head gate, boot contract, fail-safe, `?motion=off`.
-- [ ] Move Lemon Milk out, `git rm --cached`.
-- [ ] `node check.mjs` → PASS in all three modes. Commit.
+- [x] Write `check.mjs`; run it on the current site → expect FAIL in no-JS mode (reveals invisible).
+- [x] Download GSAP 3.15.0 + Lenis 1.3.26 dist files from the npm registry into `assets/vendor/`.
+- [x] Head gate, boot contract, fail-safe, `?motion=off`.
+- [x] Move Lemon Milk out, `git rm --cached`.
+- [x] `node check.mjs` → PASS in all three modes. Commit.
 
 ### Task 2: Opening hours logic + live status
 
 **Files:** create `assets/hours.js`, `tests/hours.test.mjs`; modify `site.js`, `site.css`,
 home/training/find-us `index.html`.
 
-- [ ] Tests first for: Thu 07:59 closed/opens 08:00 · Thu 08:00 class on · Thu 10:30 next
+- [x] Tests first for: Thu 07:59 closed/opens 08:00 · Thu 08:00 class on · Thu 10:30 next
   class 16:00 · Thu 19:59 open, next class Sat 08:00 · Thu 20:00 opens Sat · Fri 12:00
   closed Fridays · Sat 16:15 class on until 18:00 · Sun 23:30 opens tomorrow · Wed 20:30.
-- [ ] `node --test tests/` → FAIL, implement, → PASS.
-- [ ] Render `[data-live]` + `.is-today`, refresh every 60s. Commit.
+- [x] `node --test tests/` → FAIL, implement, → PASS.
+- [x] Render `[data-live]` + `.is-today`, refresh every 60s. Commit.
 
 ### Task 3: Global motion
 
 **Files:** `motion.js`, `motion.css`, `site.js`, `site.css`, 5 × `index.html`.
 
-- [ ] Lenis (fine pointer only) wired to ScrollTrigger; anchors offset for the fixed nav.
-- [ ] Reveal system: eyebrow rule draw, h2 line masks, `.reveal` fade-up (d1–d3), frames wipe + parallax, ropes draw.
-- [ ] Buttons: sweep fill, label roll, magnetic. Nav: progress rope, sliding underline, logo kick.
-- [ ] Menu: panel wipe, masked link rise, burger→X, `inert` focus trap.
-- [ ] View Transitions, grain jitter, cursor labels, footer curtain + wordmark.
-- [ ] `node check.mjs` PASS; screenshots 390/1440. Commit.
+- [x] Lenis (fine pointer only) wired to ScrollTrigger; anchors offset for the fixed nav.
+- [x] Reveal system: eyebrow rule draw, h2 line masks, `.reveal` fade-up (d1–d3), frames wipe + parallax, ropes draw.
+- [x] Buttons: sweep fill, label roll, magnetic. Nav: progress rope, sliding underline, logo kick.
+- [x] Menu: panel wipe, masked link rise, burger→X, `inert` focus trap.
+- [x] View Transitions, grain jitter, cursor labels, footer curtain + wordmark.
+- [x] `node check.mjs` PASS; screenshots 390/1440. Commit.
 
 ### Task 4: Home
 
 **Files:** `index.html`, `motion.js`, `site.css`, `motion.css`.
 
-- [ ] Curtain intro + hero timeline (first visit) / short entrance (repeat); retire `hero-split.js` on all pages (page heads move to `motion.js`).
-- [ ] Hero scroll peel + mouse depth. Marquee with velocity.
-- [ ] Gym section, fight band letterbox + torch, quote word scrub.
-- [ ] Routes → index list with cursor float (desktop) / inline thumbs (touch); drop 100svh.
-- [ ] Check + screenshots + frame captures of the intro. Commit.
+- [x] Curtain intro + hero timeline (first visit) / short entrance (repeat); retire `hero-split.js` on all pages (page heads move to `motion.js`).
+- [x] Hero scroll peel + mouse depth. Marquee with velocity.
+- [x] Gym section, fight band letterbox + torch, quote word scrub.
+- [x] Routes → index list with cursor float (desktop) / inline thumbs (touch); drop 100svh.
+- [x] Check + screenshots + frame captures of the intro. Commit.
 
 ### Task 5: Training
 
-- [ ] h1→h2 semantics, CTA "Reserve your place" + reservation prefill.
-- [ ] Odometer prices, week board flip + strike + today, live classes line, matrix crosshair.
-- [ ] Tiles wipe + parallax, beach band letterbox. Check + screenshots. Commit.
+- [x] h1→h2 semantics, CTA "Reserve your place" + reservation prefill.
+- [x] Odometer prices, week board flip + strike + today, live classes line, matrix crosshair.
+- [x] Tiles wipe + parallax, beach band letterbox. Check + screenshots. Commit.
 
 ### Task 6: Stay
 
-- [ ] 1600px room photo webps from `../asset/stay-house-2026-08/`.
-- [ ] Room strips: drag + momentum + snap, prev/next buttons, progress line; lightbox for room photos.
-- [ ] Check + screenshots. Commit.
+- [x] 1600px room photo webps from `../asset/stay-house-2026-08/`.
+- [x] Room strips: drag + momentum + snap, prev/next buttons, progress line; lightbox for room photos.
+- [x] Check + screenshots. Commit.
 
 ### Task 7: Gallery
 
-- [ ] Persistent tiles + filters (All 26 · Training 14 · Fight nights 6 · Team 6) with Flip.
-- [ ] Tile reveal batch; lightbox shared-element open/close, directional step, swipe, preload.
-- [ ] Check + screenshots + keyboard pass. Commit.
+- [x] Persistent tiles + filters (All 26 · Training 14 · Fight nights 6 · Team 6) with Flip.
+- [x] Tile reveal batch; lightbox shared-element open/close, directional step, swipe, preload.
+- [x] Check + screenshots + keyboard pass. Commit.
 
 ### Task 8: Find us
 
-- [ ] Valid `<dl>`, single `</main>`, icon stroke draw, live status, reticle + coordinates.
-- [ ] Check + screenshots. Commit.
+- [x] Valid `<dl>`, single `</main>`, icon stroke draw, live status, reticle + coordinates.
+- [x] Check + screenshots. Commit.
 
 ### Task 9: Cleanup, docs, full verification
 
-- [ ] Dead CSS + orphaned comments, `color-scheme` meta, `PLACEHOLDERS.md` canonical note,
+- [x] Dead CSS + orphaned comments, `color-scheme` meta, `PLACEHOLDERS.md` canonical note,
   `Website/CLAUDE.md` motion notes, `MEMORY.md` decision entry.
-- [ ] All pages × 390/768/1024/1440 screenshots; check.mjs all modes; recorded scroll-through
+- [x] All pages × 390/768/1024/1440 screenshots; check.mjs all modes; recorded scroll-through
   video of Home. Final commit.

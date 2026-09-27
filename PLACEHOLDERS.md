@@ -52,10 +52,11 @@ external handles, not site copy.
 
 **Domain — partially resolved 2026-08-22.** The Vercel URL
 (`https://thewaritnoi-muaythai.vercel.app`) is now known, so `og:image` and
-`twitter:image` are absolute against it and `og:url` was added. The page
-still deliberately ships with **no** `<link rel="canonical">` — an unowned
-canonical is worse than none — and waits for the real custom domain. Once
-that domain exists, add `canonical` and repoint `og:url`/`og:image` to it.
+`twitter:image` are absolute against it and `og:url` was added. Since the
+five-page split every page also carries a `<link rel="canonical">` pointing
+at its vercel.app URL (checked 2026-09-27; this note used to say there was
+none). When a custom domain exists, repoint `canonical`, `og:url`,
+`og:image` and `sitemap.xml` to it on all five pages.
 
 ## Confirmed — do not "fix" these, they came from the gym's own channels
 

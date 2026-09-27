@@ -249,7 +249,7 @@
       if (h2.closest('.page-head, .hero, .panel') || h2.dataset.motion) return;
       claim(h2, 'heading');
       SplitText.create(h2, {
-        type: 'lines', mask: 'lines', linesClass: 'm-line', aria: 'none', autoSplit: true,
+        tag: 'span', type: 'lines', mask: 'lines', linesClass: 'm-line', aria: 'none', autoSplit: true,
         onSplit: (self) => gsap.from(self.lines, {
           yPercent: 115, duration: 1.05, stagger: 0.1, ease: 'expo.out',
           scrollTrigger: { trigger: h2, start: 'top 88%', once: true },
@@ -387,7 +387,7 @@
       const line = $('.band-line', band);
       if (!line) return;
       claim(line, 'band-line');
-      const split = SplitText.create(line, { type: 'lines,words', mask: 'lines', linesClass: 'm-line', wordsClass: 'm-word', aria: 'none' });
+      const split = SplitText.create(line, { tag: 'span', type: 'lines,words', mask: 'lines', linesClass: 'm-line', wordsClass: 'm-word', aria: 'none' });
       gsap.set(line, { '--rule': 0 });
       gsap.set(split.words, { yPercent: 115 });
       gsap.timeline({ scrollTrigger: { trigger: band, start: 'top 55%', once: true } })
@@ -409,7 +409,7 @@
     const h1 = $('.poster-type', heroEl);
     const lines = $$('i', h1);
     const name = spoken(h1);
-    SplitText.create(h1, { type: 'words,chars', wordsClass: 'm-word', charsClass: 'm-char' });
+    SplitText.create(h1, { tag: 'span', type: 'words,chars', wordsClass: 'm-word', charsClass: 'm-char' });
     h1.setAttribute('aria-label', name);
     const chars = lines.map((line) => $$('.m-char', line));
     gsap.set(chars.flat(), { yPercent: 135, rotate: 8, transformOrigin: '0% 100%' });
@@ -418,7 +418,7 @@
     const rule = $('.poster-rule', heroEl);
     const ruleText = rule && $('b', rule);
     const lead = $('.lead', heroEl);
-    const leadLines = lead ? SplitText.create(lead, { type: 'lines', mask: 'lines', linesClass: 'm-line', aria: 'none' }).lines : [];
+    const leadLines = lead ? SplitText.create(lead, { tag: 'span', type: 'lines', mask: 'lines', linesClass: 'm-line', aria: 'none' }).lines : [];
     const ctas = $$('.hero-cta .btn', heroEl);
     const hint = $('.scroll-hint', heroEl);
     if (rule) gsap.set(rule, { '--rule': 0 });
@@ -503,7 +503,7 @@
     if (brow) tl.add(eyebrowTl(brow), 0.12);
     if (h1) {
       const name = spoken(h1);
-      const split = SplitText.create(h1, { type: 'lines,words,chars', mask: 'lines', linesClass: 'm-line', wordsClass: 'm-word', charsClass: 'm-char' });
+      const split = SplitText.create(h1, { tag: 'span', type: 'lines,words,chars', mask: 'lines', linesClass: 'm-line', wordsClass: 'm-word', charsClass: 'm-char' });
       h1.setAttribute('aria-label', name);
       gsap.set(split.chars, { yPercent: 120 });
       tl.to(split.chars, { yPercent: 0, duration: 0.85, stagger: 0.016, ease: 'punch' }, 0.2);

@@ -510,6 +510,8 @@
     });
     // Resizing up past the breakpoint must not leave the panel stuck open.
     matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+    // Nor must coming Back to a page the browser kept alive with it open.
+    addEventListener('pageshow', (e) => { if (e.persisted) setOpen(false); });
   }
 
   /* ── Motion layer fallback ──

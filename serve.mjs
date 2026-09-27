@@ -38,4 +38,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(3000, () => console.log('Server running at http://localhost:3000'));
+// PORT lets two projects' dev servers run side by side (default 3000).
+const port = Number(process.env.PORT) || 3000;
+server.listen(port, () => console.log(`Server running at http://localhost:${port}`));

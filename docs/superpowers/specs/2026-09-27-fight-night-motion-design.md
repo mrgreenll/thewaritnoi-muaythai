@@ -1,6 +1,6 @@
 # Fight Night — the motion pass
 
-**Date:** 2026-09-27 · **Status:** approved by Leo, in build on branch `motion`
+**Date:** 2026-09-27 · **Status:** built on branch `motion`, not yet merged or deployed
 
 ## Goal
 
