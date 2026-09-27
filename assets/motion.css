@@ -6,18 +6,28 @@
    sets only when motion is allowed: no prefers-reduced-motion, no
    ?motion=off. Without it the site is static and fully visible — the
    layer adds, it never hides anything on its own.
+
+   Two release stages, both set by motion.js:
+     .motion-ready — start states for everything below the fold are set
+     .motion-lit   — fonts are in and the opening sequence has begun
    ───────────────────────────────────────────────────────────── */
 
 /* ── Hold ───────────────────────────────────────────────────────
-   Blocks motion.js animates in stay hidden until it has set their start
-   states, then it adds .motion-ready. If motion.js never runs, site.js
-   drops .motion on DOMContentLoaded; as a last resort this fail-safe
-   shows everything after 4s. */
+   Hidden until motion.js has set start states. If motion.js never runs,
+   site.js drops .motion on DOMContentLoaded; as a last resort these
+   fail-safes release everything after 4s. */
 @keyframes m-failsafe { to { opacity: 1; } }
-html.motion:not(.motion-ready) .reveal {
+@keyframes m-failsafe-cam { to { transform: none; } }
+@keyframes m-failsafe-out { to { opacity: 0; visibility: hidden; } }
+
+html.motion:not(.motion-ready) .reveal,
+html.motion:not(.motion-lit) :is(.poster-type, .hero-bottom, .scroll-hint, .page-head .shell) {
   opacity: 0;
   animation: m-failsafe 0s 4s forwards;
 }
+html.intro:not(.motion-lit) .nav { opacity: 0; animation: m-failsafe 0s 4s forwards; }
+/* the camera starts pushed in; motion.js settles it */
+html.motion:not(.motion-lit) .hero-cam { transform: scale(1.12); animation: m-failsafe-cam 0s 4s forwards; }
 
 /* ── Lenis ──────────────────────────────────────────────────────
    Rules from lenis 1.3.26 lenis.css, plus native smooth scrolling off
@@ -36,3 +46,278 @@ html.lenis, html.lenis body { height: auto; }
   transition-behavior: allow-discrete;
 }
 html.lenis { scroll-behavior: auto; }
+
+/* ── Home intro: the rope curtain ───────────────────────────────
+   Two ink halves meet along a red rope drawn across the screen, then
+   split top and bottom, each carrying half the rope on its edge. */
+html.intro .curtain {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+html.intro:not(.motion-lit) .curtain { animation: m-failsafe-out 0s 4s forwards; }
+.curtain-half {
+  position: absolute;
+  left: 0; right: 0;
+  height: 50.5%;
+  background: var(--ink);
+  will-change: transform;
+}
+.curtain-top { top: 0; }
+.curtain-bot { bottom: 0; }
+.curtain-half::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rust), var(--blood) 45%, #d96a2b 100%);
+  transform: scaleX(var(--rope, 0));
+  transform-origin: left;
+}
+.curtain-top::after { bottom: 0; }
+.curtain-bot::after { top: 0; }
+
+/* ── Masks ──────────────────────────────────────────────────────
+   Type rises from behind its own line. The padding + negative margin
+   gives the text-shadow room so the mask never cuts a hard edge
+   through it. */
+html.motion .poster-type i {
+  overflow: hidden;
+  padding: .06em .3em .24em;
+  margin: -.06em -.3em -.24em;
+}
+html.motion .m-line-mask {
+  padding: .04em .2em .14em;
+  margin: -.04em -.2em -.14em;
+}
+.m-char { will-change: transform; }
+
+/* ── Rules that draw ────────────────────────────────────────────
+   Red rules are pseudo-elements; motion.js drives them through --rule
+   (0 → 1). The default of 1 keeps them drawn if a tween never starts. */
+html.motion .eyebrow::before,
+html.motion .poster-rule::before,
+html.motion .band-line::before {
+  transform: scaleX(var(--rule, 1));
+  transform-origin: left;
+}
+html.motion .quote { position: relative; border-left-color: transparent; }
+html.motion .quote::before {
+  content: '';
+  position: absolute;
+  left: -3px; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--blood);
+  transform: scaleY(var(--rule, 1));
+  transform-origin: top;
+}
+html.motion .quote .punch { display: inline-block; }
+
+html.motion .eyebrow-label { display: inline-block; }
+
+/* ── Framed photographs: wipe + parallax ── */
+.frame-mask { display: block; overflow: hidden; }
+.frame-inner, .frame-inner picture { display: block; }
+
+/* ── Photo bands: letterbox bars + colour torch ── */
+.band-bar {
+  position: absolute;
+  left: 0; right: 0;
+  z-index: 1;
+  height: 34%;
+  background: var(--ink);
+  pointer-events: none;
+}
+.band-bar--top { top: 0; transform-origin: top; }
+.band-bar--bot { bottom: 0; transform-origin: bottom; }
+/* A soft circle of the same photograph in colour, riding the pointer.
+   It sits above the band's scrim and below its type. */
+.torch {
+  position: absolute;
+  left: 0; top: 0;
+  z-index: -1;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 58%, transparent);
+  mask-image: radial-gradient(circle closest-side, #000 58%, transparent);
+}
+.torch-inner { position: absolute; left: 0; top: 0; }
+.band .torch-img {
+  position: absolute;
+  inset: 0;
+  z-index: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(1.05) saturate(1.1);
+}
+
+/* ── Where to next: the photo that follows the cursor ──
+   Behind the row type (rows sit at z 1), in colour — the hand brings
+   the colour back. */
+.index-float {
+  position: absolute;
+  left: 0; top: 0;
+  z-index: 0;
+  width: clamp(14rem, 21vw, 20rem);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  pointer-events: none;
+  box-shadow: var(--lift-2);
+}
+.index-float img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Ring ropes you can pluck ───────────────────────────────────
+   motion.js swaps the CSS lines of every .ropes for three SVG strings
+   (same weights and colours) that bend when the pointer crosses them. */
+html.motion .ropes.is-live { border-color: transparent; }
+html.motion .ropes.is-live::after { display: none; }
+.ropes-svg {
+  position: absolute;
+  left: 0; top: -1px; /* over the border box: the CSS lines sat on the borders */
+  width: 100%;
+  height: 15px;
+  overflow: visible;
+  pointer-events: none;
+}
+.ropes-svg path { fill: none; vector-effect: non-scaling-stroke; }
+.ropes-svg .rope-edge { stroke: var(--hairline); stroke-width: 1px; }
+.ropes-svg .rope-mid { stroke-width: 2px; }
+
+/* ── Buttons: fill sweeps in, label rolls up ── */
+html.motion :is(.btn, .nav-book) { position: relative; overflow: hidden; isolation: isolate; }
+html.motion :is(.btn, .nav-book)::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  background: var(--rust);
+  transform: translateX(-101%);
+  transition: transform .55s cubic-bezier(.72, 0, .18, 1);
+}
+html.motion .btn--ghost::before { background: color-mix(in srgb, var(--paper) 12%, transparent); }
+html.motion :is(.btn, .nav-book):is(:hover, :focus-visible)::before { transform: translateX(0); }
+/* the sweep carries the colour change now, and GSAP owns the lift */
+html.motion .btn:hover { --btn-bg: var(--blood); transform: none; }
+html.motion .btn--ghost:hover { --btn-bg: transparent; box-shadow: none; }
+html.motion .nav-book:hover { background: var(--blood); }
+.btn-label { display: inline-block; overflow: hidden; vertical-align: top; line-height: 1.3; }
+.btn-roll { display: inline-block; position: relative; transition: transform .45s cubic-bezier(.72, 0, .18, 1); }
+.btn-dup { position: absolute; left: 0; top: 100%; }
+:is(.btn, .nav-book):is(:hover, :focus-visible) .btn-roll { transform: translateY(-100%); }
+
+/* ── Nav ── */
+.nav-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--rust), var(--blood) 45%, #d96a2b 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+html.motion .nav-links { position: relative; }
+html.motion .nav-links a:not(.nav-book) { border-bottom-color: transparent; }
+.nav-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  height: 2px;
+  background: var(--blood);
+  transform-origin: left;
+  pointer-events: none;
+}
+/* the fighter mark throws a kick */
+html.motion .brand img { transition: transform .6s cubic-bezier(.34, 1.56, .64, 1); transform-origin: 50% 88%; }
+html.motion .brand:hover img { transform: rotate(-14deg); }
+
+/* ── Menu (below 1024px) ──────────────────────────────────────
+   The panel slides under the nav, so the burger itself turns into the
+   close control. */
+html.motion .navmenu { z-index: 49; }
+html.motion .navmenu .navmenu-close { display: none; }
+html.motion .navmenu a { overflow: hidden; }
+.navmenu-roll { display: block; }
+.burger line { transform-box: view-box; }
+
+/* ── Cursor label: VIEW / DRAG, fine pointers only ── */
+.cursor {
+  position: fixed;
+  left: 0; top: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  width: 5.25rem;
+  height: 5.25rem;
+  border-radius: 50%;
+  background: var(--blood);
+  color: var(--paper);
+  font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif;
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  pointer-events: none;
+  box-shadow: var(--lift-blood);
+}
+@media (hover: hover) and (pointer: fine) {
+  html.motion [data-cursor] { cursor: none; }
+}
+
+/* ── Footer curtain ────────────────────────────────────────────
+   The page is a sheet lifting off the footer, which waits underneath.
+   Skipped on very short screens, where the footer outgrows the view. */
+@media (min-height: 560px) {
+  html.motion main {
+    position: relative;
+    z-index: 1;
+    background: var(--ink);
+    box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .9);
+  }
+  html.motion .foot { position: sticky; bottom: 0; z-index: 0; }
+}
+
+/* ── Film grain, alive (fine pointers: a phone has better uses for
+   its GPU). Transform-only jitter of an oversized layer. ── */
+@media (hover: hover) and (pointer: fine) {
+  html.motion body::after { inset: -10%; animation: grain 1s steps(6) infinite; }
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  17% { transform: translate(-4%, 3%); }
+  33% { transform: translate(3%, -5%); }
+  50% { transform: translate(-2%, 4%); }
+  67% { transform: translate(5%, 2%); }
+  83% { transform: translate(-5%, -3%); }
+}
+
+/* ── Page to page ────────────────────────────────────────────────
+   Cross-document View Transitions: the page you leave drops back and
+   dims, the next one rises over it on a red rope edge. The nav holds
+   still. Browsers without support simply navigate. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .nav { view-transition-name: site-nav; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { mix-blend-mode: normal; }
+  ::view-transition-old(root) { animation: vt-leave .8s cubic-bezier(.72, 0, .18, 1) both; }
+  ::view-transition-new(root) {
+    animation: vt-enter .8s cubic-bezier(.72, 0, .18, 1) both;
+    box-shadow: 0 -3px 0 var(--blood), 0 -40px 80px rgba(0, 0, 0, .7);
+  }
+}
+@keyframes vt-leave { to { transform: translateY(-7vh) scale(.95); opacity: .35; } }
+@keyframes vt-enter { from { transform: translateY(100vh); } }

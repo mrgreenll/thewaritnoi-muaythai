@@ -98,13 +98,18 @@ function connect(wsUrl) {
 }
 
 /* Runs in the page. Scrolls every candidate into view the way it would sit
-   for a reader, then reports anything that is still not visible. */
-const INSPECT = `(() => {
+   for a reader, then reports anything that is still not visible. A first
+   pass is instant; whatever fails it gets a second look after it has sat
+   in view for a moment — scroll-linked motion needs a frame or two and a
+   tween to catch up, the same as it does for a person. */
+const INSPECT = `(async () => {
   const out = [];
   const root = document.querySelector('main');
   if (!root) return JSON.stringify({ out: ['no <main>'], n: 0 });
-  /* .tile-cap: gallery captions only appear on hover, by design */
-  const skip = (el) => el.closest('[aria-hidden="true"], .sr-only, dialog:not([open]), [hidden], template, noscript, .tile-cap');
+  /* .tile-cap: gallery captions only appear on hover, by design.
+     Split type (.m-*) is aria-hidden under an aria-label on its heading,
+     but it is exactly what a sighted reader sees, so it is checked. */
+  const skip = (el) => el.closest('[aria-hidden="true"]:not(.m-char, .m-word, .m-line, .m-line-mask), .sr-only, dialog:not([open]), [hidden], template, noscript, .tile-cap');
   const hasOwnText = (el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
   const cands = [...root.querySelectorAll('*')].filter((el) => !skip(el) && (el.tagName === 'IMG' || hasOwnText(el)));
   const opacity = (el) => { let o = 1; for (let n = el; n && n.nodeType === 1; n = n.parentElement) { const cs = getComputedStyle(n); if (cs.visibility === 'hidden') return 0; o *= parseFloat(cs.opacity); } return o; };
@@ -127,18 +132,32 @@ const INSPECT = `(() => {
     return false;
   };
   const name = (el) => el.tagName.toLowerCase() + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\\s+/).slice(0, 2).join('.') : '') + ' "' + (el.getAttribute('alt') || el.textContent || '').trim().replace(/\\s+/g, ' ').slice(0, 40) + '"';
+  const view = (el) => {
+    const r0 = el.getBoundingClientRect();
+    const top = r0.top + scrollY;
+    /* above the fold: judge it where a visitor first sees it */
+    window.scrollTo(0, top < innerHeight * 0.8 ? 0 : Math.max(0, top - innerHeight / 2 + r0.height / 2));
+  };
+  const verdict = (el) => {
+    const o = opacity(el);
+    if (o < 0.99) return 'faded (' + o.toFixed(2) + '): ' + name(el);
+    const c = clipped(el);
+    return c ? 'clipped by ' + c.tagName.toLowerCase() + '.' + String(c.className).split(' ')[0] + ': ' + name(el) : null;
+  };
   let n = 0;
+  const retry = [];
   for (const el of cands) {
     const r0 = el.getBoundingClientRect();
     if (!r0.width || !r0.height) continue;
     n++;
-    const top = r0.top + scrollY;
-    /* above the fold: judge it where a visitor first sees it */
-    window.scrollTo(0, top < innerHeight * 0.8 ? 0 : Math.max(0, top - innerHeight / 2 + r0.height / 2));
-    const o = opacity(el);
-    if (o < 0.99) { out.push('faded (' + o.toFixed(2) + '): ' + name(el)); continue; }
-    const c = clipped(el);
-    if (c) out.push('clipped by ' + c.tagName.toLowerCase() + '.' + String(c.className).split(' ')[0] + ': ' + name(el));
+    view(el);
+    if (verdict(el)) retry.push(el);
+  }
+  for (const el of retry) {
+    view(el);
+    await new Promise((r) => setTimeout(r, 700));
+    const v = verdict(el);
+    if (v) out.push(v);
   }
   window.scrollTo(0, 0);
   return JSON.stringify({ out, n });
@@ -209,7 +228,7 @@ async function run(cdp, page, mode, width) {
     window.scrollTo(0, 0);
     await wait(${mode === 'motion' ? 1200 : 100});
   })()`);
-  report = JSON.parse(await evaluate(INSPECT, false));
+  report = JSON.parse(await evaluate(INSPECT));
   const layout = JSON.parse(await evaluate(`JSON.stringify({
     sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth,
     broken: [...document.images].filter((i) => i.getAttribute('src') && i.complete && !i.naturalWidth).map((i) => i.getAttribute('src')),

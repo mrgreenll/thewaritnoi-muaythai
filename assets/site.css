@@ -395,6 +395,9 @@ a { color: inherit; }
   isolation: isolate;
 }
 .hero-media { position: absolute; inset: 0; z-index: -2; }
+/* camera: the motion layer settles and shakes this box; the photo inside
+   keeps its own scroll drift */
+.hero-cam { position: absolute; inset: 0; }
 /* Scrim — PHONES/TABLETS ONLY. On small screens the crop puts bright pads
    and banners behind the lead text. Desktop is untouched by explicit
    instruction (Leo, 2026-08-26): photo as shot, no overlay. */
@@ -445,35 +448,6 @@ a { color: inherit; }
   margin: auto 0;
   max-width: 17ch;
   text-shadow: 0 12px 34px rgba(6, 4, 4, .55);
-}
-/* Masked per-letter wipe on load — the home hero headline and every
-   sub-page <h1>. Each letter sits in its own overflow-hidden box holding
-   two copies: the one you see at load (.wipe-ghost) wipes out to the right,
-   and the real letter (.wipe-char) slides in from the left behind it, line
-   by line. assets/hero-split.js builds the boxes, running before first
-   paint; without JS the heading just renders as plain text. */
-.wipe-word { display: inline-block; }
-.wipe-mask { display: inline-block; position: relative; overflow: hidden; }
-.wipe-char { display: inline-block; }
-.wipe-ghost { display: inline-block; position: absolute; left: 0; top: 0; }
-
-@keyframes wipeIn  { from { opacity: 0; transform: translateX(-100%); } to { opacity: 1; transform: translateX(0); } }
-@keyframes wipeOut { from { opacity: 1; transform: translateX(0); }     to { opacity: 0; transform: translateX(100%); } }
-
-/* --c letter index within the line, --l line index. Lines start .25s apart;
-   inside a line the real letter trails its ghost by .15s. */
-.is-wiped .wipe-char {
-  opacity: 0;
-  animation: wipeIn .5s cubic-bezier(.5, 1, .89, 1) forwards;
-  animation-delay: calc(var(--l) * .25s + .15s + var(--c) * .01s);
-}
-.is-wiped .wipe-ghost {
-  animation: wipeOut .5s cubic-bezier(.5, 1, .89, 1) forwards;
-  animation-delay: calc(var(--l) * .25s + var(--c) * .01s);
-}
-@media (prefers-reduced-motion: reduce) {
-  .is-wiped .wipe-char { opacity: 1; animation: none; }
-  .is-wiped .wipe-ghost { display: none; }
 }
 .poster-type i { font-style: normal; display: block; }
 .poster-type .accent { color: var(--blood); }
@@ -1187,6 +1161,46 @@ dialog.lb::backdrop { background: rgba(6, 4, 4, .94); }
   }
 }
 
+/* ── Kinetic band (home, under the hero strip) ─────────────────
+   Facts already on the page, set large and run between fighter marks.
+   Static without the motion layer: the first set simply sits in the
+   band. motion.js clones the set and drives it with scroll velocity. */
+.marquee {
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline);
+  padding-block: clamp(1rem, 2.2vw, 1.75rem);
+  background: var(--ink);
+}
+.marquee-track { display: flex; width: max-content; }
+.marquee-set {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(1.25rem, 2.6vw, 2.75rem);
+  padding-right: clamp(1.25rem, 2.6vw, 2.75rem);
+}
+.marquee b {
+  font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.1rem, 1rem + 5.2vw, 6rem);
+  line-height: 1;
+  letter-spacing: -.035em;
+  white-space: nowrap;
+  color: var(--paper);
+}
+.marquee b.is-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--paper) 72%, transparent);
+}
+.marquee img { flex: none; width: auto; height: clamp(2.3rem, 1.2rem + 4.8vw, 5.4rem); }
+
+/* ── Curtain: the home intro's cover. Shown only under html.intro. ── */
+.curtain { display: none; }
+
+/* ── Footer ropes: the ring's ropes run along the top of the footer ── */
+.foot > .ropes { margin: calc(var(--s6) * -1) 0 var(--s6); }
+
 /* ═══════════════════════════════════════════════════════════════
    Multi-page additions (2026-08-23)
    The one-pager navigated by anchor; five pages need real links.
@@ -1343,71 +1357,85 @@ body.menu-open { overflow: hidden; }
 .backlink:hover { color: var(--paper); }
 .backlink::before { content: '←'; }
 
-/* ── Route cards: Home's hand-off to the other four pages ─────── */
-.routes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--s3);
-}
-.route {
+/* ── Where to next: an index of the four pages (2026-09-27) ────
+   Replaces the four small route cards. Big type, one row per page. A
+   fine pointer gets the row's photo following the cursor (motion.js);
+   touch screens get it inline as a thumbnail. No numbering: the pages are
+   not a sequence. */
+#routes { min-height: 0; }
+.index { position: relative; border-bottom: 1px solid var(--hairline); }
+.index-row {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 15rem;
-  padding: var(--s4) var(--s3) var(--s3);
-  overflow: hidden;
-  isolation: isolate;
-  border: 1px solid var(--hairline);
-  text-decoration: none;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 19rem) 8.5rem;
+  align-items: center;
+  gap: var(--s4);
+  padding-block: clamp(1.1rem, 2.1vw, 1.8rem);
+  border-top: 1px solid var(--hairline);
   color: var(--paper);
-  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+  text-decoration: none;
+  transition: opacity var(--dur) var(--ease);
 }
-.route img {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: var(--bw);
-  transition: transform .8s var(--ease);
-}
-.route::after {
+/* red rope along the top edge, drawn on hover */
+.index-row::after {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgba(6,4,4,.35) 0%, rgba(6,4,4,.55) 50%, rgba(6,4,4,.93) 100%);
+  left: 0; right: 0; top: -1px;
+  height: 2px;
+  background: var(--blood);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease);
 }
-.route:hover { border-color: var(--hairline-strong); transform: translateY(-3px); }
-.route:hover img { transform: scale(1.05); }
-.route:focus-visible { outline: 2px solid var(--blood); outline-offset: 3px; }
-.route b {
+.index-title {
   font-family: 'Space Grotesk', -apple-system, 'Segoe UI', sans-serif;
   font-weight: 700;
-  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
   text-transform: uppercase;
-  letter-spacing: -.015em;
-  line-height: 1.05;
+  font-size: clamp(2.25rem, 1.1rem + 4.7vw, 5.75rem);
+  line-height: .95;
+  letter-spacing: -.035em;
+  transition: transform .6s var(--ease);
 }
-.route span {
-  margin-top: .35rem;
-  font-size: .875rem;
-  color: var(--muted);
-}
-.route .go {
-  margin-top: var(--s2);
+.index-desc { font-size: .9375rem; line-height: 1.5; color: var(--muted); max-width: 34ch; }
+.index-go {
+  justify-self: end;
   font-size: .7rem;
   font-weight: 700;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--blood);
+  white-space: nowrap;
+}
+.index-thumb { display: none; }
+.index-row:hover::after, .index-row:focus-visible::after { transform: scaleX(1); }
+.index-row:hover .index-title, .index-row:focus-visible .index-title { transform: translateX(1.25rem); }
+.index-row:active .index-title { transform: translateX(.6rem); }
+.index-row:focus-visible { outline: 2px solid var(--blood); outline-offset: 4px; }
+/* the rest of the list steps back while one row is chosen */
+.index:hover .index-row:not(:hover) { opacity: .38; }
+@media (max-width: 900px), (hover: none) {
+  .index-row {
+    grid-template-columns: minmax(0, 1fr) 5.5rem;
+    grid-template-areas: 'title thumb' 'desc thumb' 'go thumb';
+    gap: .3rem var(--s3);
+  }
+  .index-title { grid-area: title; font-size: clamp(2rem, 1.2rem + 5vw, 3.5rem); }
+  .index-desc { grid-area: desc; font-size: .875rem; }
+  .index-go { grid-area: go; justify-self: start; margin-top: .2rem; }
+  .index-thumb {
+    display: block;
+    grid-area: thumb;
+    width: 5.5rem;
+    height: 5.5rem;
+    object-fit: cover;
+    filter: var(--bw);
+    border: 1px solid var(--hairline);
+  }
+  .index:hover .index-row:not(:hover) { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .route, .route img { transition: none; }
-  .route:hover { transform: none; }
-  .route:hover img { transform: none; }
+  .index-row:hover .index-title, .index-row:focus-visible .index-title, .index-row:active .index-title { transform: none; }
 }
 
 /* Sub-pages size their sections to content. The 100svh full-screen panel is

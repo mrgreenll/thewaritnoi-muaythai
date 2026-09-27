@@ -55,6 +55,7 @@
 <script src="/assets/motion.js" defer></script>
 </head>
 <body>
+<div class="curtain" aria-hidden="true"><i class="curtain-half curtain-top"></i><i class="curtain-half curtain-bot"></i></div>
 <a class="skip" href="#main">Skip to content</a>
 <nav class="nav" id="nav">
   <a class="brand" href="/" aria-label="Thewaritnoi Krabi Muaythai — home">
@@ -90,27 +91,28 @@
 
 <header class="hero">
   <div class="hero-media">
-    <picture>
-      <source media="(max-width: 767px)" srcset="/assets/img/hero-mobile-padkick.webp" width="1240" height="1840">
-      <img src="/assets/img/hero-champ-mono.webp" alt="Thewaritnoi holds pads for a fighter in the gym's ring." fetchpriority="high" width="2750" height="1536">
-    </picture>
+    <div class="hero-cam">
+      <picture>
+        <source media="(max-width: 767px)" srcset="/assets/img/hero-mobile-padkick.webp" width="1240" height="1840">
+        <img src="/assets/img/hero-champ-mono.webp" alt="Thewaritnoi holds pads for a fighter in the gym's ring." fetchpriority="high" width="2750" height="1536">
+      </picture>
+    </div>
   </div>
 
   <div class="shell poster">
-    <h1 class="poster-type reveal in">
+    <h1 class="poster-type">
       <span class="sr-only">Thewaritnoi Krabi Muaythai — </span>
       <i><span>Muay Thai.</span></i>
       <i class="accent"><span>With the Champ.</span></i>
       <i><span>Family Vibes.</span></i>
     </h1>
-    <script src="/assets/hero-split.js"></script>
 
     <div class="hero-bottom">
-    <p class="poster-rule reveal in" style="margin:0"><b>Ao Nang · Krabi</b></p>
+    <p class="poster-rule" style="margin:0"><b>Ao Nang · Krabi</b></p>
 
-    <p class="lead reveal d1 in">Train the way Thai fighters train. A coach watches your kick, corrects it, and makes you throw it again. First-timers welcome — every champion started with none.</p>
+    <p class="lead">Train the way Thai fighters train. A coach watches your kick, corrects it, and makes you throw it again. First-timers welcome — every champion started with none.</p>
 
-    <div class="hero-cta reveal d2 in">
+    <div class="hero-cta">
       <a class="btn" href="https://wa.me/66891984577?text=Hi%20Thewaritnoi%20Krabi%20Muaythai%2C%20I%27d%20like%20to%20book%20a%20training%20session." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.47c-.17 0-.43.06-.66.31-.22.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.16 1.75 2.67 4.24 3.75.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
         Book a session
@@ -124,7 +126,17 @@
 </header>
 <div class="strip" aria-hidden="true"></div>
 
-<div class="ropes"></div>
+<!-- ─── Kinetic band: facts from the page, running ─────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <b>Muay Thai</b><img src="/assets/logo-fighter.svg" alt="" width="31" height="56">
+      <b class="is-outline">Ao Nang, Krabi</b><img src="/assets/logo-fighter.svg" alt="" width="31" height="56">
+      <b>First-timer to pro</b><img src="/assets/logo-fighter.svg" alt="" width="31" height="56">
+      <b class="is-outline">Sat–Thu 08:00–20:00</b><img src="/assets/logo-fighter.svg" alt="" width="31" height="56">
+    </div>
+  </div>
+</div>
 
 <!-- ─── The gym ─────────────────────────────────────────────── -->
 
@@ -183,7 +195,7 @@
 <section class="section section--tint section--slim">
   <div class="shell">
     <figure class="quote reveal" style="margin:0">
-      <blockquote>“The training is always top. Every coach is super present and supportive.”</blockquote>
+      <blockquote><span class="punch">“The training</span> <span class="punch">is always top.</span> <span class="punch">Every coach</span> <span class="punch">is super present</span> <span class="punch">and supportive.”</span></blockquote>
       <div>
         <p class="muted">“These were my first real steps into Muay Thai and I'll keep coming back whenever I can.”</p>
         <footer>A returning student — posted to the gym's Instagram</footer>
@@ -192,10 +204,7 @@
   </div>
 </section>
 
-<div class="ropes"></div>
-
-<!-- ─── Training ────────────────────────────────────────────── -->
-
+<div class="ropes" aria-hidden="true"></div>
 
 <!-- ─── Where to next ───────────────────────────────────────── -->
 <section class="section" id="routes">
@@ -204,30 +213,30 @@
       <p class="eyebrow reveal">Where to next</p>
       <h2 class="reveal" style="margin-bottom:var(--s4)">Prices, rooms,<br>photos and the map</h2>
     </div>
-    <div class="routes">
-      <a class="route reveal" href="/training/">
-        <img src="/assets/img/training-pad-coaching-01-sm.webp" alt="" loading="lazy" width="800" height="800">
-        <b>Training</b>
-        <span>Prices, the weekly schedule, and what a round actually looks like.</span>
-        <span class="go">See prices</span>
+    <div class="index">
+      <a class="index-row" href="/training/">
+        <span class="index-title">Training</span>
+        <span class="index-desc">Prices, the weekly schedule, and what a round actually looks like.</span>
+        <span class="index-go">See prices</span>
+        <img class="index-thumb" src="/assets/img/training-pad-coaching-01-sm.webp" alt="" loading="lazy" width="800" height="800">
       </a>
-      <a class="route reveal d1" href="/stay/">
-        <img src="/assets/img/event-string-lights-02-sm.webp" alt="" loading="lazy" width="800" height="800">
-        <b>Stay</b>
-        <span>Sleep where you train. A private bedroom or the whole house.</span>
-        <span class="go">See rooms</span>
+      <a class="index-row" href="/stay/">
+        <span class="index-title">Stay</span>
+        <span class="index-desc">Sleep where you train. A private bedroom or the whole house.</span>
+        <span class="index-go">See rooms</span>
+        <img class="index-thumb" src="/assets/img/event-string-lights-02-sm.webp" alt="" loading="lazy" width="800" height="800">
       </a>
-      <a class="route reveal d2" href="/gallery/">
-        <img src="/assets/img/fight-flying-knee-02-sm.webp" alt="" loading="lazy" width="800" height="800">
-        <b>Gallery</b>
-        <span>Fight nights, pad rounds, and the team off the mat.</span>
-        <span class="go">See photos</span>
+      <a class="index-row" href="/gallery/">
+        <span class="index-title">Gallery</span>
+        <span class="index-desc">Fight nights, pad rounds, and the team off the mat.</span>
+        <span class="index-go">See photos</span>
+        <img class="index-thumb" src="/assets/img/fight-flying-knee-02-sm.webp" alt="" loading="lazy" width="800" height="800">
       </a>
-      <a class="route reveal d3" href="/find-us/">
-        <img src="/assets/img/gym-floor-wordmark-02-sm.webp" alt="" loading="lazy" width="800" height="800">
-        <b>Find us</b>
-        <span>Ao Nang, Krabi. Opening hours, the pin, and directions.</span>
-        <span class="go">Open the map</span>
+      <a class="index-row" href="/find-us/">
+        <span class="index-title">Find us</span>
+        <span class="index-desc">Ao Nang, Krabi. Opening hours, the pin, and directions.</span>
+        <span class="index-go">Open the map</span>
+        <img class="index-thumb" src="/assets/img/gym-floor-wordmark-02-sm.webp" alt="" loading="lazy" width="800" height="800">
       </a>
     </div>
   </div>
@@ -236,6 +245,7 @@
 </main>
 
 <footer class="foot">
+  <div class="ropes" aria-hidden="true"></div>
   <div class="shell">
     <div class="foot-top">
       <div>

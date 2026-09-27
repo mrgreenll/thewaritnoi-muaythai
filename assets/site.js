@@ -208,26 +208,63 @@
     a.innerHTML = `<span class="roll"><span class="roll-in">${label}<span class="roll-dup" aria-hidden="true">${label}</span></span></span>`;
   });
 
-  /* ── Burger menu (below 1024px, where the inline nav is hidden) ── */
+  /* ── Hand-offs to the motion layer ──
+     motion() runs window.TKMMotion[name](...args) when motion.js is up and
+     reports whether it took the job; lenis() pauses or resumes smooth
+     scrolling around overlays. Both are no-ops on the static site. */
+  const motion = (name, ...args) => {
+    const fn = window.TKMMotion && window.TKMMotion[name];
+    return typeof fn === 'function' ? Boolean(fn(...args)) : false;
+  };
+  const lenis = (method) => {
+    const l = window.TKMMotion && window.TKMMotion.lenis;
+    if (l) l[method]();
+  };
+
+  /* ── Burger menu (below 1024px, where the inline nav is hidden) ──
+     While it is open, everything behind it is inert, so keyboard and
+     screen-reader focus cannot wander into the page underneath. */
   const burger = document.querySelector('.burger');
   const menu = document.getElementById('navmenu');
   if (burger && menu) {
     const closeBtn = menu.querySelector('.navmenu-close');
-    const setOpen = (open) => {
-      menu.hidden = !open;
+    const behind = [document.querySelector('main'), document.querySelector('.foot')].filter(Boolean);
+    let open = false;
+    const setOpen = (next) => {
+      if (next === open) return;
+      open = next;
       burger.setAttribute('aria-expanded', String(open));
       document.body.classList.toggle('menu-open', open);
-      if (open) (menu.querySelector('a') || closeBtn)?.focus();
-      else burger.focus();
+      behind.forEach((el) => { el.inert = open; });
+      lenis(open ? 'stop' : 'start');
+      if (open) {
+        menu.hidden = false;
+        motion('menu', true, menu, () => {});
+        (menu.querySelector('a') || closeBtn)?.focus();
+      } else {
+        const done = () => { if (!open) menu.hidden = true; };
+        if (!motion('menu', false, menu, done)) done();
+        burger.focus();
+      }
     };
-    burger.addEventListener('click', () => setOpen(menu.hidden));
+    burger.addEventListener('click', () => setOpen(!open));
     closeBtn?.addEventListener('click', () => setOpen(false));
     menu.addEventListener('click', (e) => { if (e.target === menu) setOpen(false); });
-    addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) setOpen(false); });
+    addEventListener('keydown', (e) => {
+      if (!open) return;
+      if (e.key === 'Escape') { setOpen(false); return; }
+      if (e.key !== 'Tab') return;
+      /* keep Tab inside: the visible close control, then the links */
+      const shown = (el) => el && getComputedStyle(el).display !== 'none';
+      const ring = [shown(closeBtn) ? closeBtn : burger, ...menu.querySelectorAll('a')];
+      const first = ring[0];
+      const last = ring[ring.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     // Resizing up past the breakpoint must not leave the panel stuck open.
     matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
   }
-
 
   /* ── Motion layer fallback ──
      The head gate adds html.motion before first paint; assets/motion.js
