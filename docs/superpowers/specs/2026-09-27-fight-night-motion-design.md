@@ -18,8 +18,16 @@ and colour comes back only when you touch them.** That rule already exists
   files in `assets/vendor/` and loaded with `defer`. No runtime CDN request.
 - Progressive enhancement: `site.js` keeps every function working if the
   motion layer never loads. Content is visible with JS off.
-- Motion animates `transform` and `opacity` only (WEB-BUILDS). The existing
-  hover `filter` blooms are the documented exception, and remain one.
+- Motion animates `transform` and `opacity` only (WEB-BUILDS). Documented
+  exceptions: photo colour blooms (`filter` — hover, as before, and the
+  viewer), the Find us icon draw (`stroke-dashoffset`), the ring rope paths
+  (`d`), and colour/background changes on hover and press, which the site
+  already used for buttons and links.
+- Accessibility contract (added after code review): start states hide with
+  opacity only, never `visibility` — hidden content must stay in the tab
+  order and the accessibility tree. Keyboard focus finishes any pending
+  entrance of what it lands on. Nothing covers a focused element; the
+  footer curtain steps aside for focus.
 - `prefers-reduced-motion: reduce` gets a complete static site: no intro,
   no smooth scroll, no marquee drift, no scrub, no cursor effects, and
   everything visible immediately.
@@ -44,7 +52,11 @@ and colour comes back only when you touch them.** That rule already exists
 
 Anti-flash: an inline `<head>` snippet adds `motion` to `<html>` when motion
 is allowed. A CSS fail-safe reveals hidden start states after 4s if
-`motion.js` never runs.
+`motion.js` never runs. site.js drops the classes on DOMContentLoaded when
+`window.TKMMotion` was never defined (motion.js registers it synchronously;
+`motion-ready` is not the signal, since the opening waits on fonts). A boot
+later than 3.5s — a slow network, where the fail-safe is about to show the
+page — takes the static site rather than hiding and re-showing content.
 
 ## Restraint (frontend-design review, 2026-09-27)
 
@@ -80,12 +92,15 @@ intro ≈ 2.2s total.
 - **Reveals** — headings rise line by line from masks; eyebrow rules draw
   before their label; paragraphs rise in sequence; framed photos wipe open
   with counter-parallax; ropes dividers draw their red section.
-- **Footer curtain** — the page lifts away to uncover the footer.
+- **Footer curtain** — the page lifts away to uncover the footer, only
+  while the whole footer fits the screen (it does not on narrow phones);
+  keyboard focus entering the footer takes the page to its end.
 - **Ring ropes** — every `.ropes` divider is a set of real ropes: they twang
   once as they enter the viewport and wobble when the pointer (or a finger)
   crosses them.
-- **Cursor labels** (desktop) — VIEW / DRAG / OPEN disc over the gallery,
-  room strips and route rows only. The system cursor stays.
+- **Cursor labels** (desktop) — VIEW / DRAG disc beside the pointer over the
+  gallery and room strips only. The system cursor stays. (No OPEN label on
+  the route rows: the photo that follows the cursor does that job.)
 - **Grain** — the existing film grain jitters (desktop only).
 - **Live status** — "Open now · closes 20:00" / "Closed · opens Sat 08:00",
   computed in Asia/Bangkok time from the published hours (Sat–Thu
@@ -119,11 +134,12 @@ intro ≈ 2.2s total.
 ## Training
 
 - Page head: headline rises from masks, photo pushes in on scroll.
-- Price rows slide in along their hairlines; prices roll into place like an
-  odometer.
+- Prices roll into place like an odometer. (Rows sliding in along their
+  hairlines was dropped — one motion per price is enough.)
 - Week strip flips in like a departure board; today is marked, with a live
   "class on now" / "next class" line; Friday's strike draws across.
-- Package matrix: row + column crosshair on hover and focus.
+- Package matrix: row + column crosshair on hover. (Not on focus: the cells
+  are not focusable, and the table already reads cell by cell.)
 - Round tiles wipe open, photo parallax inside; existing colour bloom kept.
 - Beach band opens like a letterbox.
 

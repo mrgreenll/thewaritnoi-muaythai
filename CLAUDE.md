@@ -32,11 +32,17 @@ Spec: `docs/superpowers/specs/2026-09-27-fight-night-motion-design.md`.
   Hidden start states live only under `html.motion` — never hide content
   in site.css.
 - Transform/opacity only. Documented exceptions: photo colour blooms
-  (`filter`), Find us icon draw (`stroke-dashoffset`), rope paths (`d`).
+  (`filter`), Find us icon draw (`stroke-dashoffset`), rope paths (`d`),
+  hover/press colour changes.
+- Start states hide with opacity, never `visibility`/`autoAlpha` (that
+  drops content out of the tab order and screen readers). Focus finishes a
+  pending entrance; the footer curtain (`html.lift`) only runs while the
+  footer fits the screen.
 - Opening hours live in `assets/hours.js` (live "Open now" status) as well
   as in the page copy — change both together.
 - Checks: `node check.mjs http://localhost:3000` (every page × full /
-  reduced-motion / no-JS × 1440 / 390; exits 1 on failure) and
+  reduced-motion / no-JS × 1440 / 390 / 360×740, including a keyboard Tab
+  walk; exits 1 on failure) and
   `node --test tests/hours.test.mjs`. For static layout screenshots use
   `node screenshot.mjs "http://localhost:3000/?motion=off"` — with motion
   on, the band capture catches scroll reveals mid-flight.

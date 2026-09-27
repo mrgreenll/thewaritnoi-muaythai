@@ -1511,9 +1511,10 @@ body.menu-open { overflow: hidden; }
 }
 .matrix td { color: var(--muted); font-variant-numeric: tabular-nums; }
 
-/* Small screens: the package matrix must show all three durations at once —
-   a sideways-scrolling table hides the month column with no hint it exists. */
-@media (max-width: 560px) {
+/* Narrow panels — phones, and the two-column split between 881px and
+   1180px — the package matrix must show all three durations at once: a
+   sideways-scrolling table hides the month column with no hint it exists. */
+@media (max-width: 560px), (min-width: 881px) and (max-width: 1180px) {
   .matrix { min-width: 0; font-size: .8125rem; }
   .matrix th, .matrix td { padding: .55rem .3rem; }
   .matrix tbody th { font-size: .75rem; white-space: normal; padding-right: .5rem; }
@@ -1595,8 +1596,8 @@ body.menu-open { overflow: hidden; }
 .roomgal-track { flex: 1; height: 2px; overflow: hidden; background: var(--hairline); }
 .roomgal-track i { display: block; height: 100%; background: var(--blood); }
 .roomgal-bar .icon-btn { width: 2.25rem; height: 2.25rem; }
-.roomgal-bar .icon-btn:disabled { opacity: .35; cursor: default; }
-.roomgal-bar .icon-btn:disabled:hover { background: var(--surface-2); border-color: var(--hairline-strong); }
+.roomgal-bar .icon-btn[aria-disabled="true"] { opacity: .35; cursor: default; }
+.roomgal-bar .icon-btn[aria-disabled="true"]:hover { background: var(--surface-2); border-color: var(--hairline-strong); }
 .shot-open {
   display: block;
   width: 100%;
@@ -1607,6 +1608,12 @@ body.menu-open { overflow: hidden; }
   cursor: zoom-in;
 }
 .shot-open:focus-visible { outline: 2px solid var(--blood); outline-offset: -2px; }
+.roomgal figure.shot .shot-open img { transition: transform .6s var(--ease); }
+.shot-open:hover img, .shot-open:focus-visible img { transform: scale(1.045); }
+.shot-open:active img { transform: scale(1.015); }
+@media (prefers-reduced-motion: reduce) {
+  .shot-open:hover img, .shot-open:focus-visible img, .shot-open:active img { transform: none; }
+}
 
 /* ── Room strip: real photography (private house, 2026-08-27) ──
    Same box as the placeholder tile, filled. Rooms are exempt from the

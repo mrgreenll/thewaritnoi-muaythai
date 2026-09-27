@@ -30,7 +30,8 @@ const opt = (name, fallback) => {
 };
 const base = (args.find((a) => !a.startsWith('--')) || 'http://localhost:3000').replace(/\/$/, '');
 const modes = opt('modes', ['motion', 'reduced', 'nojs']);
-const widths = opt('widths', ['1440', '390']).map(Number);
+/* a width, or WIDTHxHEIGHT; mobile widths default to 844 tall */
+const widths = opt('widths', ['1440', '390', '360x740']);
 const pages = opt('pages', ['/', '/training/', '/stay/', '/gallery/', '/find-us/']);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -180,11 +181,14 @@ async function run(cdp, page, mode, width) {
     }
   });
 
+  const [w, h] = String(width).split('x').map(Number);
+  width = w;
   const mobile = width <= 600;
+  const height = h || (mobile ? 844 : 900);
   await call('Page.enable');
   await call('Runtime.enable');
   await call('Log.enable');
-  await call('Emulation.setDeviceMetricsOverride', { width, height: mobile ? 844 : 900, deviceScaleFactor: 1, mobile });
+  await call('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile });
   if (mobile) await call('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
   await call('Emulation.setEmulatedMedia', {
     features: [{ name: 'prefers-reduced-motion', value: mode === 'reduced' ? 'reduce' : 'no-preference' }],
@@ -208,6 +212,76 @@ async function run(cdp, page, mode, width) {
   }
   await sleep(mode === 'nojs' ? 800 : 3200); // the home intro runs ~2.2s
 
+  const early = [];
+  /* Before anything scrolls: nothing in the content may be
+     visibility:hidden. Hidden start states must be opacity-only, or the
+     content drops out of the tab order and the accessibility tree until
+     its scroll reveal fires. Decorative pieces are aria-hidden and exempt. */
+  if (mode !== 'nojs') {
+    const hiddenAtRest = JSON.parse(await evaluate(`JSON.stringify([...document.querySelectorAll('main *, .foot *')]
+      .filter((el) => getComputedStyle(el).visibility === 'hidden'
+        && !el.closest('[aria-hidden="true"], [hidden], dialog, .sr-only')
+        && getComputedStyle(el).display !== 'none'
+        && (el.parentElement && getComputedStyle(el.parentElement).visibility !== 'hidden'))
+      .slice(0, 8).map((el) => el.tagName.toLowerCase() + '.' + String(el.className).split(' ')[0] + ' "' + el.textContent.trim().replace(/\\s+/g, ' ').slice(0, 30) + '"'))`, false));
+    hiddenAtRest.forEach((h) => early.push('hidden from assistive tech at load: ' + h));
+  }
+
+  /* A footer pinned under the page (the curtain) must fit the screen:
+     whatever sits above the top edge at the end of the page is never
+     reachable. */
+  const footCut = await evaluate(`(async () => {
+    const f = document.querySelector('.foot');
+    if (!f || getComputedStyle(f).position !== 'sticky') return 0;
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    await new Promise((r) => setTimeout(r, 400));
+    const top = f.getBoundingClientRect().top;
+    window.scrollTo(0, 0);
+    return top < -1 ? Math.round(-top) : 0;
+  })()`);
+  if (footCut) early.push(`footer cut off: its top ${footCut}px can never be scrolled into view`);
+
+  /* Keyboard: Tab through the page as a person would. Every stop must be
+     visible and on top where it lands, and every tabbable element must
+     be reachable (a visibility:hidden start state silently drops out). */
+  if (mode !== 'nojs') {
+    await evaluate(`(() => { if (document.activeElement) document.activeElement.blur(); window.scrollTo(0, 0); return 1; })()`, false);
+    await sleep(mode === 'motion' ? 400 : 50);
+    const PROBE = `(() => {
+        const el = document.activeElement;
+        if (!el || el === document.body || el === document.documentElement) return JSON.stringify({ end: true });
+        if (!el.dataset.tabId) el.dataset.tabId = String(document.querySelectorAll('[data-tab-id]').length);
+        const r = el.getBoundingClientRect();
+        let o = 1;
+        for (let n = el; n && n.nodeType === 1; n = n.parentElement) { const cs = getComputedStyle(n); if (cs.visibility === 'hidden') { o = 0; break; } o *= parseFloat(cs.opacity); }
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        const inView = cy >= 0 && cy <= innerHeight && cx >= 0 && cx <= innerWidth;
+        const hit = inView ? document.elementFromPoint(cx, cy) : null;
+        const covered = Boolean(hit) && !(hit === el || el.contains(hit) || hit.contains(el));
+        const tag = (n) => n ? n.tagName.toLowerCase() + (typeof n.className === 'string' && n.className.trim() ? '.' + n.className.trim().split(/\\s+/)[0] : '') : '';
+        return JSON.stringify({ dim: el.getAttribute('aria-disabled') === 'true', id: el.dataset.tabId, name: tag(el) + ' "' + (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\\s+/g, ' ').slice(0, 30) + '"', o, inView, covered, hit: tag(hit) });
+      })()`;
+    const seen = [];
+    for (let i = 0; i < 160; i++) {
+      await call('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+      await call('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+      await sleep(mode === 'motion' ? 450 : 40);
+      let stop = JSON.parse(await evaluate(PROBE, false));
+      /* smooth focus scrolling (no Lenis on touch) can still be moving: settle, then look again */
+      if (!stop.end && (!stop.inView || stop.covered || stop.o < 0.99)) { await sleep(900); stop = JSON.parse(await evaluate(PROBE, false)); }
+      if (stop.end || seen.includes(stop.id)) break;
+      seen.push(stop.id);
+      if (stop.o < 0.99 && !stop.dim) early.push(`tab stop faded (${stop.o.toFixed(2)}): ${stop.name}`);
+      else if (!stop.inView) early.push(`tab stop off-screen: ${stop.name}`);
+      else if (stop.covered) early.push(`tab stop covered by ${stop.hit}: ${stop.name}`);
+    }
+    const expected = await evaluate(`[...document.querySelectorAll('a[href], button, input, select, textarea, [tabindex]')]
+      .filter((el) => el.tabIndex >= 0 && !el.disabled && !el.closest('[inert], [hidden], dialog:not([open])')
+        && getComputedStyle(el).display !== 'none' && el.getClientRects().length).length`, false);
+    if (process.env.TKM_DEBUG) console.log(`   [debug] ${page} tab stops ${seen.length}, expected ${expected}`);
+    if (seen.length < expected) early.push(`keyboard reaches ${seen.length} of ${expected} tabbable elements`);
+  }
+
   let report;
   if (mode === 'nojs') {
     // Page scripts are disabled, but Runtime.evaluate still runs.
@@ -229,6 +303,8 @@ async function run(cdp, page, mode, width) {
     await wait(${mode === 'motion' ? 1200 : 100});
   })()`);
   report = JSON.parse(await evaluate(INSPECT));
+
+
   const layout = JSON.parse(await evaluate(`JSON.stringify({
     sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth,
     broken: [...document.images].filter((i) => i.getAttribute('src') && i.complete && !i.naturalWidth).map((i) => i.getAttribute('src')),
@@ -242,6 +318,7 @@ async function run(cdp, page, mode, width) {
   if (layout.sw > layout.cw) fails.push(`horizontal overflow: ${layout.sw} > ${layout.cw}`);
   layout.broken.forEach((b) => fails.push('broken image: ' + b));
   report.out.forEach((o) => fails.push(o));
+  early.forEach((o) => fails.push(o));
   return { fails, checked: report.n, html: layout.motion };
 }
 
@@ -253,7 +330,7 @@ try {
   for (const width of widths) {
     for (const mode of modes) {
       for (const page of pages) {
-        const tag = `${mode.padEnd(7)} ${String(width).padStart(4)}  ${page.padEnd(11)}`;
+        const tag = `${mode.padEnd(7)} ${String(width).padStart(8)}  ${page.padEnd(11)}`;
         let result;
         for (let attempt = 1; attempt <= 2 && !result; attempt++) {
           try {

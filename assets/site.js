@@ -68,7 +68,7 @@
     const step = (dir) => {
       if (list.length < 2 || closing) return;
       const next = (idx + dir + list.length) % list.length;
-      const swap = () => { idx = next; render(); };
+      const swap = () => { if (closing) return; idx = next; render(); };
       if (!motion('lightboxStep', { lb, img }, dir, swap)) swap();
     };
 
@@ -205,7 +205,7 @@
     if (bar) {
       bar.innerHTML = FILTERS.map(([key, label]) => {
         const n = key === 'all' ? photos.length : photos.filter((p) => p[3] === key).length;
-        return `<button class="filter" type="button" data-filter="${key}" aria-pressed="${key === 'all'}">${label}<span class="filter-n">${n}</span></button>`;
+        return `<button class="filter" type="button" data-filter="${key}" aria-pressed="${key === 'all'}">${label}<span class="filter-n"><span class="sr-only"> (</span>${n}<span class="sr-only"> photos)</span></span></button>`;
       }).join('');
       bar.hidden = false;
     }
@@ -244,9 +244,14 @@
         t.hidden = false;
         cols[k].appendChild(t);
       });
-      /* filtered-out tiles stay in place, hidden, so the motion layer can
-         send them off from where they were */
-      tiles.forEach((t) => { if (!shown.includes(t)) t.hidden = true; });
+      /* filtered-out tiles stay in the DOM, hidden — in place when the
+         columns survive (so the motion layer can send them off from where
+         they were), parked in the last column when they are rebuilt */
+      tiles.forEach((t) => {
+        if (shown.includes(t)) return;
+        t.hidden = true;
+        if (!cols.includes(t.parentElement)) cols[cols.length - 1].appendChild(t);
+      });
       if (grid.children.length !== n || cols[0].parentNode !== grid) grid.replaceChildren(...cols);
       grid.dataset.cols = n;
     };
@@ -332,6 +337,12 @@
       if (dragged) { e.preventDefault(); return; }
       Lightbox.open(items, i);
     }));
+    /* Tabbing onto a photo that is only partly in the strip: the browser
+       leaves it half hidden, so bring the whole photo in. */
+    strip.addEventListener('focusin', (e) => {
+      const fig = e.target.closest('figure');
+      if (fig) fig.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    });
 
     const icon = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
     const bar = document.createElement('div');
@@ -346,9 +357,10 @@
       const first = strip.firstElementChild;
       return (first ? first.getBoundingClientRect().width : 200) + (parseFloat(getComputedStyle(strip).columnGap) || 0);
     };
+    const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     bar.addEventListener('click', (e) => {
       const b = e.target.closest('[data-dir]');
-      if (b) strip.scrollBy({ left: Number(b.dataset.dir) * stride(), behavior: 'smooth' });
+      if (b && b.getAttribute('aria-disabled') !== 'true') strip.scrollBy({ left: Number(b.dataset.dir) * stride(), behavior });
     });
     const sync = () => {
       const max = strip.scrollWidth - strip.clientWidth;
@@ -356,8 +368,9 @@
       const frac = strip.clientWidth / strip.scrollWidth;
       thumb.style.width = `${frac * 100}%`;
       thumb.style.transform = `translateX(${max > 0 ? (strip.scrollLeft / max) * ((1 - frac) / frac) * 100 : 0}%)`;
-      prev.disabled = strip.scrollLeft < 2;
-      next.disabled = strip.scrollLeft > max - 2;
+      /* aria-disabled, not disabled: a disabled button drops keyboard focus */
+      prev.setAttribute('aria-disabled', String(strip.scrollLeft < 2));
+      next.setAttribute('aria-disabled', String(strip.scrollLeft > max - 2));
     };
     strip.addEventListener('scroll', sync, { passive: true });
     addEventListener('resize', sync);
@@ -399,7 +412,7 @@
       const w = stride();
       const max = strip.scrollWidth - strip.clientWidth;
       const target = Math.max(0, Math.min(max, Math.round((strip.scrollLeft - vel * 240) / w) * w));
-      strip.scrollTo({ left: target, behavior: 'smooth' });
+      strip.scrollTo({ left: target, behavior });
       const settle = () => strip.classList.remove('is-dragging');
       if ('onscrollend' in window) strip.addEventListener('scrollend', settle, { once: true });
       setTimeout(settle, 700);

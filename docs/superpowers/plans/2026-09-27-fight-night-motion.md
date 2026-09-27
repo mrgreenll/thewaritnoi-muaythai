@@ -48,8 +48,9 @@ cross-document View Transitions, Node 26 `node:test`, Chrome DevTools Protocol c
   adds `motion` to `<html>` unless reduced motion or `?motion=off`; adds `intro` when
   `sessionStorage['tkm-seen']` is unset and the page is Home; sets the flag on every page.
 - **Boot contract:** `motion.js` sets start states, then adds `motion-ready` to `<html>`.
-  `site.js` on `DOMContentLoaded`: if `motion` but not `motion-ready`, removes `motion` and
-  `intro` (vendor or motion.js failed). CSS fail-safe reveals everything after 4s.
+  `site.js` on `DOMContentLoaded`: if `motion` but no `window.TKMMotion`, removes `motion`
+  and `intro` (vendor or motion.js failed). CSS fail-safe reveals everything after 4s.
+  A boot later than 3.5s bails to the static site.
 - **`window.TKMMotion`** (defined by `motion.js`, all optional, each returns truthy if handled):
   - `menu(open: boolean, panel: HTMLElement, done: () => void)`
   - `flip(container: HTMLElement, mutate: () => void)`
@@ -57,7 +58,8 @@ cross-document View Transitions, Node 26 `node:test`, Chrome DevTools Protocol c
   - `lightboxClose(ctx: {lb, img, to: HTMLImageElement|null}, done: () => void)`
   - `lightboxStep(ctx: {lb, img}, dir: 1|-1, swap: () => void)`
   - `lenis` — the Lenis instance or `null`; `site.js` calls `stop()`/`start()` around menu and lightbox.
-- **Events** (`document`): `tkm:gallery-layout` with `detail.tiles` after each (re)layout.
+- **Events** (`document`): `tkm:gallery-layout` with `detail.tiles`, once — the tiles are
+  persistent and only ever re-dealt, so there is nothing new to announce after that.
 - **`TKMHours.status(date: Date)`** → `{ open, dayIndex, gym: string, classes: string, classNow: boolean }`.
 - **Live targets:** `[data-live="gym"]`, `[data-live="classes"]`; today cell gets `.is-today`.
 - **Cursor labels:** any element with `data-cursor="View|Drag|Open"`.
@@ -96,7 +98,8 @@ home/training/find-us `index.html`.
 - [x] Reveal system: eyebrow rule draw, h2 line masks, `.reveal` fade-up (d1–d3), frames wipe + parallax, ropes draw.
 - [x] Buttons: sweep fill, label roll, magnetic. Nav: progress rope, sliding underline, logo kick.
 - [x] Menu: panel wipe, masked link rise, burger→X, `inert` focus trap.
-- [x] View Transitions, grain jitter, cursor labels, footer curtain + wordmark.
+- [x] View Transitions, grain jitter, cursor labels, footer curtain + pluckable ring ropes
+  (the wordmark was dropped in the frontend-design review).
 - [x] `node check.mjs` PASS; screenshots 390/1440. Commit.
 
 ### Task 4: Home
@@ -104,8 +107,8 @@ home/training/find-us `index.html`.
 **Files:** `index.html`, `motion.js`, `site.css`, `motion.css`.
 
 - [x] Curtain intro + hero timeline (first visit) / short entrance (repeat); retire `hero-split.js` on all pages (page heads move to `motion.js`).
-- [x] Hero scroll peel + mouse depth. Marquee with velocity.
-- [x] Gym section, fight band letterbox + torch, quote word scrub.
+- [x] Hero scroll peel (mouse depth dropped in review). Marquee with velocity.
+- [x] Gym section, fight band letterbox + torch, quote as a pad combination.
 - [x] Routes → index list with cursor float (desktop) / inline thumbs (touch); drop 100svh.
 - [x] Check + screenshots + frame captures of the intro. Commit.
 
@@ -138,3 +141,20 @@ home/training/find-us `index.html`.
   `Website/CLAUDE.md` motion notes, `MEMORY.md` decision entry.
 - [x] All pages × 390/768/1024/1440 screenshots; check.mjs all modes; recorded scroll-through
   video of Home. Final commit.
+
+### Task 10: Code review fixes (2026-09-27)
+
+- [x] Start states opacity-only (were `autoAlpha`: content left the tab order and the
+  accessibility tree until revealed); focus finishes a pending entrance.
+- [x] Footer curtain only while the footer fits (`html.lift`), and steps aside for focus.
+- [x] Gallery: filtered-out tiles stay in the DOM through a column change.
+- [x] Viewer: one handle on the step timeline; steps finish in-flight tweens; close cancels a
+  pending swap; the fly-back target must really be visible.
+- [x] Intro curtain removed when the opening fails, plus a watchdog.
+- [x] Sideways scrollers keep horizontal trackpad swipes; matrix compact at 881–1180px.
+- [x] Minor: hover zoom after filtering, footer-rope visibility, matrix odometer offset,
+  system cursor kept, no permanent will-change, no eager image downloads, filter names,
+  reduced-motion smooth scrolling, aria-disabled strip buttons, focused room photos
+  brought fully into their strip.
+- [x] check.mjs: keyboard walk (every stop visible and on top, every tabbable reached),
+  nothing visibility-hidden at load, sticky footer reachable, 360×740 by default.

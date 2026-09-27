@@ -101,7 +101,6 @@ html.motion .m-line-mask {
   padding: .04em .2em .14em;
   margin: -.04em -.2em -.14em;
 }
-.m-char { will-change: transform; }
 
 /* ── Rules that draw ────────────────────────────────────────────
    Red rules are pseudo-elements; motion.js drives them through --rule
@@ -192,6 +191,7 @@ html.motion .eyebrow-label { display: inline-block; }
    The real number stays in place, transparent, for layout and screen
    readers; a strip of digits rides over it and is removed when it lands. */
 .odo-host { position: relative; -webkit-text-fill-color: transparent; }
+.odo-num { display: inline-block; }
 .odo {
   position: absolute;
   left: 0; top: 0;
@@ -301,8 +301,8 @@ html.motion .navmenu a { overflow: hidden; }
   z-index: 80;
   display: grid;
   place-items: center;
-  width: 5.25rem;
-  height: 5.25rem;
+  width: 4.25rem;
+  height: 4.25rem;
   border-radius: 50%;
   background: var(--blood);
   color: var(--paper);
@@ -314,22 +314,19 @@ html.motion .navmenu a { overflow: hidden; }
   pointer-events: none;
   box-shadow: var(--lift-blood);
 }
-@media (hover: hover) and (pointer: fine) {
-  html.motion [data-cursor] { cursor: none; }
-}
 
 /* ── Footer curtain ────────────────────────────────────────────
    The page is a sheet lifting off the footer, which waits underneath.
-   Skipped on very short screens, where the footer outgrows the view. */
-@media (min-height: 560px) {
-  html.motion main {
-    position: relative;
-    z-index: 1;
-    background: var(--ink);
-    box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .9);
-  }
-  html.motion .foot { position: sticky; bottom: 0; z-index: 0; }
+   motion.js sets html.lift only while the whole footer fits the
+   screen with room to spare — a sticky footer taller than the view
+   would hide its own top for good (narrow phones). */
+html.motion.lift main {
+  position: relative;
+  z-index: 1;
+  background: var(--ink);
+  box-shadow: 0 40px 70px -30px rgba(0, 0, 0, .9);
 }
+html.motion.lift .foot { position: sticky; bottom: 0; z-index: 0; }
 
 /* ── Film grain, alive (fine pointers: a phone has better uses for
    its GPU). Transform-only jitter of an oversized layer. ── */

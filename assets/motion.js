@@ -19,7 +19,9 @@
   if (!root.classList.contains('motion')) return;
 
   const { gsap, ScrollTrigger, SplitText, CustomEase } = window;
-  if (!gsap || !ScrollTrigger || !SplitText || !CustomEase) {
+  /* Missing libraries — or a boot so late (slow network) that the CSS
+     fail-safe is about to show the page anyway — get the static site. */
+  if (!gsap || !ScrollTrigger || !SplitText || !CustomEase || performance.now() > 3500) {
     root.classList.remove('motion', 'intro');
     return;
   }
@@ -61,12 +63,21 @@
   CustomEase.create('punch', 'M0,0 C0.1,0 0.14,0.92 0.36,1.05 0.5,1.11 0.62,0.99 1,1');
   CustomEase.create('rope', 'M0,0 C0.72,0 0.18,1 1,1');
   const settle = 'power3.out';
+  /* Start states hide with opacity only — never autoAlpha/visibility on
+     content. visibility:hidden takes an element out of the tab order and
+     the accessibility tree until its reveal fires; opacity keeps it
+     reachable, and focusing it scrolls it in, which fires the reveal.
+     autoAlpha is kept for aria-hidden decoration (the index float, the
+     map pin). check.mjs fails any content left visibility:hidden. */
 
   /* ═══ Global ════════════════════════════════════════════════ */
 
-  /* Smooth scroll — desktop pointer only. */
+  /* Smooth scroll — desktop pointer only. Sideways scrollers (room strips,
+     the price matrix) keep horizontal trackpad swipes for themselves;
+     otherwise Lenis takes the wheel event and moves the page instead. */
   function smoothScroll() {
     if (!fine || !window.Lenis) return;
+    $$('.roomgal, .matrix-scroll').forEach((el) => el.setAttribute('data-lenis-prevent-horizontal', ''));
     const lenis = new window.Lenis({ lerp: 0.11, anchors: { offset: -88 } });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
@@ -177,8 +188,9 @@
   }
 
   /* Cursor label: a red disc that says what a zone does (VIEW, DRAG).
-     Fine pointers only, and only over [data-cursor]; the system cursor
-     stays everywhere else. */
+     Fine pointers only, and only over [data-cursor]. It rides beside the
+     pointer — the system cursor always stays, at whatever size the
+     visitor has set it. */
   function cursor() {
     if (!fine) return;
     const el = document.createElement('div');
@@ -191,9 +203,9 @@
     let zone = null;
     let placed = false;
     addEventListener('pointermove', (e) => {
-      if (!placed) { gsap.set(el, { x: e.clientX, y: e.clientY }); placed = true; }
-      xTo(e.clientX);
-      yTo(e.clientY);
+      if (!placed) { gsap.set(el, { x: e.clientX + 46, y: e.clientY + 46 }); placed = true; }
+      xTo(e.clientX + 46);
+      yTo(e.clientY + 46);
       const next = e.target.closest ? e.target.closest('[data-cursor]') : null;
       if (next === zone) return;
       zone = next;
@@ -211,15 +223,55 @@
   }
 
   /* Footer: the page lifts off it (sticky, motion.css); its content rises
-     out of the shadow as it is uncovered. */
+     out of the shadow as it is uncovered. Only while the whole footer fits
+     the screen — re-checked before every refresh, i.e. on resize and when
+     a phone's URL bar comes and goes. Keyboard focus entering the footer
+     takes the page to its end, so a focused link is never under the sheet. */
+  let curtainOn = () => false;
   function footer() {
     const foot = $('.foot');
     const main = $('main');
     const inner = foot && $(':scope > .shell', foot);
-    if (!inner || !main || innerHeight < 560) return;
-    gsap.fromTo(inner, { y: -90, autoAlpha: 0.25 }, {
-      y: 0, autoAlpha: 1, ease: 'none',
+    if (!inner || !main) return;
+    const tween = gsap.fromTo(inner, { y: -90, opacity: 0.25 }, {
+      y: 0, opacity: 1, ease: 'none',
       scrollTrigger: { trigger: main, start: 'bottom bottom', end: () => `+=${foot.offsetHeight}`, scrub: true },
+    });
+    const fits = () => foot.offsetHeight <= innerHeight * 0.86;
+    const check = () => {
+      const on = fits();
+      root.classList.toggle('lift', on); // not 'curtain': .curtain is the intro's cover element
+      if (on) tween.scrollTrigger.enable();
+      else { tween.scrollTrigger.disable(); gsap.set(inner, { y: 0, opacity: 1 }); }
+    };
+    curtainOn = () => root.classList.contains('lift');
+    check();
+    ScrollTrigger.addEventListener('refreshInit', check);
+    foot.addEventListener('focusin', () => {
+      if (!curtainOn()) return;
+      const end = document.documentElement.scrollHeight - innerHeight;
+      if (scrollY >= end - 2) return;
+      if (hooks.lenis) hooks.lenis.scrollTo(end, { immediate: true, force: true });
+      else window.scrollTo(0, end);
+    });
+  }
+
+  /* Keyboard focus never lands on something still waiting for its
+     entrance. A focus scroll brings an element just into view, which need
+     not cross its reveal trigger — so whatever holds the focused element
+     finishes its entrance at once. Scrubbed (scroll-position) animations
+     are left alone: scrolling to the element already settles those. */
+  function focusReveal() {
+    const top = (t) => { let a = t; while (a.parent && a.parent !== gsap.globalTimeline) a = a.parent; return a; };
+    document.addEventListener('focusin', (e) => {
+      for (let el = e.target; el && el !== document.body; el = el.parentElement) {
+        gsap.getTweensOf(el).forEach((t) => {
+          const a = top(t);
+          if (a.scrollTrigger && a.scrollTrigger.vars.scrub) return;
+          if (a.progress() < 1) a.progress(1);
+        });
+        if (el.style.opacity === '0') gsap.set(el, { opacity: 1, clearProps: 'transform' });
+      }
     });
   }
 
@@ -230,10 +282,10 @@
     claim(el, 'eyebrow');
     const label = wrap(el, 'eyebrow-label');
     gsap.set(el, { '--rule': 0 });
-    gsap.set(label, { autoAlpha: 0, x: -14 });
+    gsap.set(label, { opacity: 0, x: -14 });
     return gsap.timeline()
       .to(el, { '--rule': 1, duration: 0.65, ease: 'rope' })
-      .to(label, { autoAlpha: 1, x: 0, duration: 0.55, ease: settle }, 0.22);
+      .to(label, { opacity: 1, x: 0, duration: 0.55, ease: settle }, 0.22);
   }
   function eyebrows() {
     $$('.eyebrow').forEach((el) => {
@@ -274,17 +326,17 @@
       inner.appendChild(media);
       mask.appendChild(inner);
       const cap = $('figcaption', fig);
-      gsap.set(fig, { autoAlpha: 0, y: 40 });
+      gsap.set(fig, { opacity: 0, y: 40 });
       gsap.set(mask, { yPercent: 100 });
       gsap.set(inner, { yPercent: -100 });
       gsap.set(img, { scale: 1.32 });
       const tl = gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 86%', once: true } })
-        .to(fig, { autoAlpha: 1, y: 0, duration: 0.9, ease: settle })
+        .to(fig, { opacity: 1, y: 0, duration: 0.9, ease: settle })
         .to([mask, inner], { yPercent: 0, duration: 1.15, ease: 'expo.inOut' }, 0.1)
         .to(img, { scale: 1.12, duration: 1.7, ease: 'expo.out' }, 0.1);
       if (cap) {
-        gsap.set(cap, { autoAlpha: 0 });
-        tl.to(cap, { autoAlpha: 1, duration: 0.6 }, 0.9);
+        gsap.set(cap, { opacity: 0 });
+        tl.to(cap, { opacity: 1, duration: 0.6 }, 0.9);
       }
       gsap.fromTo(img, { yPercent: -5 }, {
         yPercent: 5, ease: 'none',
@@ -298,9 +350,9 @@
     $$('.stats').forEach((dl) => {
       claim(dl, 'stats');
       const cells = $$(':scope > div', dl);
-      gsap.set(cells, { autoAlpha: 0, y: 26 });
+      gsap.set(cells, { opacity: 0, y: 26 });
       gsap.to(cells, {
-        autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.09, ease: 'punch', clearProps: 'transform',
+        opacity: 1, y: 0, duration: 0.8, stagger: 0.09, ease: 'punch', clearProps: 'transform',
         scrollTrigger: { trigger: dl, start: 'top 90%', once: true },
       });
     });
@@ -311,12 +363,12 @@
   function reveals() {
     const els = $$('.reveal').filter((el) => !el.dataset.motion);
     const offset = (el) => (el.classList.contains('d3') ? 0.18 : el.classList.contains('d2') ? 0.12 : el.classList.contains('d1') ? 0.06 : 0);
-    gsap.set(els, { autoAlpha: 0, y: 16 });
+    gsap.set(els, { opacity: 0, y: 16 });
     ScrollTrigger.batch(els, {
       start: 'top 90%',
       once: true,
       onEnter: (batch) => batch.forEach((el, i) => gsap.to(el, {
-        autoAlpha: 1, y: 0, duration: 0.7, ease: settle, delay: offset(el) + i * 0.05,
+        opacity: 1, y: 0, duration: 0.7, ease: settle, delay: offset(el) + i * 0.05,
         clearProps: 'transform,opacity,visibility',
       })),
     });
@@ -336,7 +388,6 @@
     const clone = img.cloneNode(false);
     clone.className = 'torch-img';
     clone.alt = '';
-    clone.removeAttribute('loading');
     clone.removeAttribute('fetchpriority');
     inner.appendChild(clone);
     t.appendChild(inner);
@@ -409,7 +460,7 @@
     const h1 = $('.poster-type', heroEl);
     const lines = $$('i', h1);
     const name = spoken(h1);
-    SplitText.create(h1, { tag: 'span', type: 'words,chars', wordsClass: 'm-word', charsClass: 'm-char' });
+    SplitText.create(h1, { tag: 'span', type: 'words,chars', wordsClass: 'm-word', charsClass: 'm-char', ignore: '.sr-only' });
     h1.setAttribute('aria-label', name);
     const chars = lines.map((line) => $$('.m-char', line));
     gsap.set(chars.flat(), { yPercent: 135, rotate: 8, transformOrigin: '0% 100%' });
@@ -422,10 +473,10 @@
     const ctas = $$('.hero-cta .btn', heroEl);
     const hint = $('.scroll-hint', heroEl);
     if (rule) gsap.set(rule, { '--rule': 0 });
-    if (ruleText) gsap.set(ruleText, { autoAlpha: 0, x: -12 });
+    if (ruleText) gsap.set(ruleText, { opacity: 0, x: -12 });
     gsap.set(leadLines, { yPercent: 110 });
-    gsap.set(ctas, { autoAlpha: 0, y: 26 });
-    if (hint) gsap.set(hint, { autoAlpha: 0 });
+    gsap.set(ctas, { opacity: 0, y: 26 });
+    if (hint) gsap.set(hint, { opacity: 0 });
 
     /* Headline: line by line, letters punching up from under the line.
        The red line lands with a camera shake. */
@@ -436,10 +487,10 @@
 
     const bottom = gsap.timeline();
     if (rule) bottom.to(rule, { '--rule': 1, duration: 0.7, ease: 'rope' }, 0);
-    if (ruleText) bottom.to(ruleText, { autoAlpha: 1, x: 0, duration: 0.6, ease: settle }, 0.25);
+    if (ruleText) bottom.to(ruleText, { opacity: 1, x: 0, duration: 0.6, ease: settle }, 0.25);
     bottom.to(leadLines, { yPercent: 0, duration: 0.95, stagger: 0.07, ease: 'expo.out' }, 0.15)
-      .to(ctas, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'punch', clearProps: 'opacity,visibility' }, 0.35);
-    if (hint) bottom.to(hint, { autoAlpha: 1, duration: 0.8 }, 0.6);
+      .to(ctas, { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'punch', clearProps: 'opacity,visibility' }, 0.35);
+    if (hint) bottom.to(hint, { opacity: 1, duration: 0.8 }, 0.6);
 
     const tl = gsap.timeline({ paused: true });
     const curtain = $('.curtain');
@@ -447,7 +498,7 @@
       const halves = $$('.curtain-half', curtain);
       const navItems = $$('#nav > :not(.nav-progress)');
       gsap.set(halves, { '--rope': 0 });
-      gsap.set(navItems, { autoAlpha: 0, y: -22 });
+      gsap.set(navItems, { opacity: 0, y: -22 });
       let ready = false;
       const decoded = Promise.race([img && img.decode ? img.decode().catch(() => {}) : null, wait(1400)]).then(() => { ready = true; });
       tl.to(halves, { '--rope': 1, duration: 0.7, ease: 'rope' })
@@ -458,7 +509,7 @@
         .to(cam, { scale: 1, duration: 2.2, ease: 'expo.out' }, 'split+=0.15')
         .add(headline, 'split+=0.5')
         .add(bottom, 'split+=1.15')
-        .to(navItems, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.06, ease: 'punch', clearProps: 'all' }, 'split+=1.3')
+        .to(navItems, { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: 'punch', clearProps: 'all' }, 'split+=1.3')
         .add(() => { curtain.remove(); root.classList.remove('intro'); });
     } else {
       if (curtain) curtain.remove();
@@ -473,10 +524,10 @@
     if (img) peel.fromTo(img, { yPercent: 0, scale: 1 }, { yPercent: 16, scale: 1.1, ease: 'none', duration: 1 }, 0);
     lines.forEach((line, i) => {
       peel.fromTo(line, { y: 0 }, { y: -(170 - i * 50), ease: 'none', duration: 1 }, 0)
-        .fromTo(line, { autoAlpha: 1 }, { autoAlpha: 0, ease: 'none', duration: 0.45 }, 0.35 + i * 0.08);
+        .fromTo(line, { opacity: 1 }, { opacity: 0, ease: 'none', duration: 0.45 }, 0.35 + i * 0.08);
     });
     const group = $('.hero-bottom', heroEl);
-    if (group) peel.fromTo(group, { y: 0, autoAlpha: 1 }, { y: -70, autoAlpha: 0, ease: 'none', duration: 0.5 }, 0);
+    if (group) peel.fromTo(group, { y: 0, opacity: 1 }, { y: -70, opacity: 0, ease: 'none', duration: 0.5 }, 0);
     return tl;
   }
 
@@ -497,8 +548,8 @@
       gsap.fromTo(img, { yPercent: 0 }, { yPercent: 14, ease: 'none', scrollTrigger: { trigger: head, start: 'top top', end: 'bottom top', scrub: true } });
     }
     if (back) {
-      gsap.set(back, { autoAlpha: 0, x: -16 });
-      tl.to(back, { autoAlpha: 1, x: 0, duration: 0.6, ease: settle }, 0.1);
+      gsap.set(back, { opacity: 0, x: -16 });
+      tl.to(back, { opacity: 1, x: 0, duration: 0.6, ease: settle }, 0.1);
     }
     if (brow) tl.add(eyebrowTl(brow), 0.12);
     if (h1) {
@@ -509,8 +560,8 @@
       tl.to(split.chars, { yPercent: 0, duration: 0.85, stagger: 0.016, ease: 'punch' }, 0.2);
     }
     if (lede.length) {
-      gsap.set(lede, { autoAlpha: 0, y: 14 });
-      tl.to(lede, { autoAlpha: 1, y: 0, duration: 0.8, ease: settle }, 0.55);
+      gsap.set(lede, { opacity: 0, y: 14 });
+      tl.to(lede, { opacity: 1, y: 0, duration: 0.8, ease: settle }, 0.55);
     }
     return tl;
   }
@@ -561,7 +612,7 @@
     const dim = 0.14;
     gsap.set(q, { '--rule': 0 });
     gsap.set(punches, { opacity: dim });
-    if (aside) gsap.set(aside, { autoAlpha: 0, y: 14 });
+    if (aside) gsap.set(aside, { opacity: 0, y: 14 });
     let lit = 0;
     let reach = 0;
     let asideIn = false;
@@ -580,7 +631,7 @@
       }
       if (lit === punches.length && !asideIn && aside) {
         asideIn = true;
-        gsap.to(aside, { autoAlpha: 1, y: 0, duration: 0.8, ease: settle, delay: 0.3 });
+        gsap.to(aside, { opacity: 1, y: 0, duration: 0.8, ease: settle, delay: 0.3 });
       }
     };
     ScrollTrigger.create({ trigger: q, start: 'top 82%', end: 'center 50%', onUpdate: update, onRefresh: update });
@@ -594,9 +645,9 @@
     if (!index) return;
     claim(index, 'index');
     const rows = $$('.index-row', index);
-    gsap.set(rows, { autoAlpha: 0, y: 34 });
+    gsap.set(rows, { opacity: 0, y: 34 });
     gsap.to(rows, {
-      autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.09, ease: 'punch', clearProps: 'all',
+      opacity: 1, y: 0, duration: 0.9, stagger: 0.09, ease: 'punch', clearProps: 'all',
       scrollTrigger: { trigger: index, start: 'top 86%', once: true },
     });
     if (!fine) return;
@@ -609,6 +660,7 @@
       const im = document.createElement('img');
       im.src = thumb.getAttribute('src');
       im.alt = '';
+      im.loading = 'lazy';
       im.decoding = 'async';
       float.appendChild(im);
       return im;
@@ -693,27 +745,39 @@
         overwrite: true, onUpdate: s.draw,
       });
 
-      sets.push({ el, strings, release, twang, visible: false, twanged: false });
+      sets.push({ el, strings, release, twang, visible: false, twanged: false, inFoot: Boolean(el.closest('.foot')) });
     });
     if (!sets.length) return;
 
-    /* Visibility comes from an IntersectionObserver, not ScrollTrigger:
-       the footer's ropes live in a sticky footer, whose rendered position
-       ScrollTrigger's layout measurements do not see. */
+    /* A rope is live when it is on screen and not under anything. Under
+       the footer curtain the footer sits in the viewport the whole time,
+       so its ropes wait until the page has lifted off them. */
+    const main = $('main');
+    const uncovered = (set) => !set.inFoot || !curtainOn() || !main
+      || main.getBoundingClientRect().bottom <= set.el.getBoundingClientRect().top + 2;
+    const live = (set) => set.visible && uncovered(set);
+    const strike = (set) => {
+      if (set.twanged) return;
+      set.twanged = true;
+      set.strings.forEach((s, i) => { s.x = 500; gsap.delayedCall(0.15 + i * 0.06, () => set.twang(s, i === 1 ? 6 : 3.5)); });
+    };
     const io = new IntersectionObserver((entries) => entries.forEach((entry) => {
       const set = sets.find((x) => x.el === entry.target);
       set.visible = entry.isIntersecting;
-      if (entry.intersectionRatio >= 0.99 && !set.twanged) {
-        set.twanged = true;
-        set.strings.forEach((s, i) => { s.x = 500; gsap.delayedCall(0.15 + i * 0.06, () => set.twang(s, i === 1 ? 6 : 3.5)); });
-      }
+      if (entry.intersectionRatio >= 0.99 && uncovered(set)) strike(set);
     }), { threshold: [0, 1] });
     sets.forEach((set) => io.observe(set.el));
+    sets.filter((set) => set.inFoot).forEach((set) => {
+      ScrollTrigger.create({
+        start: 0, end: 'max',
+        onUpdate: () => { if (set.visible && uncovered(set)) strike(set); },
+      });
+    });
 
     if (fine) {
       const GRAB = 22;
       addEventListener('pointermove', (e) => sets.forEach((set) => {
-        if (!set.visible) return;
+        if (!live(set)) return;
         const r = set.el.getBoundingClientRect();
         const inside = e.clientX >= r.left && e.clientX <= r.right;
         const ly = e.clientY - r.top + 1;
@@ -742,7 +806,7 @@
         const bow = gsap.utils.clamp(-7, 7, -self.getVelocity() / 450);
         if (Math.abs(bow) < 0.6) return;
         sets.forEach((set) => {
-          if (!set.visible) return;
+          if (!live(set)) return;
           set.strings.forEach((s) => {
             if (s.held) return;
             s.x = 500;
@@ -799,10 +863,10 @@
     claim(wk, 'week');
     const flaps = $$(':scope > div', wk).map((day) => $$(':scope > *', day));
     const closed = $('.closed b', wk);
-    gsap.set(flaps.flat(), { rotateX: -100, transformPerspective: 400, transformOrigin: '50% 0%', autoAlpha: 0 });
+    gsap.set(flaps.flat(), { rotateX: -100, transformPerspective: 400, transformOrigin: '50% 0%', opacity: 0 });
     if (closed) gsap.set(closed, { '--strike': 0 });
     const tl = gsap.timeline({ paused: true });
-    flaps.forEach((flap, i) => tl.to(flap, { rotateX: 0, autoAlpha: 1, duration: 0.7, stagger: 0.05, ease: 'punch', clearProps: 'transform' }, i * 0.07));
+    flaps.forEach((flap, i) => tl.to(flap, { rotateX: 0, opacity: 1, duration: 0.7, stagger: 0.05, ease: 'punch', clearProps: 'transform' }, i * 0.07));
     if (closed) tl.to(closed, { '--strike': 1, duration: 0.45, ease: 'rope' }, '-=0.25');
     ScrollTrigger.create({ trigger: wk, start: 'top 90%', once: true, onEnter: () => gsap.delayedCall(0.35, () => tl.play()) });
   }
@@ -826,14 +890,14 @@
       const text = $('p', item);
       gsap.set(mask, { yPercent: 100 });
       gsap.set(inner, { yPercent: -100, scale: 1.3 });
-      if (label) gsap.set(label, { autoAlpha: 0, y: 28 });
-      if (text) gsap.set(text, { autoAlpha: 0, y: 12 });
+      if (label) gsap.set(label, { opacity: 0, y: 28 });
+      if (text) gsap.set(text, { opacity: 0, y: 12 });
       const tl = gsap.timeline({ scrollTrigger: { trigger: item, start: 'top 86%', once: true } })
         .to(mask, { yPercent: 0, duration: 1.1, ease: 'expo.inOut' })
         .to(inner, { yPercent: 0, duration: 1.1, ease: 'expo.inOut' }, 0)
         .to(inner, { scale: 1, duration: 1.6, ease: 'expo.out' }, 0.2);
-      if (label) tl.to(label, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'punch' }, 0.7);
-      if (text) tl.to(text, { autoAlpha: 1, y: 0, duration: 0.6, ease: settle }, 0.85);
+      if (label) tl.to(label, { opacity: 1, y: 0, duration: 0.7, ease: 'punch' }, 0.7);
+      if (text) tl.to(text, { opacity: 1, y: 0, duration: 0.6, ease: settle }, 0.85);
     });
   }
 
@@ -850,14 +914,14 @@
       if (fine) t.dataset.cursor = 'View';
     });
     if (!fresh.length) return;
-    gsap.set(fresh, { autoAlpha: 0, y: 40 });
+    gsap.set(fresh, { opacity: 0, y: 40 });
     gsap.set(fresh.map((t) => $('img', t)), { scale: 1.25 });
     tileTriggers = ScrollTrigger.batch(fresh, {
       start: 'top 94%',
       once: true,
       onEnter: (batch) => {
         const cols = batch.map((t) => Number(t.parentElement.dataset.col || 0));
-        gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'punch', delay: (i) => cols[i] * 0.08, clearProps: 'transform' });
+        gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, ease: 'punch', delay: (i) => cols[i] * 0.08, clearProps: 'transform' });
         gsap.to(batch.map((t) => $('img', t)), { scale: 1, duration: 1.4, ease: 'expo.out', delay: (i) => cols[i] * 0.08, clearProps: 'transform' });
       },
     });
@@ -870,8 +934,8 @@
     tileTriggers.forEach((st) => st.kill());
     tileTriggers = [];
     const tiles = $$('.tile', container);
-    gsap.set(tiles, { autoAlpha: 1, y: 0 });
-    gsap.set(tiles.map((t) => $('img', t)), { scale: 1 });
+    gsap.set(tiles, { opacity: 1, clearProps: 'transform' });
+    gsap.set(tiles.map((t) => $('img', t)), { clearProps: 'transform' });
     const state = Flip.getState(tiles);
     mutate();
     Flip.from(state, {
@@ -879,8 +943,8 @@
       ease: 'expo.inOut',
       absolute: true,
       stagger: 0.012,
-      onEnter: (els) => gsap.fromTo(els, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.6, delay: 0.3, ease: 'punch' }),
-      onLeave: (els) => gsap.to(els, { autoAlpha: 0, scale: 0.8, duration: 0.35, ease: 'power2.in' }),
+      onEnter: (els) => gsap.fromTo(els, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.6, delay: 0.3, ease: 'punch' }),
+      onLeave: (els) => gsap.to(els, { opacity: 0, scale: 0.8, duration: 0.35, ease: 'power2.in' }),
       onComplete: () => ScrollTrigger.refresh(),
     });
     return true;
@@ -893,9 +957,16 @@
   const onScreen = (el) => {
     if (!el || !el.isConnected) return false;
     const r = el.getBoundingClientRect();
-    return r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+    if (!r.width || !r.height) return false;
+    const clip = el.closest('.roomgal');
+    const box = clip ? clip.getBoundingClientRect() : { left: 0, top: 0, right: innerWidth, bottom: innerHeight };
+    const w = Math.min(r.right, box.right, innerWidth) - Math.max(r.left, box.left, 0);
+    const h = Math.min(r.bottom, box.bottom, innerHeight) - Math.max(r.top, box.top, 0);
+    return w > 0 && h > 0 && (w * h) / (r.width * r.height) > 0.5;
   };
+  let stepTl = null;
   hooks.lightboxOpen = ({ lb, img, from }) => {
+    if (stepTl) { stepTl.kill(); stepTl = null; }
     const shade = $('.lb-shade', lb);
     const chrome = [$('.lb-bar', lb), $('.lb-close', lb)];
     gsap.killTweensOf([shade, img, ...chrome]);
@@ -909,17 +980,19 @@
       gsap.to(img, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.8, ease: 'expo.inOut', clearProps: 'transform' });
       if (grade && grade !== 'none') gsap.fromTo(img, { filter: grade }, { filter: 'grayscale(0) contrast(1) brightness(1)', duration: 0.9, delay: 0.15, ease: settle, clearProps: 'filter' });
     } else {
-      gsap.fromTo(img, { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: settle, clearProps: 'transform,opacity,visibility' });
+      gsap.fromTo(img, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.55, ease: settle, clearProps: 'transform,opacity,visibility' });
     }
     return true;
   };
   hooks.lightboxClose = ({ lb, img, to }, done) => {
+    /* a step still in flight must not swap the photo after this */
+    if (stepTl) { stepTl.kill(); stepTl = null; }
     const shade = $('.lb-shade', lb);
     const chrome = [$('.lb-bar', lb), $('.lb-close', lb)];
     gsap.killTweensOf([shade, img, ...chrome]);
     /* closing mid-step: bring the photo back to rest before it flies home */
-    gsap.set(img, { autoAlpha: 1, x: 0 });
-    gsap.to(chrome, { autoAlpha: 0, duration: 0.2 });
+    gsap.set(img, { opacity: 1, x: 0 });
+    gsap.to(chrome, { opacity: 0, duration: 0.2 });
     gsap.to(shade, { opacity: 0, duration: 0.5, delay: 0.1, ease: 'power2.in' });
     const finish = () => { gsap.set([img, shade, ...chrome], { clearProps: 'transform,filter,opacity,visibility' }); done(); };
     if (window.Flip && onScreen(to)) {
@@ -927,19 +1000,22 @@
       if (grade && grade !== 'none') gsap.to(img, { filter: grade, duration: 0.5, ease: settle });
       window.Flip.fit(img, to, { scale: true, duration: 0.65, ease: 'expo.inOut', onComplete: finish });
     } else {
-      gsap.to(img, { autoAlpha: 0, scale: 0.94, duration: 0.35, ease: 'power2.in', onComplete: finish });
+      gsap.to(img, { opacity: 0, scale: 0.94, duration: 0.35, ease: 'power2.in', onComplete: finish });
     }
     return true;
   };
   hooks.lightboxStep = ({ lb, img }, dir, swap) => {
     const cap = $('#lb-cap', lb);
-    gsap.killTweensOf([img, cap]);
-    gsap.timeline()
-      .to(img, { x: -80 * dir, autoAlpha: 0, duration: 0.22, ease: 'power2.in' })
-      .to(cap, { autoAlpha: 0, duration: 0.15 }, 0)
+    /* finish what is in flight rather than cut it off: the opening flight
+       and its colour bloom clear their own props only on completion */
+    if (stepTl) stepTl.progress(1).kill();
+    gsap.getTweensOf([img, cap]).forEach((t) => t.progress(1));
+    stepTl = gsap.timeline({ onComplete: () => { stepTl = null; } })
+      .to(img, { x: -80 * dir, opacity: 0, duration: 0.22, ease: 'power2.in' })
+      .to(cap, { opacity: 0, duration: 0.15 }, 0)
       .add(swap)
-      .fromTo(img, { x: 80 * dir, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55, ease: 'expo.out', clearProps: 'transform,opacity,visibility' })
-      .to(cap, { autoAlpha: 1, duration: 0.35 }, '<0.1');
+      .fromTo(img, { x: 80 * dir, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55, ease: 'expo.out', clearProps: 'transform,opacity,visibility' })
+      .to(cap, { opacity: 1, duration: 0.35 }, '<0.1');
     return true;
   };
 
@@ -949,9 +1025,9 @@
       if (fine) strip.dataset.cursor = 'Drag';
       const shots = $$(':scope > figure', strip);
       if (fine) shots.forEach((f) => { const b = $('.shot-open', f); if (b) b.dataset.cursor = 'View'; });
-      gsap.set(shots, { autoAlpha: 0, x: 60 });
+      gsap.set(shots, { opacity: 0, x: 60 });
       gsap.to(shots, {
-        autoAlpha: 1, x: 0, duration: 0.9, stagger: 0.08, ease: 'punch', clearProps: 'transform',
+        opacity: 1, x: 0, duration: 0.9, stagger: 0.08, ease: 'punch', clearProps: 'transform',
         scrollTrigger: { trigger: strip, start: 'top 90%', once: true },
       });
     });
@@ -990,10 +1066,10 @@
         const len = el.getTotalLength();
         gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
       });
-      gsap.set(rows, { autoAlpha: 0, y: 20 });
+      gsap.set(rows, { opacity: 0, y: 20 });
       const tl = gsap.timeline({ scrollTrigger: { trigger: list, start: 'top 88%', once: true } });
       rows.forEach((row, i) => {
-        tl.to(row, { autoAlpha: 1, y: 0, duration: 0.7, ease: settle, clearProps: 'transform' }, i * 0.12)
+        tl.to(row, { opacity: 1, y: 0, duration: 0.7, ease: settle, clearProps: 'transform' }, i * 0.12)
           .to($$('svg path, svg circle', row), { strokeDashoffset: 0, duration: 1.1, stagger: 0.12, ease: 'rope' }, i * 0.12 + 0.1);
       });
     }
@@ -1004,11 +1080,11 @@
     const img = $(':scope > img', card);
     const pin = $('.reticle', card);
     const coords = $('.coords', card);
-    gsap.set(card, { autoAlpha: 0, y: 36 });
+    gsap.set(card, { opacity: 0, y: 36 });
     if (img) gsap.set(img, { scale: 1.18 });
     if (pin) gsap.set(pin, { autoAlpha: 0, scale: 2.4, rotate: -45 });
     const tl = gsap.timeline({ scrollTrigger: { trigger: card, start: 'top 88%', once: true } })
-      .to(card, { autoAlpha: 1, y: 0, duration: 0.9, ease: settle, clearProps: 'transform' });
+      .to(card, { opacity: 1, y: 0, duration: 0.9, ease: settle, clearProps: 'transform' });
     if (img) tl.to(img, { scale: 1, duration: 1.8, ease: 'expo.out' }, 0);
     if (pin) tl.to(pin, { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.9, ease: 'punch' }, 0.5);
     if (coords) tl.add(scramble(coords, 0.9), 0.7);
@@ -1017,6 +1093,7 @@
   /* ═══ Boot ══════════════════════════════════════════════════ */
 
   safe('smoothScroll', smoothScroll);
+  safe('focusReveal', focusReveal);
   safe('nav', nav);
   safe('menu', menu);
   safe('buttons', buttons);
@@ -1043,10 +1120,20 @@
 
   /* The opening waits for the display faces (preloaded, so usually
      already there), so type is split once, at its real metrics. */
+  const dropCurtain = () => {
+    const curtain = $('.curtain');
+    if (curtain) curtain.remove();
+    root.classList.remove('intro');
+  };
   Promise.race([document.fonts.ready, wait(1000)]).then(() => {
     const opening = safe('hero', hero) || safe('pageHead', pageHead);
+    /* motion-lit ends the CSS fail-safe on the curtain, so a failed
+       opening must take the curtain down itself */
+    if (!opening) dropCurtain();
     root.classList.add('motion-lit');
     if (opening) opening.play();
     ScrollTrigger.refresh();
   });
+  /* watchdog: the intro is ~4.5s at most */
+  setTimeout(dropCurtain, 9000);
 })();
