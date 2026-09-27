@@ -1,8 +1,10 @@
 # Placeholders — things Leo must confirm before this site goes public
 
-Every item below appears in `index.html` as a `【CONFIRM: …】` marker, styled
-bright yellow on black so it cannot ship unnoticed. Nothing here is filled with
-plausible-looking fake data — if we did not have the fact, the page says so.
+Items below appear on the site as `【CONFIRM: …】` markers, styled bright yellow
+on black so they cannot ship unnoticed — except where marked **hidden**, which
+Leo has taken off the live page until the fact arrives. Nothing here is filled
+with plausible-looking fake data: if we did not have the fact, the page either
+says so or leaves the claim out.
 
 Delete each marker (and its line here) as the real answer arrives.
 
@@ -10,10 +12,10 @@ Delete each marker (and its line here) as the real answer arrives.
 
 | # | Page | Section | Confirm |
 |---|---|---|---|
-| 1 | `/` | The gym | Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. Asked 2026-08-26; Leo doesn't know yet — needs to come from Thewaritnoi himself. |
+| 1 | `/` | The gym | **Hidden** (Leo, 2026-09-28) — visitors were seeing the yellow marker, so it is out of `index.html` until the facts arrive. Thewaritnoi's fight record — stadiums fought, titles, years training — and the year the gym opened. Asked 2026-08-26; needs to come from Thewaritnoi himself. When it arrives, write it into the #gym copy (after the "Formerly Krabi Lion Muay Thai" line, or as a fourth cell in the stats strip) and close this row. |
 | 2 | `/stay/` | Sleep where you train | Room photography — **private bedroom only**. Private house is done: Leo supplied four shots on 2026-08-27 (bedroom, living room, kitchen, covered porch), now live in the strip. The bedroom strip still runs three "photo coming soon" tiles; swap each figure for an img when those shots arrive, following the private-house markup. |
 
-To find it in the source: `grep -rn "CONFIRM" --include=index.html .`
+To find the markers still on the site: `grep -rn "CONFIRM" --include=index.html .` (row 1 is hidden, so it is not in the source).
 
 ## Reference: pre-rename price card (photographed 2026-08-26)
 
