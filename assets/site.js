@@ -445,6 +445,11 @@
     setInterval(paint, 30000);
   }
 
+  /* ── Dated notices: gone once their data-until moment passes ── */
+  document.querySelectorAll('[data-until]').forEach((el) => {
+    if (Date.now() >= Date.parse(el.dataset.until)) el.remove();
+  });
+
   /* ── Package matrix crosshair (/training/) ── */
   const matrix = document.querySelector('.matrix');
   if (matrix) {

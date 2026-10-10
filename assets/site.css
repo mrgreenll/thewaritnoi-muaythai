@@ -731,6 +731,19 @@ a { color: inherit; }
 .stats dd.live { font-family: 'Roboto', -apple-system, 'Segoe UI', sans-serif; font-size: .8125rem; text-transform: none; letter-spacing: .02em; line-height: 1.35; }
 @media (prefers-reduced-motion: reduce) { .live-dot::after { animation: none; } }
 
+/* ── Availability notice (/training/ packages) ─────────────────
+   Short-lived booking news from the gym. data-until removes it in
+   site.js once the date passes, so a stale claim never lingers. */
+.notice {
+  margin: 0 0 var(--s3);
+  padding: var(--s2) var(--s3);
+  border-left: 3px solid var(--blood);
+  background: color-mix(in srgb, var(--blood) 12%, transparent);
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--paper);
+}
+
 /* ── Week strip — real opening pattern, Friday is closed ────── */
 .week {
   display: grid;
